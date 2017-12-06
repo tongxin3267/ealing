@@ -68,13 +68,12 @@ class VerifyCode extends Api
 	}
 
     /**
-     * Send phone or email verification code.
-     *
-     * @param string $account
-     * @param string $type
-     * @return mixed
-     * @author Seven Du <shiweidu@outlook.com>
-     */
+    * 发送验证码 短信   or 邮件
+    * @date: 2017年12月6日 上午9:19:03
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
     protected function send($account, $channel = '', $data = [])
     {
         $this->validateSent($account);
@@ -88,12 +87,12 @@ class VerifyCode extends Api
     }
 
     /**
-     * Validate sent.
-     *
-     * @param string $account
-     * @return void
-     * @author Seven Du <shiweidu@outlook.com>
-     */
+    * 验证发送
+    * @date: 2017年12月6日 上午9:18:37
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
     protected function validateSent(string $account)
     {
         $vaildSecond = config('app.env') == 'production' ? 60 : 6;
