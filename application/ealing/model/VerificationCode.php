@@ -10,8 +10,6 @@ use think\Model;
 
 class VerificationCode extends Model
 {
-    private static $nowTime;//记录上一次发送的时间
-    
     /**
     * 设置复用的创建时间范围查询，单位秒.
     * @date: 2017年12月6日 下午1:54:45
@@ -32,9 +30,9 @@ class VerificationCode extends Model
     * @param: variable
     * @return:
     */
-    public function makeSurplusSecond($vaildSecond = 60)
+    public function makeSurplusSecond($vaildSecond = 60, $sendTime)
     {
-        return $vaildSecond - ceil((time()-$this->nowTime)/60);
+        return $vaildSecond - ceil((time()-strtotime($sendTime))/60);
     }
     
     /**
@@ -47,5 +45,17 @@ class VerificationCode extends Model
     public function updateTime()
     {
         $this->nowTime = time();
+    }
+    
+    /**
+    * 发送验证码逻辑
+    * @date: 2017年12月6日 下午3:28:06
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function notify($data)
+    {
+        #发送验证码
     }
 }

@@ -85,8 +85,7 @@ class VerifyCode extends Api
         $model = Factory::getInstance(VerificationCode::class)->create($data);
         
         //DOTO:   这里要加入发送验证码的逻辑    短信   OR 邮件
-        
-        $model->updateTime();//记录发送验证码的时间点
+        $model->notify($model);
     }
 
     /**
@@ -107,7 +106,7 @@ class VerifyCode extends Api
         });
 
         if ($verify) {
-            return $this->sendError(403, 'error', 403, [sprintf('还需要%d秒后才能获取', $verifyModel->makeSurplusSecond($vaildSecond))]);
+            return $this->sendError(403, 'error', 403, [sprintf('还需要%d秒后才能获取', $verifyModel->makeSurplusSecond($vaildSecond, $verify['created_at']))]);
         }
     }
 }
