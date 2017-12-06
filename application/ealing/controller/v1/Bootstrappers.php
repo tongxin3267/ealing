@@ -39,8 +39,8 @@ class Bootstrappers extends Api
 		$bootstrappers['site'] = config('site', null);
 		$bootstrappers['registerSettings'] = config('registerSettings') ?? null;
 		
-		$bootstrappers['walletCash'] = ['open' => config('wallet.cash.status') ?? true];//钱包提现的开关选项
-		$bootstrappers['walletRecharge'] = ['open' => config('wallet.recharge.status') ?? true];//钱包充值的开关选项
+		$bootstrappers['walletCash'] = ['open' => config('walletCash.status') ?? true];//钱包提现的开关选项
+		$bootstrappers['walletRecharge'] = ['open' => config('walletRecharge.status') ?? true];//钱包充值的开关选项
 		
 		$goldTypeModel = new GoldType();
 		$goldSetting = $goldTypeModel->where('status', 1)->field(['name', 'unit'])->find() ?? ['name' => '金币', 'unit' => '个'];

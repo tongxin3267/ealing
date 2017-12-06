@@ -95,12 +95,11 @@ class VerifyCode extends Api
     */
     protected function validateSent(string $account)
     {
-        var_dump(config('app.env'));exit;
         $vaildSecond = config('app.env') == 'production' ? 60 : 6;
         $verify = VerificationCode::where('account', $account)
             ->byValid($vaildSecond)
-            ->orderBy('id', 'desc')
-            ->first();
+            ->order('id', 'desc')
+            ->find();
 
         if ($verify) {
             abort(403, sprintf('还需要%d秒后才能获取', $verify->makeSurplusSecond($vaildSecond)));
