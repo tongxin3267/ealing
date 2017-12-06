@@ -1,17 +1,11 @@
 <?php
-
+/**
+* 短信发送类
+* @date: 2017年12月6日 下午3:21:45
+* @author: onep2p <324834500@qq.com>
+*/
 namespace app\ealing\controller;
 
-use app\ealing\controller\UnauthorizedException;
-use app\ealing\controller\Send;
-use think\Exception;
-use think\Request;
-use think\Db;
-use think\Cache;
-
-/**
-* 短信接口平台
-*/
 class Sms 
 {
 	
