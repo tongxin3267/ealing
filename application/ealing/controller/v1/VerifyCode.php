@@ -51,7 +51,7 @@ class VerifyCode extends Api
 	        'sms' => 'phone',
 	    ];
 
-	    $user = $this->request->param('user_id') ?? null;
+	    $user_id = $this->request->param('user_id') ?? null;
 	
 	    foreach ($map as $channel => $input) {
 	        if (!($account = $this->request->param($input))) {
@@ -59,7 +59,7 @@ class VerifyCode extends Api
 	        }
 	
 	        $this->send($account, $channel, [
-	            'user_id' => $user,
+	            'user_id' => $user_id,
 	        ]);
 	        break;
 	    }
@@ -95,6 +95,7 @@ class VerifyCode extends Api
     */
     protected function validateSent(string $account)
     {
+        var_dump(config('app.env'));exit;
         $vaildSecond = config('app.env') == 'production' ? 60 : 6;
         $verify = VerificationCode::where('account', $account)
             ->byValid($vaildSecond)
