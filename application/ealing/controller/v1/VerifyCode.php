@@ -8,6 +8,8 @@ namespace app\ealing\controller\v1;
 
 use think\Controller;
 use app\ealing\controller\Api;
+use app\ealing\controller\Factory;
+use app\ealing\model\VerificationCode;
 
 class VerifyCode extends Api
 {
@@ -80,10 +82,11 @@ class VerifyCode extends Api
 
         $data['account'] = $account;
         $data['channel'] = $channel;
-        $model = factory(VerificationCode::class)->create($data);
-        $model->notify(
-             new \Zhiyi\Plus\Notifications\VerificationCode($model)
-        );
+        $model = Factory::getInstance(VerificationCode::class)->create($data);
+        
+        //DOTO:   这里要加入发送验证码的逻辑    短信   OR 邮件
+        
+        $model->updateTime();//记录发送验证码的时间点
     }
 
     /**
@@ -93,16 +96,18 @@ class VerifyCode extends Api
     * @param: variable
     * @return:
     */
-    protected function validateSent(string $account)
+    protected function validateSent($account)
     {
         $vaildSecond = config('app.env') == 'production' ? 60 : 6;
-        $verify = VerificationCode::where('account', $account)
-            ->byValid($vaildSecond)
-            ->order('id', 'desc')
-            ->find();
+        
+        $verify = VerificationCode::get(function($query) use($vaildSecond, $account){
+            $query->where('account', $account);
+            Factory::getInstance(VerificationCode::class)->scopeByValid($query, $vaildSecond);
+            $query->order('id', 'desc');
+        });
 
         if ($verify) {
-            abort(403, sprintf('还需要%d秒后才能获取', $verify->makeSurplusSecond($vaildSecond)));
+            return $this->sendError(403, 'error', 403, [sprintf('还需要%d秒后才能获取', $verifyModel->makeSurplusSecond($vaildSecond))]);
         }
     }
 }
