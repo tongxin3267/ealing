@@ -21,7 +21,7 @@ class Bootstrappers extends Api
     * @date: 2017年12月4日 上午9:43:27
     * @author: onep2p <324834500@qq.com>
     */
-	public function read()
+	public function show()
 	{
 		$bootstrappers = [];
 		

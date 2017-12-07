@@ -75,7 +75,7 @@ class Token extends Controller
 	* @param: variable
 	* @return:
 	*/
-	public function getToken()
+	public function store()
 	{
 		//检测appkey
 		$checkMsg = $this->checkAppkey(self::$rule_validate);
