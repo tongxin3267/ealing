@@ -7,15 +7,13 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\Api;
 use app\ealing\services\CommonConfig;
 use app\ealing\model\AdvertisingSpace;
 use app\ealing\model\GoldType;
+use app\ealing\controller\OpenApi;
 
-class Bootstrappers extends Api
-{
-    public $restMethodList = 'get|put';
-    
+class Bootstrappers extends OpenApi
+{   
     /**
     * 对应get请求的获取API
     * @date: 2017年12月4日 上午9:43:27

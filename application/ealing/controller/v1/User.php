@@ -4,8 +4,8 @@ namespace app\ealing\controller\v1;
 
 use think\Controller;
 use think\Request;
-use app\ealing\controller\Api;
 use think\Response;
+use app\ealing\controller\AuthApi;
 
 /**
  * 所有资源类接都必须继承基类控制器
@@ -14,7 +14,7 @@ use think\Response;
  * 在具体资源方法中，不需要再依赖注入，直接调用$this->request返回为请具体信息的一个对象
  * date:2017-07-25
  */
-class User extends Api
+class User extends AuthApi
 {   
     /**
      * 允许访问的方式列表，资源数组如果没有对应的方式列表，请不要把该方法写上，如user这个资源，客户端没有delete操作

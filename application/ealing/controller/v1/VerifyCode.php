@@ -7,11 +7,11 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\Api;
 use app\ealing\controller\Factory;
 use app\ealing\model\VerificationCode;
+use app\ealing\controller\AuthApi;
 
-class VerifyCode extends Api
+class VerifyCode extends AuthApi
 {
     public $restMethodList = 'get|post';
 

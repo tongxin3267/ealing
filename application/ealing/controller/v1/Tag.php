@@ -7,9 +7,9 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\Api;
+use app\ealing\controller\AuthApi;
 
-class Tag extends Api
+class Tag extends AuthApi
 {
     public $restMethodList = 'get|put';
     

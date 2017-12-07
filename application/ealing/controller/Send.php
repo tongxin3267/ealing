@@ -5,6 +5,7 @@
 namespace app\ealing\controller;
 
 use think\Response;
+use think\Request;
 use think\response\Redirect;
 
 trait Send
@@ -17,7 +18,7 @@ trait Send
     protected $restDefaultType = 'json';
     
     protected $type;
-
+    
     /**
      * 设置响应类型
      * @param null $type

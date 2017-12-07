@@ -8,20 +8,14 @@ namespace app\ealing\controller\v1;
 
 use think\Controller;
 use think\Request;
-use app\ealing\controller\Api;
 use app\ealing\controller\Factory;
-use think\Response;
-use app\ealing\controller\UnauthorizedException;
-use app\ealing\controller\Send;
 use app\ealing\controller\Oauth as Oauth2;
 use app\ealing\model\Oauth as Oauth;
-use think\Db;
 use think\Cache;
+use app\ealing\controller\OpenApi;
 
-class Token extends Controller
+class Token extends OpenApi
 {	
-	use Send;
-	
 	//客户端请求验证规则
 	public static $rule_validate = [
         'app_key'     =>  'require',

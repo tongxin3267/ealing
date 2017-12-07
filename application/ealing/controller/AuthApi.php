@@ -1,19 +1,17 @@
 <?php
 /**
- * 授权基类，所有获取access_token以及验证access_token 异常都在此类中完成
- */
+* 授权基类
+* @date: 2017年12月7日 下午12:08:49
+* @author: onep2p <324834500@qq.com>
+*/
 namespace app\ealing\controller;
 
 use think\Controller;
 use think\Request;
-use think\Config;
-use think\Exception;
 use app\ealing\controller\Factory;
 use app\ealing\controller\Send;
-use think\response\Redirect;
-use app\ealing\controller\UnauthorizedException;
 
-class Api extends Controller
+class AuthApi extends Controller
 {	
 	use Send;
 
