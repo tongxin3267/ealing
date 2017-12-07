@@ -124,7 +124,9 @@ Route::group('api', function(){
                 });
                 
                 Route::post('feedback', 'ealing/v1.System/createFeedback');//发送一个反馈
+                
                 Route::post('avatar', 'ealing/v1.UserAvatar/update');//更新当前用户头像
+                
                 Route::post('bg', 'ealing/v1.CurrentUser/uploadBgImage');//更新经过身份验证的用户的背景图像
                 
                 //用户关注相关
@@ -166,8 +168,10 @@ Route::group('api', function(){
              */
             Route::group('wallet', function(){
                 Route::get('/', 'ealing/v1.WalletConfig/show');//获取钱包配置信息
+                
                 Route::get('/cashes', 'ealing/v1.WalletCash/show');//获取提现记录
                 Route::post('/cashes', 'ealing/v1.WalletCash/store');//发起提现申请
+                
                 Route::post('/recharge', 'ealing/v1.WalletRecharge/store');//充值钱包余额
                 Route::get('/charges', 'ealing/v1.WalletCharge/list');//获取凭据列表
                 Route::get('/charges/:charge', 'ealing/v1.WalletCharge/show');//获取单条凭据

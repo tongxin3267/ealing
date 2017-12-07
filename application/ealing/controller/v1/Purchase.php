@@ -1,7 +1,7 @@
 <?php
 /**
-* 用户头像
-* @date: 2017年12月7日 下午4:03:26
+* 付费节点
+* @date: 2017年12月7日 下午6:05:11
 * @author: onep2p <324834500@qq.com>
 */
 namespace app\ealing\controller\v1;
@@ -9,15 +9,13 @@ namespace app\ealing\controller\v1;
 use think\Controller;
 use app\ealing\controller\AuthApi;
 
-class UserAvatar extends AuthApi
+class Purchase extends AuthApi
 {
     public $restMethodList = 'get|put';
     
-    protected $openListAction = ['show'];
-    
     /**
-    * 获取用户头像
-    * @date: 2017年12月7日 下午4:06:12
+    * 显示一个付费节点
+    * @date: 2017年12月7日 下午6:05:31
     * @author: onep2p <324834500@qq.com>
     * @param: variable
     * @return:
@@ -28,14 +26,14 @@ class UserAvatar extends AuthApi
 	}
 	
 	/**
-	* 更新当前用户头像
-	* @date: 2017年12月7日 下午5:27:44
+	* 为一个付费节点支付
+	* @date: 2017年12月7日 下午6:09:39
 	* @author: onep2p <324834500@qq.com>
 	* @param: variable
 	* @return:
 	*/
-	public function update()
+	public function pay()
 	{
-	    return $this->sendSuccess(['update'], 'success', 200);
+	    return $this->sendSuccess(['pay'], 'success', 200);
 	}
 }

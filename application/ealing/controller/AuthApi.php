@@ -34,10 +34,12 @@ class AuthApi extends Controller
      */
     public $restMethodList = 'get|post|put|delete|patch|head|options';
     /**
-     * 默认不验证
+     * 默认验证
      * @var bool
      */
-    public $apiAuth = false;
+    protected $apiAuth = true;
+    
+    protected $openListAction = [];
 
 	protected $request;
 	/**
@@ -78,7 +80,7 @@ class AuthApi extends Controller
     {
     	$this->request = Request::instance();
         $this->init();    //检查资源类型
-        $this->clientInfo = $this->checkAuth();  //接口检查
+        if(!in_array($this->request->action(), $this->openListAction)) $this->clientInfo = $this->checkAuth();  //接口检查
     } 
 
     /**

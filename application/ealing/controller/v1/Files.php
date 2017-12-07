@@ -7,11 +7,13 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\OpenApi;
+use app\ealing\controller\AuthApi;
 
-class Files extends OpenApi
+class Files extends AuthApi
 {
     public $restMethodList = 'get|put';
+    
+    protected $openListAction = ['show'];
     
     /**
     * 获取文件
@@ -23,5 +25,29 @@ class Files extends OpenApi
 	public function show()
 	{
 		return $this->sendSuccess(['show'], 'success', 200);
+	}
+	
+	/**
+	* 检查一个文件的 md5, 如果存在着创建一个 file with id.
+	* @date: 2017年12月7日 下午6:07:34
+	* @author: onep2p <324834500@qq.com>
+	* @param: variable
+	* @return:
+	*/
+	public function uploaded()
+	{
+	    return $this->sendSuccess(['uploaded'], 'success', 200);
+	}
+	
+	/**
+	* 上传一个文件
+	* @date: 2017年12月7日 下午6:08:00
+	* @author: onep2p <324834500@qq.com>
+	* @param: variable
+	* @return:
+	*/
+	public function store()
+	{
+	    return $this->sendSuccess(['store'], 'success', 200);
 	}
 }

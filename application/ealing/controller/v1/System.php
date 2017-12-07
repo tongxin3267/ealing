@@ -8,11 +8,13 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\OpenApi;
+use app\ealing\controller\AuthApi;
 
-class System extends OpenApi
+class System extends AuthApi
 {
     public $restMethodList = 'get|put';
+    
+    protected $openListAction = ['about'];
 
     /**
     * 关于我们
@@ -24,5 +26,17 @@ class System extends OpenApi
     public function about()
     {
         return $this->sendSuccess(['about'], 'success', 200);
+    }
+    
+    /**
+    * 发送一个反馈
+    * @date: 2017年12月7日 下午5:13:42
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function createFeedback()
+    {
+        return $this->sendSuccess(['createFeedback'], 'success', 200);
     }
 }
