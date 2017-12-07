@@ -9,9 +9,9 @@ namespace app\ealing\controller\v1;
 use think\Controller;
 use app\ealing\controller\Factory;
 use app\ealing\model\VerificationCode;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\OpenApi;
 
-class VerifyCode extends AuthApi
+class VerifyCode extends OpenApi
 {
     public $restMethodList = 'get|post';
 
@@ -22,7 +22,7 @@ class VerifyCode extends AuthApi
      * @param: variable
      * @return:
      */
-    public function read()
+    public function store()
     {
         return $this->sendFromRequest($this->request);
     }
@@ -34,7 +34,7 @@ class VerifyCode extends AuthApi
     * @param: variable
     * @return:
     */
-	public function save()
+	public function storeByRegister()
 	{
 	    return $this->sendFromRequest($this->request);
 	}

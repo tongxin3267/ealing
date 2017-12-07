@@ -3,84 +3,46 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use think\Request;
-use think\Response;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\OpenApi;
 
-/**
- * 所有资源类接都必须继承基类控制器
- * 基类控制器提供了基础的验证，包含app_token,请求时间，请求是否合法的一系列的验证
- * 在所有子类中可以调用$this->clientInfo对象访问请求客户端信息，返回为一个数组
- * 在具体资源方法中，不需要再依赖注入，直接调用$this->request返回为请具体信息的一个对象
- * date:2017-07-25
- */
-class User extends AuthApi
-{   
-    /**
-     * 允许访问的方式列表，资源数组如果没有对应的方式列表，请不要把该方法写上，如user这个资源，客户端没有delete操作
-     */
+
+class User extends OpenApi
+{
     public $restMethodList = 'get|post|put';
-
+    
     /**
-     * restful没有任何参数
-     *
-     * @return \think\Response
-     */
+    * 创建一个用户
+    * @date: 2017年12月7日 下午3:59:38
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function store()
+    {
+        return $this->sendSuccess(['store'], 'success', 200);
+    }
+    
+    /**
+    * 批量获取用户
+    * @date: 2017年12月7日 下午3:59:47
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
     public function index()
     {
-        return 'index';
+        return $this->sendSuccess(['index'], 'success', 200);
     }
-
+    
     /**
-     * post方式
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save()
+    * 获取单个用户
+    * @date: 2017年12月7日 下午3:59:55
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function show()
     {
-       dump($this->request);
-       dump($this->clientInfo);
-    }
-
-    /**
-     * get方式
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read()
-    {
-       dump($this->request);
-       dump($this->clientInfo);
-    }
-
-    /**
-     * PUT方式
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update()
-    {
-        return 'update';
-    }
-
-    /**
-     * delete方式
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function delete()
-    {
-        return 'delete';
-    }
-
-   
-    public function fans($id)
-    {
-        return $id;
+        return $this->sendSuccess(['show'], 'success', 200);
     }
 }

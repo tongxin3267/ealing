@@ -108,4 +108,13 @@ class OpenApi extends Controller
             return self::returnmsg(405,'Method Not Allowed',[],["Access-Control-Allow-Origin" => $this->restMethodList, 'Content-Type' => $this->restOutputType[$this->type]]);
         }
     }
+    
+    /**
+     * 空操作
+     * @return \think\Response|\think\response\Json|\think\response\Jsonp|\think\response\Xml
+     */
+    public function _empty()
+    {
+        return $this->sendSuccess([], 'empty method!', 200);
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
-* 标签控制器
-* @date: 2017年12月7日 上午10:28:26
+* 用户头像
+* @date: 2017年12月7日 下午4:03:26
 * @author: onep2p <324834500@qq.com>
 */
 namespace app\ealing\controller\v1;
@@ -9,19 +9,19 @@ namespace app\ealing\controller\v1;
 use think\Controller;
 use app\ealing\controller\OpenApi;
 
-class Tag extends OpenApi
+class UserAvatar extends OpenApi
 {
     public $restMethodList = 'get|put';
     
     /**
-    * 获取所有标签
-    * @date: 2017年12月7日 下午4:09:56
+    * 获取用户头像
+    * @date: 2017年12月7日 下午4:06:12
     * @author: onep2p <324834500@qq.com>
     * @param: variable
     * @return:
     */
-	public function index()
+	public function show()
 	{
-		return $this->sendSuccess(['tags'], 'success', 200);
+		return $this->sendSuccess(['show'], 'success', 200);
 	}
 }
