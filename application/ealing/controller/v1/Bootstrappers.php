@@ -7,10 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\services\CommonConfig;
 use app\ealing\model\AdvertisingSpace;
 use app\ealing\model\GoldType;
 use app\ealing\controller\OpenApi;
+use app\ealing\model\CommonConfigs;
 
 class Bootstrappers extends OpenApi
 {   
@@ -19,12 +19,11 @@ class Bootstrappers extends OpenApi
     * @date: 2017年12月4日 上午9:43:27
     * @author: onep2p <324834500@qq.com>
     */
-	public function show()
+	public function show(CommonConfigs $configMModel)
 	{
 		$bootstrappers = [];
 		
-		$commonService = new CommonConfig();
-		foreach ($commonService->scopeByNamespace('common') as $bootstrapper) {
+		foreach ($configMModel::all(function($query) use($configMModel){$configMModel->scopeByNamespace($query, 'common');}) as $bootstrapper) {
 		    $bootstrappers[$bootstrapper->name] = $this->formatValue($bootstrapper->value);
 		}
 		
