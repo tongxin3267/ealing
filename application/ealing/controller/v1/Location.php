@@ -9,6 +9,7 @@ namespace app\ealing\controller\v1;
 use think\Controller;
 use app\ealing\controller\OpenApi;
 use app\ealing\model\Area as AreaModel;
+use app\ealing\model\CommonConfigs;
 
 class Location extends OpenApi
 {
@@ -73,8 +74,16 @@ class Location extends OpenApi
     * @param: variable
     * @return:
     */
-    public function hots()
+    public function hots(CommonConfigs $configMModel)
     {
-        return $this->sendSuccess(['hots'], 'success', 200);
+        $hots = $configMModel::where(function($query) use($configMModel){
+            $configMModel->scopeByNamespace($query, 'common');
+            $configMModel->scopeByName($query, 'hots_area');
+        })->column('value');    
+        
+        $hots = json_decode($hots[0], true);
+        array_multisort(array_column($hots,'sort'),SORT_ASC,$hots);
+        
+        return $this->sendSuccess($hots, 'success', 200);
     }
 }

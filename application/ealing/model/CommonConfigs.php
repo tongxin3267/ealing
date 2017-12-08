@@ -9,5 +9,27 @@ namespace app\ealing\model;
 use think\Model;
 
 class CommonConfigs extends Model{
+    /**
+    * 指定空间条件
+    * @date: 2017年12月8日 下午2:43:12
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function scopeByNamespace($query, $namespace)
+    {
+        return $query->where('namespace', $namespace);
+    }
     
+    /**
+    * 指定名称条件
+    * @date: 2017年12月8日 下午2:43:47
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function scopeByName($query, $name)
+    {
+        return $query->where('name', $name);
+    }
 }
