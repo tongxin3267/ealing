@@ -22,10 +22,10 @@ Route::group('api', function(){
         Route::get('locations/search', 'ealing/v1.Location/search');//搜索位置
         
         Route::get('locations/hots', 'ealing/v1.Location/hots');//热门位置
-        
-        Route::get('advertisingspace', 'ealing/v1.Advertising/index');//获得广告空间
+
         Route::get('advertisingspace/:space/advertising', 'ealing/v1.Advertising/advertising');//获取指定空间的广告数据
         Route::get('advertisingspace/advertising', 'ealing/v1.Advertising/batch');//批量获取广告列表
+        Route::get('advertisingspace', 'ealing/v1.Advertising/index');//获得广告空间
         
         Route::get('aboutus', 'ealing/v1.System/about');//关于我们数据  html
         

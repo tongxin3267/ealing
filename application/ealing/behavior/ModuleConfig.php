@@ -19,7 +19,7 @@ class ModuleConfig{
     * @return:
     */
     public function run(&$params){
-        $module = $params['module'][0];
+        $module = isset($params['module'][0]) ? $params['module'][0] : 'ealing';
         
         if($module){
             // 加载模块配置

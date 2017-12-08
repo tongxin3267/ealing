@@ -20,4 +20,16 @@ class Advertising extends Model
     {
         return $this->belongsTo(AdvertisingSpace::class);
     }
+    
+    /**
+    * 指定广告位条件
+    * @date: 2017年12月8日 下午4:32:48
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function scopeBySpace($query, $space_id)
+    {
+        return $query->where('space_id', $space_id);
+    }    
 }

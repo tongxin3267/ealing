@@ -9,6 +9,7 @@ namespace app\ealing\controller\v1;
 use think\Controller;
 use app\ealing\controller\OpenApi;
 use app\ealing\model\AdvertisingSpace;
+use app\ealing\model\Advertising as AdvModel;
 
 class Advertising extends OpenApi
 {
@@ -37,15 +38,21 @@ class Advertising extends OpenApi
     }
     
     /**
-    * 获得指定空间的广告数据
+    * 查询某一广告位的广告列表
     * @date: 2017年12月7日 下午3:37:47
     * @author: onep2p <324834500@qq.com>
     * @param: variable
     * @return:
     */
-    public function advertising()
+    public function advertising(AdvModel $advModel)
     {
-        return $this->sendSuccess(['advertising'], 'success', 200);
+        $space_id = $this->request->param('space');
+        
+        $advertising = $advModel::all(function($query) use($advModel, $space_id){
+            $advModel->scopeBySpace($query, $space_id);
+        });
+        
+        return $this->sendSuccess(collection($advertising)->toArray(), 'success', 200);
     }
     
     /**
