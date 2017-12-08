@@ -8,6 +8,7 @@ namespace app\ealing\controller\v1;
 
 use think\Controller;
 use app\ealing\controller\OpenApi;
+use app\ealing\model\AdvertisingSpace;
 
 class Advertising extends OpenApi
 {
@@ -20,9 +21,19 @@ class Advertising extends OpenApi
     * @param: variable
     * @return:
     */
-    public function index()
+    public function index(AdvertisingSpace $spaceModel)
     {
-        return $this->sendSuccess(['index'], 'success', 200);
+        $space = $spaceModel::all(function($query){
+            $query->field('id,channel,space,alias,allow_type,format,created_at,updated_at');
+        });
+
+        $spaceData = [];
+        foreach($space as &$item) {
+            $item['format'] = json_decode($item['format'], true);
+            $spaceData[] = $item;
+        }
+        
+        return $this->sendSuccess(collection($spaceData)->toArray(), 'success', 200);
     }
     
     /**
