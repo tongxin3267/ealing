@@ -31,5 +31,17 @@ class Advertising extends Model
     public function scopeBySpace($query, $space_id)
     {
         return $query->where('space_id', $space_id);
-    }    
+    }
+    
+    /**
+    * 指定多个广告位的条件
+    * @date: 2017年12月8日 下午5:08:29
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function scopeInSpace($query, $space)
+    {
+        return $query->where('space_id', 'IN', $space);
+    }
 }

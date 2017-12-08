@@ -62,8 +62,14 @@ class Advertising extends OpenApi
     * @param: variable
     * @return:
     */
-    public function batch()
+    public function batch(AdvModel $advModel)
     {
-        return $this->sendSuccess(['batch'], 'success', 200);
+        $space = explode(',', $this->request->param('space'));
+        
+        $advertising = $advModel::all(function($query) use($advModel, $space){
+            $advModel->scopeInSpace($query, $space);
+        });
+
+        return $this->sendSuccess(collection($advertising)->toArray(), 'success', 200);
     }
 }
