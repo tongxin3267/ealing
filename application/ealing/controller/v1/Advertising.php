@@ -12,7 +12,7 @@ use app\ealing\model\AdvertisingSpace;
 
 class Advertising extends OpenApi
 {
-    public $restMethodList = 'get|put';
+    public $restMethodList = 'get';
 
     /**
     * 获得广告空间
