@@ -17,8 +17,6 @@ trait Send
      */
     protected $restDefaultType = 'json';
     
-    protected $type;
-    
     /**
      * 设置响应类型
      * @param null $type

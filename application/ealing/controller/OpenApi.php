@@ -45,6 +45,7 @@ class OpenApi extends Controller
      * @var string
      */
     protected $method;
+    
     /**
      * 当前资源类型
      * @var string
