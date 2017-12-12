@@ -13,6 +13,7 @@ use app\ealing\controller\Oauth as Oauth2;
 use app\ealing\model\Oauth as Oauth;
 use think\Cache;
 use app\ealing\controller\OpenApi;
+use function GuzzleHttp\json_encode;
 
 class Token extends OpenApi
 {	
@@ -27,6 +28,12 @@ class Token extends OpenApi
 	 * @var string
 	 */
 	protected $type;
+	
+	/**
+	 * 商户信息
+	 * @var array
+	 */
+	protected $clientInfo;
     
     /**
      * 构造函数
@@ -76,8 +83,7 @@ class Token extends OpenApi
 		if(!empty($checkMsg)) return $checkMsg;
 
 		try {
-		    $mobilebind['app_key'] = $this->request->param('app_key');
-		    $accessTokenInfo = $this->setAccessToken($mobilebind);
+		    $accessTokenInfo = $this->setAccessToken();
 		    return $this->sendSuccess($accessTokenInfo,'success',200);
 		} catch (\Exception $e) {
 		    $this->sendError(500, 'server error!!', 500);
@@ -119,6 +125,8 @@ class Token extends OpenApi
 		if($app_secret !== $result['app_secret']) return $this->sendError(401,'App_secret does not exist or has expired. Please contact management', 401);
 		
 		if(empty($result)) return $this->sendError(401,'App_key does not exist or has expired. Please contact management', 401);
+		
+		$this->clientInfo = $result;
 	}
 
 	/**
@@ -128,7 +136,7 @@ class Token extends OpenApi
 	{	
 		$baseAuth = Factory::getInstance(\app\ealing\controller\Oauth::class);
 		$app_secret = Oauth::get(['app_key' => $this->request->param('app_key')]);
-    	$sign = $baseAuth->makesign($this->request->param(),$app_secret['app_secret']);     //生成签名
+    	$sign = $baseAuth->makesign($this->request->param(),$app_secret['app_secret']);//生成签名
     	if($sign !== $this->request->param['signature']){
     		return self::sendError(401,'Signature error',401);
     	}
@@ -139,13 +147,14 @@ class Token extends OpenApi
      * @param $clientInfo
      * @return int
      */
-    protected function setAccessToken($clientInfo)
+    protected function setAccessToken()
     {
         $accessToken = self::buildAccessToken();
         $accessTokenInfo = [
             'access_token' => $accessToken,//访问令牌
             'expires_time' => time() + Oauth2::$expires,//过期时间时间戳
-            'client' => $clientInfo,//用户信息
+            'client' => $this->clientInfo,//用户信息
+            'user' => []
         ];
         self::saveAccessToken($accessToken, $accessTokenInfo);
         return $accessTokenInfo;
