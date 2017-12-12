@@ -72,12 +72,12 @@ class Response
         $type = empty($type) ? 'null' : strtolower($type);
 
         $class = false !== strpos($type, '\\') ? $type : '\\think\\response\\' . ucfirst($type);
-
         if (class_exists($class)) {
             $response = new $class($data, $code, $header, $options);
         } else {
             $response = new static($data, $code, $header, $options);
         }
+
         return $response;
     }
 
@@ -106,7 +106,7 @@ class Response
                 $this->header['Cache-Control'] = 'max-age=' . $cache[1] . ',must-revalidate';
                 $this->header['Last-Modified'] = gmdate('D, d M Y H:i:s') . ' GMT';
                 $this->header['Expires']       = gmdate('D, d M Y H:i:s', $_SERVER['REQUEST_TIME'] + $cache[1]) . ' GMT';
-                Cache::set($cache[0], [$data, $this->header], $cache[1]);
+                Cache::tag($cache[2])->set($cache[0], [$data, $this->header], $cache[1]);
             }
         }
 
@@ -122,7 +122,7 @@ class Response
                 }
             }
         }
-        
+
         echo $data;
 
         if (function_exists('fastcgi_finish_request')) {
