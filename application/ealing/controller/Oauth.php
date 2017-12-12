@@ -100,7 +100,7 @@ class Oauth
      */
     public function certification($data = []){
         $getCacheAccessToken = CachesToken::get(function($query) use($data){
-            $query->field('user_id');
+            $query->field('user_id,status');
             $query->where('access_token', $data['access_token']);
         });
 
@@ -108,14 +108,9 @@ class Oauth
             return $this->returnmsg(402,'Access_token expired or error！', [], ['Content-Type'=>$this->options['restOutputType'][$this->type]]);
         }
 
-        if($getCacheAccessToken['user_id'] > 0) {
-            $getLastAccessToken = CachesToken::get(function($query) use($getCacheAccessToken){
-                $query->field('access_token');
-                $query->order('created_at desc');
-                $query->where('user_id', $getCacheAccessToken['user_id']);
-            });
-            
-            if($getLastAccessToken['access_token'] !== $data['access_token']) return $this->returnmsg(402,'Log in on other clients！', [], ['Content-Type'=>$this->options['restOutputType'][$this->type]]);
+        //由于登录API中会将最新的token启动到登录用户，其他的该用户的token将会禁用
+        if($getCacheAccessToken['status'] == 0) {
+            return $this->returnmsg(402,'Log in on other clients！', [], ['Content-Type'=>$this->options['restOutputType'][$this->type]]);
         }
         
         return true;
