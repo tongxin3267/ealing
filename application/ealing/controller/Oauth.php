@@ -99,8 +99,8 @@ class Oauth
      * @return mixed
      */
     public function certification($data = []){
-        //======下面注释部分是数据库验证access_token是否有效，示例为缓存中验证======
         $getCacheAccessToken = CachesToken::get(function($query) use($data){
+            $query->field('user_id');
             $query->where('access_token', $data['access_token']);
         });
 
@@ -108,6 +108,16 @@ class Oauth
             return $this->returnmsg(402,'Access_token expired or error！', [], ['Content-Type'=>$this->options['restOutputType'][$this->type]]);
         }
 
+        if($getCacheAccessToken['user_id'] > 0) {
+            $getLastAccessToken = CachesToken::get(function($query) use($getCacheAccessToken){
+                $query->field('access_token');
+                $query->order('created_at desc');
+                $query->where('user_id', $getCacheAccessToken['user_id']);
+            });
+            
+            if($getLastAccessToken['access_token'] !== $data['access_token']) return $this->returnmsg(402,'Log in on other clients！', [], ['Content-Type'=>$this->options['restOutputType'][$this->type]]);
+        }
+        
         return true;
     }
 

@@ -45,7 +45,7 @@ class Token extends OpenApi
         $this->request = Request::instance();
         $this->init();
 
-        if (isset($this->request->param('app_key')) && !empty($this->request->param('app_key')) && $this->checkTime()) $this->checkSign();
+        if ($this->request->has('signature') && $this->checkTime()) $this->checkSign();
     } 
 
     /**
@@ -78,7 +78,6 @@ class Token extends OpenApi
 	*/
 	public function store()
 	{
-		//检测appkey
 		$checkMsg = $this->checkAppkey(self::$rule_validate);
 		if(!empty($checkMsg)) return $checkMsg;
 
@@ -159,7 +158,8 @@ class Token extends OpenApi
             'client' => $this->clientInfo,//用户信息
             'user' => []
         ];
-        self::saveAccessToken(self::buildAccessToken(16), $accessTokenInfo);
+        
+        self::saveAccessToken($accessTokenInfo);
         return $accessTokenInfo;
     }
 
@@ -179,9 +179,8 @@ class Token extends OpenApi
      * @param $accessToken
      * @param $accessTokenInfo
      */
-    protected static function saveAccessToken($accessToken, $accessTokenInfo)
+    protected static function saveAccessToken($accessTokenInfo)
     {
-        $accessTokenInfo['access_key'] = $accessToken;
         $accessTokenInfo['status'] = 1;
         $accessTokenInfo['created_at'] = $accessTokenInfo['updated_at'] = date('Y-m-d H:i:s');
         
