@@ -44,8 +44,7 @@ class Token extends OpenApi
     {
         $this->request = Request::instance();
         $this->init();
-        //为了调试注释掉时间验证与前面验证，请开发者自行测试
-        //$this->checkTime();
+
         if (isset($this->request->param('app_key')) && !empty($this->request->param('app_key')) && $this->checkTime()) $this->checkSign();
     } 
 
