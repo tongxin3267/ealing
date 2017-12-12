@@ -6,9 +6,8 @@
 */
 namespace app\ealing\model;
 
-use think\Model;
-
-class CommonConfigs extends Model{
+class CommonConfigs extends BaseModel
+{
     /**
     * 指定空间条件
     * @date: 2017年12月8日 下午2:43:12

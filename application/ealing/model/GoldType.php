@@ -6,9 +6,7 @@
 */
 namespace app\ealing\model;
 
-use think\Model;
-
-class GoldType extends Model
+class GoldType extends BaseModel
 {
     public $fillable = ['name', 'unit', 'status'];
 }

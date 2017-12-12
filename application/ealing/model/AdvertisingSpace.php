@@ -6,9 +6,7 @@
 */
 namespace app\ealing\model;
 
-use think\Model;
-
-class AdvertisingSpace extends Model
+class AdvertisingSpace extends BaseModel
 {
     protected $fillable = ['channel', 'space', 'alias', 'allow_type', 'format', 'rule', 'message'];
 

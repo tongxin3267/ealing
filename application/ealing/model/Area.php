@@ -6,9 +6,7 @@
 */
 namespace app\ealing\model;
 
-use think\Model;
-
-class Area extends Model
+class Area extends BaseModel
 {
     /**
     * 根据父级获取子地区

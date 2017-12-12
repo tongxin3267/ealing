@@ -1,12 +1,12 @@
 <?php
+/**
+* 授权模型类
+* @date: 2017年12月12日 下午1:47:49
+* @author: onep2p <324834500@qq.com>
+*/
 namespace app\ealing\model;
 
-use think\Model;
-
-/**
- * 存储用户appid，app_secret等值，为每个用户分配对应的值，生成access_token
- */
-class Oauth extends Model{
+class Oauth extends BaseModel{
 
 	/**
 	 * 表名,

@@ -6,9 +6,7 @@
 */
 namespace app\ealing\model;
 
-use think\Model;
-
-class Advertising extends Model
+class Advertising extends BaseModel
 {
     protected $fillable = ['space_id', 'type', 'title', 'data', 'sort'];
 

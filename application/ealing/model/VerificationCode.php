@@ -6,9 +6,7 @@
 */
 namespace app\ealing\model;
 
-use think\Model;
-
-class VerificationCode extends Model
+class VerificationCode extends BaseModel
 {
     /**
     * 设置复用的创建时间范围查询，单位秒.
