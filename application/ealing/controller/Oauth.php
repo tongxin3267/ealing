@@ -120,13 +120,9 @@ class Oauth
         unset($data['version']);
         unset($data['signature']);
         foreach ($data as $k => $v) {
-            
-            if(substr($data[$k],0,1) == '_'){
-
-                unset($data[$k]);
-            }
+            if(substr($data[$k],0,1) == '_') unset($data[$k]);
         }
-        dump($data);
+        
         return $this->_getOrderMd5($data,$app_secret);
     }
 

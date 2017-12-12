@@ -46,7 +46,7 @@ class Token extends OpenApi
         $this->init();
         //为了调试注释掉时间验证与前面验证，请开发者自行测试
         //$this->checkTime();
-        //$this->checkSign();
+        if (isset($this->request->param('app_key')) && !empty($this->request->param('app_key')) && $this->checkTime()) $this->checkSign();
     } 
 
     /**
@@ -100,6 +100,8 @@ class Token extends OpenApi
 		if($time > time()+300  || $time < time()-300){
 			return $this->sendError(401,'The requested time is incorrect', 401);
 		}
+		
+		return true;
 	}
 
 	/**
