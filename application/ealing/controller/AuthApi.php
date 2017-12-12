@@ -115,7 +115,7 @@ class AuthApi extends Controller
      * 检测客户端是否有权限调用接口
      */
     public function checkAuth()
-    {	
+    {
     	$baseAuth = Factory::getInstance(\app\ealing\controller\Oauth::class, ['type'=>$this->type, 'restOutputType'=>$this->restOutputType]);
     	$clientInfo = $baseAuth->authenticate();
 

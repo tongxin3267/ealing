@@ -63,10 +63,13 @@ class Oauth
         $request = Request::instance();
 
         try {
-            //验证授权
             $clientInfo = $this->getClient();
             $checkclient = $this->certification($clientInfo);
-            if($checkclient === true) return $clientInfo;
+            if($checkclient === true) {
+                //进行判断用户授权权限
+                
+                return $clientInfo;
+            }
         } catch (Exception $e) {
             return $this->returnmsg(402,'Invalid1 authentication credentials.', [], ['Content-Type'=>$this->options['restOutputType'][$this->type]]);
         }
@@ -81,18 +84,8 @@ class Oauth
     public function getClient()
     {   
         $request = Request::instance();
-        //获取头部信息
         try {
-            //========关键信息在头部传入例如key，用户信息，token等，这里不用这种方式请求验证==============
-            // $authorization = $request->header('authorization');
-            // $authorization = explode(" ", base64_decode($authorization));
-            // $authorization = explode(':', $authorization[1]);
-            // $app_key = $authorization[0];
-            // $access_token = $authorization[1];
-            // $user_id = $authorization[2];//$_SERVER['PHP_AUTH_USER']
-            // $clientInfo['user_id'] = $user_id;
-            // $clientInfo['app_key'] = $app_key;
-            // $clientInfo['access_token'] = $access_token;
+            //========获取到token和user_id进行验证用户分配权限==============
             $clientInfo = $request->param();
         } catch (Exception $e) {
             return $this->returnmsg(402,$e.'Invalid authentication credentials', [], ['Content-Type'=>$this->options['restOutputType'][$this->type]]);
@@ -106,15 +99,6 @@ class Oauth
      */
     public function certification($data = []){
         //======下面注释部分是数据库验证access_token是否有效，示例为缓存中验证======
-        // $time = date("Y-m-d H:i:s",time());
-        // $checkclient = Db::name('tb_token')->field('end_time')->where('user_id',$data['user_id'])->where('app_key',$data['app_key'])->where('app_token',$data['access_token'])->find();
-        // if(empty($checkclient)){
-        //     return $this->returnmsg(402,'App_token does not match app_key');
-        // }
-        // if($checkclient <= $time){
-        //     return $this->returnmsg(402,'Access_token expired');
-        // }
-        // return true;
         $getCacheAccessToken = Cache::get(self::$accessTokenPrefix . $data['access_token']);  //获取缓存access_token
         if(!$getCacheAccessToken){
             return $this->returnmsg(402,'Access_token expired or error！', [], ['Content-Type'=>$this->options['restOutputType'][$this->type]]);

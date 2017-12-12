@@ -141,11 +141,10 @@ class Token extends OpenApi
      */
     protected function setAccessToken($clientInfo)
     {
-        //生成令牌
         $accessToken = self::buildAccessToken();
         $accessTokenInfo = [
             'access_token' => $accessToken,//访问令牌
-            'expires_time' => time() + Oauth2::$expires,      //过期时间时间戳
+            'expires_time' => time() + Oauth2::$expires,//过期时间时间戳
             'client' => $clientInfo,//用户信息
         ];
         self::saveAccessToken($accessToken, $accessTokenInfo);
@@ -158,7 +157,6 @@ class Token extends OpenApi
      */
     protected static function buildAccessToken($lenght = 32)
     {
-        //生成AccessToken
         $str_pol = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
 		return substr(str_shuffle($str_pol), 0, $lenght);
 
@@ -171,10 +169,6 @@ class Token extends OpenApi
      */
     protected static function saveAccessToken($accessToken, $accessTokenInfo)
     {
-        //存储accessToken
         Cache::set(Oauth2::$accessTokenPrefix . $accessToken, $accessTokenInfo, Oauth2::$expires);
-
-        //存储用户与信息索引 用于比较,这里涉及到user_id，如果有需要请关掉注释
-        //Cache::set(self::$accessTokenAndClientPrefix . $accessTokenInfo['client']['user_id'], $accessToken, self::$expires);
     }
 }
