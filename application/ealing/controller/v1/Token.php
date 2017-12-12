@@ -14,6 +14,7 @@ use app\ealing\model\Oauth as Oauth;
 use think\Cache;
 use app\ealing\controller\OpenApi;
 use function GuzzleHttp\json_encode;
+use app\ealing\model\CachesToken;
 
 class Token extends OpenApi
 {	
@@ -117,7 +118,7 @@ class Token extends OpenApi
         //====调用模型验证app_key是否正确，同时判断商户可用性======
         $app_secret = input('app_secret');
 		$result = Oauth::get(function($query){
-		    $query->field('id,app_secret');
+		    $query->field('id,app_secret,expires_in');
 			$query->where('app_key', $this->request->param('app_key'));
 			$query->where('expires_in','>' ,time());
 		});
@@ -126,6 +127,7 @@ class Token extends OpenApi
 		
 		if(empty($result)) return $this->sendError(401,'App_key does not exist or has expired. Please contact management', 401);
 		
+		unset($result['app_secret']);
 		$this->clientInfo = $result;
 	}
 
@@ -149,14 +151,14 @@ class Token extends OpenApi
      */
     protected function setAccessToken()
     {
-        $accessToken = self::buildAccessToken();
+        $accessToken = self::buildAccessToken(64);
         $accessTokenInfo = [
             'access_token' => $accessToken,//访问令牌
             'expires_time' => time() + Oauth2::$expires,//过期时间时间戳
             'client' => $this->clientInfo,//用户信息
             'user' => []
         ];
-        self::saveAccessToken($accessToken, $accessTokenInfo);
+        self::saveAccessToken(self::buildAccessToken(16), $accessTokenInfo);
         return $accessTokenInfo;
     }
 
@@ -178,6 +180,12 @@ class Token extends OpenApi
      */
     protected static function saveAccessToken($accessToken, $accessTokenInfo)
     {
-        Cache::set(Oauth2::$accessTokenPrefix . $accessToken, $accessTokenInfo, Oauth2::$expires);
+        $accessTokenInfo['access_key'] = $accessToken;
+        $accessTokenInfo['status'] = 1;
+        $accessTokenInfo['created_at'] = $accessTokenInfo['updated_at'] = date('Y-m-d H:i:s');
+        
+        $cachesTokenModel = new CachesToken();
+        $cachesTokenModel->data($accessTokenInfo);
+        $cachesTokenModel->save();
     }
 }

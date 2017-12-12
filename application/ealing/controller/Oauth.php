@@ -8,6 +8,7 @@ use think\Exception;
 use think\Request;
 use think\Db;
 use think\Cache;
+use app\ealing\model\CachesToken;
 
 class Oauth
 {
@@ -65,9 +66,9 @@ class Oauth
         try {
             $clientInfo = $this->getClient();
             $checkclient = $this->certification($clientInfo);
+
             if($checkclient === true) {
                 //进行判断用户授权权限
-                
                 return $clientInfo;
             }
         } catch (Exception $e) {
@@ -99,12 +100,12 @@ class Oauth
      */
     public function certification($data = []){
         //======下面注释部分是数据库验证access_token是否有效，示例为缓存中验证======
-        $getCacheAccessToken = Cache::get(self::$accessTokenPrefix . $data['access_token']);  //获取缓存access_token
+        $getCacheAccessToken = CachesToken::get(function($query) use($data){
+            $query->where('access_token', $data['access_token']);
+        });
+
         if(!$getCacheAccessToken){
             return $this->returnmsg(402,'Access_token expired or error！', [], ['Content-Type'=>$this->options['restOutputType'][$this->type]]);
-        }
-        if($getCacheAccessToken['client']['app_key'] != $data['app_key']){
-            return $this->returnmsg(402,'App_token does not match app_key', [], ['Content-Type'=>$this->options['restOutputType'][$this->type]]);  //app_key与缓存中的appkey不匹配
         }
 
         return true;
