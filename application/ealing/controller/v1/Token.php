@@ -11,10 +11,8 @@ use think\Request;
 use app\ealing\controller\Factory;
 use app\ealing\controller\Oauth as Oauth2;
 use app\ealing\model\Oauth as Oauth;
-use think\Cache;
 use app\ealing\controller\OpenApi;
-use function GuzzleHttp\json_encode;
-use app\ealing\model\CachesToken;
+use app\ealing\model\CachesToken as CachesToken;
 
 class Token extends OpenApi
 {	
@@ -96,7 +94,7 @@ class Token extends OpenApi
 	* @param: variable
 	* @return:
 	*/
-	public function refresh()
+	public function refresh(CachesToken $model)
 	{
 	    /**
 	     * 如果是之前认证了的令牌在访问则刷新令牌并返回最新的令牌
@@ -105,8 +103,7 @@ class Token extends OpenApi
 	    $token = $this->request->param('token');
 	    $ttl_expires = time() + Oauth2::$expires;
 	    
-	    $cachesTokenModel = new CachesToken();
-	    if($cachesTokenModel->save(['expires_time' => $ttl_expires],['status'=>1,'access_token'=>$token]) === 0){
+	    if($model->save(['expires_time' => $ttl_expires],['status'=>1,'access_token'=>$token]) === 0){
 	        return $this->sendError(500, 'error', 500, ['message' => ['Failed to refresh token.']]);
 	    }
 	    
