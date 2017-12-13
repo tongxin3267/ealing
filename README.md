@@ -14,21 +14,26 @@ ThinkPHP5 ealing
 ~~~
 www  WEB部署目录（或者子目录）
 ├─application           应用目录
-│  ├─common             公共模块目录（可以更改）
-│  ├─ealing                接口目录
+│  ├─ealing             主程拓展目录
+│  │  ├─behavior      	主程行为目录
+│  │  ├─command      	命令行工具目录
+│  │  ├─config      	拓展配置目录
 │  │  ├─controller      控制器目录
 │  │  │     ├─v1        版本1目录
 |  |  |     ├─v2        版本2目录
-│  │  ├─Api.php         授权基类
-│  │  ├─Oauth.php       授权验证
-│  │  ├─Send.php        返回格式
+│  │  │     ├─AuthApi.php     授权基类
+│  │  │     ├─OpenApi.php     开放基类
+│  │  │     ├─Oauth.php       授权验证
+│  │  │     ├─Send.php        返回格式
+│  │  │     └─...			       其他基类
 │  │  ├─model           模型目录
-|  |      ├─model     
-│  │  ├─view            视图目录
-│  │  └─ ...            更多类库目录
+│  │  ├─route           路由目录
+│  │  └─services        服务目录
 │  │
 │  ├─command.php        命令行工具配置文件
-│  ├─common.php         公共函数文件
+│  └─common.php         公共函数文件
+│
+├─config				配置文件
 │  ├─config.php         公共配置文件
 │  ├─route.php          路由配置文件
 │  ├─tags.php           应用行为扩展定义文件
@@ -63,26 +68,20 @@ www  WEB部署目录（或者子目录）
 ├─think                 命令行入口文件
 ~~~
 
-## 流程
-
--  router.php中定义了restful资源路由，具体请查看代码。
--  访问相应的url，例如：http://localhost/tp5test/public/index.php/v1/user
--  user控制器是集成了Api类，会在初始化检测user控制器定义的访问限制 $restMethodList = 'get|post|put';
--  在Api类中，会有方法checkAuth()检测用户是否有权限调用接口
--  checkAuth方法会调用Oauth类中的鉴权，$baseAuth = Factory::getInstance(\app\api\controller\OAuth::class);
--  根据用户端传递过来的app_key获取缓存中的access_token，在进行对比，如果true，则可以调用user中的各种方法，否则返回不能调用原因
--  Oauth类中的具体请看代码
--  生成access_token，缓存access_token等相关逻辑在v1/Token.php代码中，使用的是本地缓存，如果需要使用数据库或者redis请查询相关注释说明
--  写的比较乱，直接看片段截图把。。。。
-
-## 快速创建一个restful控制器
+## 快速创建一个拓展
 
 cd 到项目根目录
 
-命令行 ：php think make:controller api/v1/Goods
+命令行 ：php think package --packageName feed
+
+## 快速创建一个拓展控制器
+
+cd 到项目根目录
+
+命令行 ：php think make:controller ealing/v1/Goods
 
 修改路由，注册一个资源路由：在route.php加入下面一行代码：
-Route::resource('v1/goods','api/v1.Goods'); 
+Route::resource('v1/goods','ealing/v1.Goods'); 
 
 ## 其他说明
 交流QQ群号：484193834
