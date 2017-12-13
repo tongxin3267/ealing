@@ -8,6 +8,7 @@ namespace app\ealing\controller\v1;
 
 use think\Controller;
 use app\ealing\controller\OpenApi;
+use app\ealing\model\TagCategorie;
 
 class Tag extends OpenApi
 {
@@ -20,8 +21,11 @@ class Tag extends OpenApi
     * @param: variable
     * @return:
     */
-	public function index()
+	public function index(TagCategorie $categoryModel)
 	{
-		return $this->sendSuccess(['tags'], 'success', 200);
+		return $this->sendSuccess($categoryModel::get(function($query){
+		    $query->with('tags');
+		    $query->order('weight desc');
+		}), 'success', 200);
 	}
 }
