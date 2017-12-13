@@ -28,13 +28,11 @@ class Advertising extends OpenApi
             $query->field('id,channel,space,alias,allow_type,format,created_at,updated_at');
         });
 
-        $spaceData = [];
         foreach($space as &$item) {
             $item['format'] = json_decode($item['format'], true);
-            $spaceData[] = $item;
         }
         
-        return $this->sendSuccess(collection($spaceData)->toArray(), 'success', 200);
+        return $this->sendSuccess($space, 'success', 200);
     }
     
     /**
@@ -52,7 +50,7 @@ class Advertising extends OpenApi
             $advModel->scopeBySpace($query, $space_id);
         });
         
-        return $this->sendSuccess(collection($advertising)->toArray(), 'success', 200);
+        return $this->sendSuccess($advertising, 'success', 200);
     }
     
     /**
@@ -70,6 +68,6 @@ class Advertising extends OpenApi
             $advModel->scopeInSpace($query, $space);
         });
 
-        return $this->sendSuccess(collection($advertising)->toArray(), 'success', 200);
+        return $this->sendSuccess($advertising, 'success', 200);
     }
 }
