@@ -6,27 +6,11 @@ use app\ealing\controller\UnauthorizedException;
 use app\ealing\controller\Send;
 use think\Exception;
 use think\Request;
-use think\Db;
-use think\Cache;
 use app\ealing\model\CachesToken;
 
 class Oauth
 {
     use Send;
-    
-    /**
-     * accessToken存储前缀
-     *
-     * @var string
-     */
-    public static $accessTokenPrefix = 'accessToken_';
-
-    /**
-     * accessTokenAndClientPrefix存储前缀
-     *
-     * @var string
-     */
-    public static $accessTokenAndClientPrefix = 'accessTokenAndClient_';
 
     /**
      * 过期时间秒数

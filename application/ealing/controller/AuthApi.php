@@ -79,8 +79,12 @@ class AuthApi extends Controller
 	public function _initialize()
     {
     	$this->request = Request::instance();
-        $this->init();    //检查资源类型
-        if(!in_array($this->request->action(), $this->openListAction)) $this->clientInfo = $this->checkAuth();  //接口检查
+        $this->init();//检查资源类型
+        
+        if(!in_array($this->request->action(), $this->openListAction)) {
+            $this->clientInfo = $this->checkAuth();//接口token检查
+            $this->abilitieCheck();//请求接口授权认证
+        }
     } 
 
     /**
@@ -90,11 +94,10 @@ class AuthApi extends Controller
     public function init()
     {
     	// 资源类型检测
-        $request = Request::instance();
-        $ext = $request->ext();
+        $ext = $this->request->ext();
         if ('' == $ext) {
             // 自动检测资源类型
-            $this->type = $request->type();
+            $this->type = $this->request->type();
         } elseif (!preg_match('/\(' . $this->restTypeList . '\)$/i', $ext)) {
             // 资源类型非法 则用默认资源类型访问
             $this->type = $this->restDefaultType;
@@ -105,7 +108,7 @@ class AuthApi extends Controller
         $this->setType($this->type);//设置反馈类型   根据mimeType判断
         
         // 请求方式检测
-        $this->method = strtolower($request->method());
+        $this->method = strtolower($this->request->method());
         if (false === stripos($this->restMethodList, $this->method)) {
             return self::returnmsg(405,'Method Not Allowed',[],["Access-Control-Allow-Origin" => $this->restMethodList, 'Content-Type' => $this->restOutputType[$this->type]]);
         }
@@ -120,6 +123,24 @@ class AuthApi extends Controller
     	$clientInfo = $baseAuth->authenticate();
 
     	return $clientInfo;
+    }
+    
+    /**
+    * 验证后台用户组权限
+    * @date: 2017年12月13日 上午9:02:13
+    * @author: onep2p <324834500@qq.com>
+    * @return:
+    */
+    public function abilitieCheck()
+    {
+        $request = $this->request;
+        $module = $request->module();
+        $controller = explode('.', $request->controller())[1];
+        $action = $request->action();
+        
+        if(1==2) return self::returnmsg(401, 'node error!', [], ["Access-Control-Allow-Origin" => $this->restMethodList, 'Content-Type' => $this->restOutputType[$this->type]]);
+        
+        return true;
     }
     
     /**

@@ -22,7 +22,7 @@ class CurrentUser extends AuthApi
     */
 	public function show()
 	{
-		return $this->sendSuccess(['show'], 'success', 200);
+	    return $this->sendSuccess(['show'], 'success', 200);
 	}
 	
 	/**
