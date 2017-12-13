@@ -25,7 +25,7 @@ class System extends AuthApi
     */
     public function about()
     {
-        return $this->sendSuccess(['about'], 'success', 200);
+        return view('about');
     }
     
     /**
