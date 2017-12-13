@@ -15,11 +15,12 @@ class Package extends Command
 {
     private $list = [
         '__file__'   => [],
-        '__dir__'    => ['config', 'controller', 'model', 'route'],
+        '__dir__'    => ['config', 'controller/v1', 'model', 'route', 'services'],
         'config'     => ['config'],
-        'controller' => [],
+        'controller/v1' => ['home'],
         'model'      => [],
         'route'      => ['admin', 'web'],
+        'services'   => [],
     ];
     
     /**
@@ -64,7 +65,7 @@ class Package extends Command
             // 创建默认的模块目录和文件
             $list = [
                 '__file__' => [],
-                '__dir__'  => ['config', 'controller', 'model', 'route'],
+                '__dir__'  => ['config', 'controller', 'model', 'route', 'services'],
             ];
         }
         // 创建子目录和文件
@@ -93,8 +94,10 @@ class Package extends Command
                         case 'config': //配置
                             $content = "<?php\nreturn [\n\n];";
                             break;
-                        case 'controller': // 控制器
-                            $content = "<?php\nnamespace {$space};\n\nclass {$class}\n{\n\n}";
+                        case 'controller/v1': // 控制器
+                            $controllerSpace = str_replace('/', '\\', $space);
+                            $class = ucfirst($module);
+                            $content = "<?php\nnamespace {$controllerSpace};\n\nclass {$class}\n{\n\n}";
                             break;
                         case 'model': // 模型
                             $content = "<?php\nnamespace {$space};\n\nuse think\Model;\n\nclass {$class} extends Model\n{\n\n}";
@@ -104,12 +107,17 @@ class Package extends Command
                             $this->checkDirBuild(dirname($filename));
                             $content = "<?php\nuse think\Route;\n\n";
                             break;
+                        case 'services': // 服务
+                            $content = "<?php\nnamespace {$space};\n\nclass {$class}\n{\n\n}";
+                            break;
                         default:
                             // 其他文件
                             $content = "<?php\nnamespace {$space};\n\nclass {$class}\n{\n\n}";
                     }
         
                     if (!is_file($filename)) {
+                        if($path == 'controller/v1') $filename = $modulePath . str_replace('/', '\\', $path) . DS . ucfirst($module) . ($suffix ? ucfirst($path) : '') . EXT;;
+  
                         file_put_contents($filename, $content);
                     }
                 }
