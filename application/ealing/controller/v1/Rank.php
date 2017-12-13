@@ -8,6 +8,7 @@ namespace app\ealing\controller\v1;
 
 use think\Controller;
 use app\ealing\controller\OpenApi;
+use app\ealing\model\User;
 
 class Rank extends OpenApi
 {
@@ -20,9 +21,31 @@ class Rank extends OpenApi
     * @param: variable
     * @return:
     */
-	public function followers()
+	public function followers(User $userModel)
 	{
-		return $this->sendSuccess(['followers'], 'success', 200);
+	    $auth = $this->request->param('api') ?? 0;
+	    $limit = $this->request->param('limit', 10);
+	    $offset = $this->request->param('offset', 0);
+	    
+	    $users = $userModel::all(function($query) use($limit, $offset){
+	        $query->alias('us');
+	        $query->field('us.*,ue.followers_count');
+	        $query->join('user_extras ue', 'us.id = ue.user_id');
+	        $query->order('ue.followers_count desc, us.id asc');
+	        $query->limit($offset, $limit);
+	    });
+	    
+	    foreach ($users as $key=>$user){
+	        $user->extra->count = $user->followers_count;
+	        $user->extra->rank = $key + $offset + 1;
+
+	        $user->following = $user->hasFollwing($auth);
+	        $user->follower = $user->hasFollower($auth);
+	        
+	        unset($user->followers_count);
+	    }
+	    
+		return $this->sendSuccess($users, 'success', 200);
 	}
 	
 	/**

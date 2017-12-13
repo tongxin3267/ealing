@@ -207,10 +207,8 @@ class Token extends OpenApi
     protected static function saveAccessToken($accessTokenInfo)
     {
         $accessTokenInfo['status'] = 1;
-        $accessTokenInfo['created_at'] = $accessTokenInfo['updated_at'] = date('Y-m-d H:i:s');
         
         $cachesTokenModel = new CachesToken();
-        $cachesTokenModel->data($accessTokenInfo);
-        $cachesTokenModel->save();
+        $cachesTokenModel->save($accessTokenInfo);
     }
 }
