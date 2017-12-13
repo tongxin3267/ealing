@@ -70,7 +70,7 @@ class Token extends OpenApi
     }
 
 	/**
-	* 为客户端提供access_token
+	* 创建一个令牌
 	* @date: 2017年11月28日 下午3:00:15
 	* @author: onep2p <324834500@qq.com>
 	* @param: variable
@@ -87,6 +87,34 @@ class Token extends OpenApi
 		} catch (\Exception $e) {
 		    $this->sendError(500, 'server error!!', 500);
 		}
+	}
+	
+	/**
+	* 刷新用户令牌
+	* @date: 2017年12月13日 上午11:05:12
+	* @author: onep2p <324834500@qq.com>
+	* @param: variable
+	* @return:
+	*/
+	public function refresh()
+	{
+	    /**
+	     * 如果是之前认证了的令牌在访问则刷新令牌并返回最新的令牌
+	     * 如果授权码错误则提示
+	     */
+	    $token = $this->request->param('token');
+	    $ttl_expires = time() + Oauth2::$expires;
+	    
+	    $cachesTokenModel = new CachesToken();
+	    if($cachesTokenModel->save(['expires_time' => $ttl_expires],['status'=>1,'access_token'=>$token]) === 0){
+	        return $this->sendError(500, 'error', 500, ['message' => ['Failed to refresh token.']]);
+	    }
+	    
+	    //返回新的有效期时间，前端可以直接覆盖重写
+	    return $this->sendSuccess([
+	        'access_token' => $token,
+	        'expires_time' => $ttl_expires,//过期时间时间戳
+	    ], 'success', 200);
 	}
 
 	/**
