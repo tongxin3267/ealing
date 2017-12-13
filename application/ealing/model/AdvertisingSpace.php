@@ -18,6 +18,6 @@ class AdvertisingSpace extends BaseModel
 
     public function advertising()
     {
-        return $this->hasMany(Advertising::class, 'space_id');
+        return $this->hasMany('Advertising', 'space_id');
     }
 }

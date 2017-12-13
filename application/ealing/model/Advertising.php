@@ -16,7 +16,7 @@ class Advertising extends BaseModel
 
     public function space()
     {
-        return $this->belongsTo(AdvertisingSpace::class);
+        return $this->belongsTo('AdvertisingSpace');
     }
     
     /**
