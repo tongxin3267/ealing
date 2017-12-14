@@ -38,7 +38,7 @@ trait UserHasFollow
         if (! $user) {
             return false;
         }
-        
+
         return $this->followers()->value('target') === $user;
     }
     
