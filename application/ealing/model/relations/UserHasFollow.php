@@ -39,7 +39,7 @@ trait UserHasFollow
             return false;
         }
 
-        return $this->followers()->value('target') === $user;
+        return $this->followers()->attach($user)->value('target') === $user;
     }
     
     /**
@@ -59,6 +59,6 @@ trait UserHasFollow
             return false;
         }
     
-        return $this->followers()->value('user_id') === $user;
+        return $this->followers()->attach($user)->value('user_id') === $user;
     }    
 }
