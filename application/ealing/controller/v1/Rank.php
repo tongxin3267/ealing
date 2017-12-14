@@ -30,7 +30,7 @@ class Rank extends OpenApi
 	    $users = $userModel::all(function($query) use($limit, $offset){
 	        $query->alias('us');
 	        $query->field('us.*,ue.followers_count');
-	        $query->join('user_extras ue', 'us.id = ue.user_id');
+	        $query->join('user_extras ue', 'us.id = ue.user_id', 'LEFT');
 	        $query->order('ue.followers_count desc, us.id asc');
 	        $query->limit($offset, $limit);
 	    });
@@ -64,7 +64,7 @@ class Rank extends OpenApi
 	    $users = $userModel::all(function($query) use($limit, $offset){
 	        $query->alias('us');
 	        $query->field('us.*');
-	        $query->join('wallets w', 'us.id = w.user_id');
+	        $query->join('wallets w', 'us.id = w.user_id', 'LEFT');
 	        $query->order('w.balance desc,us.id asc');
 	        $query->limit($offset, $limit);
 	    });
@@ -86,8 +86,27 @@ class Rank extends OpenApi
 	* @param: variable
 	* @return:
 	*/
-	public function income()
+	public function income(User $userModel)
 	{
-	    return $this->sendSuccess(['income'], 'success', 200);
+	    $auth = $this->request->param('api')->id ?? 0;
+	    $limit = $this->request->param('limit', 10);
+	    $offset = $this->request->param('offset', 0);
+	    
+	    $users = $userModel::all(function($query) use($limit, $offset){
+	        $query->alias('us');
+	        $query->field('us.id,us.name,us.sex');
+	        $query->join([db('wallet_charges')->field('user_id, SUM(`amount`) as count')->where('action = 1 and channel = "user"')->group('user_id')->buildSql() => 'count'], 'us.id = count.user_id', 'LEFT');
+	        $query->order('count.count desc, us.id asc');
+	        $query->limit($offset, $limit);
+	    });
+
+        foreach ($users as $key=>$user) {
+            $user->following = $user->hasFollwing($auth);
+            $user->follower = $user->hasFollower($auth);
+            
+            $user->extra->rank = $key + $offset + 1;
+        }
+	    
+	    return $this->sendSuccess($users, 'success', 200);
 	}
 }
