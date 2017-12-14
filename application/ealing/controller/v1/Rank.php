@@ -23,7 +23,7 @@ class Rank extends OpenApi
     */
 	public function followers(User $userModel)
 	{
-	    $auth = $this->request->param('api') ?? 0;
+	    $auth = $this->request->param('api') ?? 0;//这里后面要加入一个专门获取授权用户的通用方法【通过token来获取】
 	    $limit = $this->request->param('limit', 10);
 	    $offset = $this->request->param('offset', 0);
 	    
@@ -35,7 +35,7 @@ class Rank extends OpenApi
 	        $query->limit($offset, $limit);
 	    });
 	    
-	    foreach ($users as $key=>$user){
+	    foreach ($users as $key=>$user) {
 	        $user->extra->count = $user->followers_count;
 	        $user->extra->rank = $key + $offset + 1;
 
@@ -55,9 +55,28 @@ class Rank extends OpenApi
 	* @param: variable
 	* @return:
 	*/
-	public function balance()
+	public function balance(User $userModel)
 	{
-	    return $this->sendSuccess(['balance'], 'success', 200);
+	    $auth = $this->request->param('api')->id ?? 0;
+	    $limit = $this->request->param('limit', 10);
+	    $offset = $this->request->param('offset', 0);
+	    
+	    $users = $userModel::all(function($query) use($limit, $offset){
+	        $query->alias('us');
+	        $query->field('us.*');
+	        $query->join('wallets w', 'us.id = w.user_id');
+	        $query->order('w.balance desc,us.id asc');
+	        $query->limit($offset, $limit);
+	    });
+	    
+	    foreach ($users as $key=>$user) {
+	        $user->following = $user->hasFollwing($auth);
+	        $user->follower = $user->hasFollower($auth);
+	        
+	        $user->extra->rank = $key + $offset + 1;
+	    }
+	    
+	    return $this->sendSuccess($users, 'success', 200);
 	}
 	
 	/**
