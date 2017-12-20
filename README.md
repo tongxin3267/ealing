@@ -16,7 +16,6 @@ www  WEB部署目录（或者子目录）
 ├─application           应用目录
 │  ├─ealing             主程拓展目录
 │  │  ├─behavior      	主程行为目录
-│  │  ├─command      	命令行工具目录
 │  │  ├─config      	拓展配置目录
 │  │  ├─controller      控制器目录
 │  │  │     ├─v1        版本1目录
@@ -30,8 +29,7 @@ www  WEB部署目录（或者子目录）
 │  │  ├─route           路由目录
 │  │  └─services        服务目录
 │  │
-│  ├─command.php        命令行工具配置文件
-│  └─common.php         公共函数文件
+│  └─feed         动态模型
 │
 ├─config				配置文件
 │  ├─config.php         公共配置文件
@@ -67,12 +65,6 @@ www  WEB部署目录（或者子目录）
 ├─README.md             README 文件
 ├─think                 命令行入口文件
 ~~~
-
-## 快速创建一个拓展
-
-cd 到项目根目录
-
-命令行 ：php think package --packageName feed
 
 ## 快速创建一个拓展控制器
 
