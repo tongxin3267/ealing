@@ -10,14 +10,9 @@
 // +----------------------------------------------------------------------
 use think\Route;
 
-Route::group('admin', function(){
+Route::group('ealingAdmin', function(){
     //主体框架后台路由
-    Route::group('v1', function(){
-        Route::put('bootstrappers', function(){
-            return '更新启动信息';
-        });
-    });
-    
-    //默认API地址  与版本无关
-    Route::miss('Error/index');    
+    Route::group('admin', function(){
+        Route::get('/', 'ealing/admin.Main/store');
+    });  
 });

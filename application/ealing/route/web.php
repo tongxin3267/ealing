@@ -39,9 +39,9 @@ Route::group('ealing', function(){
         
         //排行榜相关
         Route::group('ranks', function(){
-            Route::get('followers', app\ealing\controller\v1\Rank::class.'@followers');//获取粉丝排行
-            Route::get('balance', app\ealing\controller\v1\Rank::class.'@balance');//获取财富排行
-            Route::get('income', app\ealing\controller\v1\Rank::class.'@income');//获取收入排行
+            Route::get('followers', 'ealing/v1.Rank/followers');//获取粉丝排行
+            Route::get('balance', 'ealing/v1.Rank/balance');//获取财富排行
+            Route::get('income', 'ealing/v1.Rank/income');//获取收入排行
         });
         
         Route::get('files/:fileWith', 'ealing/v1.Files/show');//获取文件
@@ -186,7 +186,7 @@ Route::group('ealing', function(){
             Route::post('/purchases/:node', 'ealing/v1.Purchase/pay');//为一个付费节点支付           
         });
     });
-    
-    //默认API地址  与版本无关
-    Route::miss('Error/index');
 });
+    
+//默认API地址  与版本无关
+Route::miss('Error/index');
