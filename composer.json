@@ -20,7 +20,7 @@
         "topthink/framework": "^5.0",
         "guzzlehttp/guzzle": "^6.3",
         "topthink/think-migration": "1.1.1",
-		"onep2p/ealing-phpmailer": "dev-master"
+        "php-ai/php-ml": "^0.4.1"
     },
     "extra": {
         "think-path": "thinkphp"
