@@ -12,7 +12,7 @@ use think\Route;
 
 
 //主体框架V1版接口
-Route::group('api', function(){
+Route::group('ealing', function(){
     Route::group('v1' , function(){
         Route::get('token','ealing/v1.Token/store');//初始授权地址
         Route::patch('tokens/:token', 'ealing/v1.Token/refresh');//刷新token
@@ -184,13 +184,6 @@ Route::group('api', function(){
             Route::get('/purchases/:node', 'ealing/v1.Purchase/show');//显示一个付费节点
             
             Route::post('/purchases/:node', 'ealing/v1.Purchase/pay');//为一个付费节点支付           
-        });
-    });
-    
-    //主体框架V2版接口
-    Route::group('v2', function(){
-        Route::get('/', function(){
-            return 'v2版API';
         });
     });
     
