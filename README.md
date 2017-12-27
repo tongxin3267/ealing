@@ -33,7 +33,6 @@ www  WEB部署目录（或者子目录）
 │
 ├─config				配置文件
 │  ├─config.php         公共配置文件
-│  ├─route.php          路由配置文件
 │  ├─tags.php           应用行为扩展定义文件
 │  └─database.php       数据库配置文件
 │

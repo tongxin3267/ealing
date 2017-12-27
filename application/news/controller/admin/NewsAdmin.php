@@ -1,20 +1,20 @@
 <?php
 /**
-* 新闻控制器
-* @date: 2017年12月20日 上午10:13:50
+* 后台新闻控制器
+* @date: 2017年12月27日 上午9:09:37
 * @author: onep2p <324834500@qq.com>
 */
-namespace app\news\controller\v1;
+namespace app\news\controller\admin;
 
 use app\ealing\controller\AuthApi;
 
-class News extends AuthApi
+class NewsAdmin extends AuthApi
 {
     protected $openListAction = ['store', 'show'];
     
     /**
-    * 获取新闻，用于主页   包含推荐新闻、热门新闻、最新新闻
-    * @date: 2017年12月20日 上午10:16:05
+    * 获取后台新闻列表数据
+    * @date: 2017年12月27日 上午9:09:17
     * @author: onep2p <324834500@qq.com>
     * @param: variable
     * @return:
@@ -34,17 +34,5 @@ class News extends AuthApi
     public function show()
     {
         return 2;
-    }
-    
-    /**
-    * 获取新闻分类
-    * @date: 2017年12月20日 上午10:15:52
-    * @author: onep2p <324834500@qq.com>
-    * @param: variable
-    * @return:
-    */
-    public function category()
-    {
-        
     }
 }

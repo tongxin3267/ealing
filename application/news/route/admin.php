@@ -11,5 +11,6 @@
 use think\Route;
 
 Route::group('newsAdmin', function(){
-    
+    Route::get('news', 'news/admin.NewsAdmin/store');
+    Route::get('news/:id', 'news/admin.NewsAdmin/show');
 });
