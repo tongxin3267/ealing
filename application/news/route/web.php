@@ -14,7 +14,7 @@ Route::group('news', function(){
     Route::group('v1', function(){
         Route::get('/', 'news/v1.News/store');
         
-        Route::group('cate', function(){
+        Route::group('cates', function(){
             Route::get('/', function(){
                 return 123;
             });

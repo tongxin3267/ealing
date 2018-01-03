@@ -19,7 +19,6 @@ class ModuleConfig{
     * @return:
     */
     public function run(&$params){
-        header("Access-Control-Allow-Origin: *");
         $module = isset($params['module'][0]) ? $params['module'][0] : 'ealing';
         
         if($module){
