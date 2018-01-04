@@ -19,5 +19,9 @@ Route::group('news', function(){
                 return 123;
             });
         });
+        
+        Route::get('categories/pinneds', function(){
+            return '获取置顶列表';
+        });
     });
 });
