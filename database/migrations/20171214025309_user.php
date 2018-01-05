@@ -1,6 +1,7 @@
 <?php
 
 use think\migration\Migrator;
+use think\migration\db\Column;
 
 class User extends Migrator
 {
@@ -27,13 +28,38 @@ class User extends Migrator
      */
     public function change()
     {
-        $table = $this->table('el_users', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'));
+        $table = $this->table('user', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('user table');
         
-        $table->addColumn('id', 'integer', array('limit' => 11,'comment'=>'user id.'))->create();
+        $table
+            ->addColumn(Column::integer("id")->setUnsigned()->setLimit(11)->setComment("user id."))
+            ->addColumn(Column::string("name", 100)->setNullable()->setDefault(null)->setUnique()->setComment("user name."))
+            ->addColumn(Column::string("email", 150)->setNullable()->setDefault(null)->setUnique()->setComment("user eamil."))
+            ->addColumn(Column::string("phone", 50)->setNullable()->setDefault(null)->setUnique()->setComment("user phone."))
+            ->addColumn(Column::string("password", 191)->setNullable()->setDefault(null)->setComment("password."))
+            ->addColumn(Column::string("bio", 191)->setNullable()->setDefault(null)->setComment("用户简介"))
+            ->addColumn(Column::tinyInteger('sex')->setNullable()->setDefault(0)->setComment('用户性别'))
+            ->addColumn(Column::string('location')->setNullable()->setDefault(null)->setComment('用户位置'))
+            ->addColumn(Column::string('remember_token', 100)->setNullable()->setDefault(null)->setComment('user auth token.'))
+            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+            ->addColumn(Column::timestamp('deleted_at	')->setNullable()->setDefault(null)->setComment('deleted time.'))
+            ->create();
     }
     
     public function up()
     {
         
+    }
+    
+    /**
+    * Down Method.
+    * @date: 2018年1月5日 下午5:24:16
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function down()
+    {
+        $this->dropTable('user');
     }
 }
