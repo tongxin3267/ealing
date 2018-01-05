@@ -103,7 +103,7 @@ class Package extends Command
                             $content = "<?php\nnamespace {$space};\n\nuse think\Model;\n\nclass {$class} extends Model\n{\n\n}";
                             break;
                         case 'route': // 路由
-                            $filename = $modulePath . $path . DS . $val . '.php';
+                            $filename = $modulePath . $path . DS . $val . EXT;
                             $this->checkDirBuild(dirname($filename));
                             $content = "<?php\nuse think\Route;\n\n";
                             break;
