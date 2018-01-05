@@ -31,19 +31,19 @@ class Users extends Migrator
         $table = $this->table('users', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('user table');
         
         $table
-        ->addColumn(Column::integer("id")->setUnsigned()->setLimit(11)->setComment("user id."))
-        ->addColumn(Column::string("name", 100)->setNullable()->setDefault(null)->setUnique()->setComment("user name."))
-        ->addColumn(Column::string("email", 150)->setNullable()->setDefault(null)->setUnique()->setComment("user eamil."))
-        ->addColumn(Column::string("phone", 50)->setNullable()->setDefault(null)->setUnique()->setComment("user phone."))
-        ->addColumn(Column::string("password", 191)->setNullable()->setDefault(null)->setComment("password."))
-        ->addColumn(Column::string("bio", 191)->setNullable()->setDefault(null)->setComment("用户简介"))
-        ->addColumn(Column::tinyInteger('sex')->setNullable()->setDefault(0)->setComment('用户性别'))
-        ->addColumn(Column::string('location')->setNullable()->setDefault(null)->setComment('用户位置'))
-        ->addColumn(Column::string('remember_token', 100)->setNullable()->setDefault(null)->setComment('user auth token.'))
-        ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
-        ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
-        ->addColumn(Column::timestamp('deleted_at')->setNullable()->setDefault(null)->setComment('deleted time.'))
-        ->create();
+            ->addColumn(Column::integer("id")->setUnsigned()->setLimit(11)->setComment("user id."))
+            ->addColumn(Column::string("name", 100)->setNullable()->setDefault(null)->setUnique()->setComment("user name."))
+            ->addColumn(Column::string("email", 150)->setNullable()->setDefault(null)->setUnique()->setComment("user eamil."))
+            ->addColumn(Column::string("phone", 50)->setNullable()->setDefault(null)->setUnique()->setComment("user phone."))
+            ->addColumn(Column::string("password", 191)->setNullable()->setDefault(null)->setComment("password."))
+            ->addColumn(Column::string("bio", 191)->setNullable()->setDefault(null)->setComment("用户简介"))
+            ->addColumn(Column::tinyInteger('sex')->setNullable()->setDefault(0)->setComment('用户性别'))
+            ->addColumn(Column::string('location')->setNullable()->setDefault(null)->setComment('用户位置'))
+            ->addColumn(Column::string('remember_token', 100)->setNullable()->setDefault(null)->setComment('user auth token.'))
+            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+            ->addColumn(Column::timestamp('deleted_at')->setNullable()->setDefault(null)->setComment('deleted time.'))
+            ->create();
     }
     
     /**
