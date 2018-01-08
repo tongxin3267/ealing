@@ -4,8 +4,78 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "12abd88b8ab9eb78c8c43fcd84409485",
+    "content-hash": "7b907b1b00ded5790e239bea65b1be9f",
     "packages": [
+        {
+            "name": "gmars/tp5-nestedsets",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gmars/tp5-nestedsets.git",
+                "reference": "520edd83bc2a0ad2468c6c7cfdcaf92d5fc55025"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gmars/tp5-nestedsets/zipball/520edd83bc2a0ad2468c6c7cfdcaf92d5fc55025",
+                "reference": "520edd83bc2a0ad2468c6c7cfdcaf92d5fc55025",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "gmars\\nestedsets\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "weiyongqiang",
+                    "email": "hayixia606@163.com"
+                }
+            ],
+            "description": "此扩展是thinkPHP5的nestendsets的扩展。能够方便的在项目中来管理有层级关系的数据结构。该扩展在算法上部分参考了Willfred di Vampo的nestedsets，实现了数据的插入，移动，删除，遍历等功能。",
+            "time": "2017-08-22T08:01:34+00:00"
+        },
+        {
+            "name": "gmars/tp5-rbac",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gmars/tp5-rbac.git",
+                "reference": "f8197c8ae731e3b5df3084ea2d8f9e5c8fa98a12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gmars/tp5-rbac/zipball/f8197c8ae731e3b5df3084ea2d8f9e5c8fa98a12",
+                "reference": "f8197c8ae731e3b5df3084ea2d8f9e5c8fa98a12",
+                "shasum": ""
+            },
+            "require": {
+                "gmars/tp5-nestedsets": "dev-master",
+                "topthink/think-migration": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "gmars\\rbac\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "weiyongqiang",
+                    "email": "hayixia606@163.com"
+                }
+            ],
+            "description": "这个扩展是基于thinkPHP5框架的RBAC权限验证的扩展。使用本扩展能够快速的将RBAC权限控制器模块引入到自己的系统中。原则上本模块适合于任何PHP框架但是由于使用了thinkPHP5的特性所以使用composer安装到其他框架时需要做相应的修改。模块所需要的扩展库可以通过thinkPHP5的migration来做数据迁移。",
+            "time": "2017-08-22T08:35:12+00:00"
+        },
         {
             "name": "guzzlehttp/guzzle",
             "version": "6.3.0",
@@ -288,16 +358,16 @@
         },
         {
             "name": "topthink/framework",
-            "version": "v5.0.13",
+            "version": "v5.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/framework.git",
-                "reference": "29803c09c9e8d7385ab720d2c199c036ceedc4d3"
+                "reference": "3d1bdfbc19a7e7fd323be1dd53c4bacbe7bfb706"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/framework/zipball/29803c09c9e8d7385ab720d2c199c036ceedc4d3",
-                "reference": "29803c09c9e8d7385ab720d2c199c036ceedc4d3",
+                "url": "https://api.github.com/repos/top-think/framework/zipball/3d1bdfbc19a7e7fd323be1dd53c4bacbe7bfb706",
+                "reference": "3d1bdfbc19a7e7fd323be1dd53c4bacbe7bfb706",
                 "shasum": ""
             },
             "require": {
@@ -335,7 +405,7 @@
                 "orm",
                 "thinkphp"
             ],
-            "time": "2017-12-13T04:44:30+00:00"
+            "time": "2018-01-01T12:44:11+00:00"
         },
         {
             "name": "topthink/think-installer",
@@ -421,7 +491,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "gmars/tp5-nestedsets": 20,
+        "gmars/tp5-rbac": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
