@@ -65,6 +65,18 @@ www  WEB部署目录（或者子目录）
 ├─think                 命令行入口文件
 ~~~
 
+## 安装项目
+
+cd 到项目根目录
+
+迁移数据
+
+php think migrate:run
+
+初始化数据
+
+php think seed:run
+
 ## 快速创建一个拓展控制器
 
 cd 到项目根目录
@@ -75,7 +87,9 @@ cd 到项目根目录
 Route::resource('v1/goods','ealing/v1.Goods'); 
 
 ## 其他说明
+
 交流QQ群号：484193834
+
 ## 版权信息
 
 遵循Apache2开源协议发布，并提供免费使用。
