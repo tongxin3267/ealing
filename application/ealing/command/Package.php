@@ -17,9 +17,9 @@ class Package extends Command
         'config'     => ['config', 'publicHelper', 'privateHelper'],
         'controller/admin' => ['home'],
         'controller/v1' => ['home'],
-        'model'      => [],
+        'model'      => ['Model'],
         'route'      => ['admin', 'web'],
-        'services'   => [],
+        'services'   => ['Service'],
     ];
     
     /**
