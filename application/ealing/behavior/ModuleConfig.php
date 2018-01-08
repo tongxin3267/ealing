@@ -22,7 +22,7 @@ class ModuleConfig{
         $module = isset($params['module'][0]) ? $params['module'][0] : 'ealing';
         
         // 载入公开助手函数库
-        
+        $this->loadHelper();
         
         if($module){
             // 加载模块配置
@@ -49,13 +49,33 @@ class ModuleConfig{
             }
             
             // 加载行为扩展文件
-            if (is_file(APP_PATH . $module . '/config/tags' . EXT)) {
-                Hook::import(include APP_PATH . $module . '/config/tags' . EXT);
+            if (is_file(APP_PATH . $module . '/config/tags' . CONF_EXT)) {
+                Hook::import(include APP_PATH . $module . '/config/tags' . CONF_EXT);
             }
             
             
             // 加载模块独立助手函数库
-            
+            $this->loadHelper($module);
+        }
+    }
+    
+    /**
+    * loader helper lib
+    * @date: 2018年1月8日 下午5:24:55
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function loadHelper($module = ''){
+        if(empty($module)){
+            $apps = scandir(APP_PATH);
+            foreach ($apps as $app){
+                if('.' == $app || '..' == $app || 'ealing' == $app) continue;
+                
+                include APP_PATH . $app . '/config/publicHelper' . CONF_EXT;
+            }
+        }else{
+            include APP_PATH . $module . '/config/privateHelper' . CONF_EXT;
         }
     }
 }
