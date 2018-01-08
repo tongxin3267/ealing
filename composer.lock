@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b907b1b00ded5790e239bea65b1be9f",
+    "content-hash": "74c2f49e2192f79889ce3d0948c71367",
     "packages": [
         {
             "name": "gmars/tp5-nestedsets",
@@ -38,6 +38,39 @@
             ],
             "description": "此扩展是thinkPHP5的nestendsets的扩展。能够方便的在项目中来管理有层级关系的数据结构。该扩展在算法上部分参考了Willfred di Vampo的nestedsets，实现了数据的插入，移动，删除，遍历等功能。",
             "time": "2017-08-22T08:01:34+00:00"
+        },
+        {
+            "name": "gmars/tp5-qiniu",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gmars/qiniu-tp5.git",
+                "reference": "59abcee895a81822840af4e27620acb9e33db2bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gmars/qiniu-tp5/zipball/59abcee895a81822840af4e27620acb9e33db2bd",
+                "reference": "59abcee895a81822840af4e27620acb9e33db2bd",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "gmars\\qiniu\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "weiyongqiang",
+                    "email": "weiyongqiang@weiyongqiang.com"
+                }
+            ],
+            "description": "这是一个基于ThinkPHP5框架的扩展库，主要解决了文件上传七牛云的需求。当然在后边的更新中会提供七牛云中文件的管理功能以及bucket的管理，让tp5上传七牛云非常便捷。",
+            "time": "2017-04-25T13:03:06+00:00"
         },
         {
             "name": "gmars/tp5-rbac",
