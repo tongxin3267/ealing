@@ -39,9 +39,10 @@ class Advertising extends Migrator
             ->addColumn(Column::integer('sort')->setLimit(11)->setDefault(0)->setComment('advertising space sort.'))
             ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
             ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+            
+            ->addIndex('space_id')
+            
             ->create();
-        
-        $table->addIndex('space_id');
     }
     
     /**

@@ -41,9 +41,10 @@ class AdvertisingSpace extends Migrator
             ->addColumn(Column::text('message')->setComment('advertising space form validation hints.'))
             ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
             ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+            
+            ->addIndex('channel')->addIndex('space')
+            
             ->create();
-        
-        $table->addIndex('channel')->addIndex('space');
     }
     
     /**
@@ -56,5 +57,5 @@ class AdvertisingSpace extends Migrator
     public function down()
     {
         $this->dropTable('advertising_space');
-    }    
+    }
 }
