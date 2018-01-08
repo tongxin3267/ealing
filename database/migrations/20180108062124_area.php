@@ -28,6 +28,30 @@ class Area extends Migrator
      */
     public function change()
     {
-
+        $table = $this->table('area', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('areas table');
+        
+        $table
+        ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('areas id.'))
+        ->addColumn(Column::string('name', 100)->setComment('areas name.'))
+        ->addColumn(Column::integer('pid')->setLimit(11)->setComment('areas parent id.'))
+        ->addColumn(Column::string('extends', 191)->setNullable()->setDefault(null)->setComment('extension content.'))
+        ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+        ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+        
+        ->addIndex('name')->addIndex('pid')
+        
+        ->create();
+    }
+    
+    /**
+    * Down Method.
+    * @date: 2018年1月8日 下午3:45:20
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function down()
+    {
+        $this->dropTable('area');
     }
 }
