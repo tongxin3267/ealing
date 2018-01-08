@@ -21,6 +21,9 @@ class ModuleConfig{
     public function run(&$params){
         $module = isset($params['module'][0]) ? $params['module'][0] : 'ealing';
         
+        // 载入公开助手函数库
+        include_once APP_PATH . 'ealing' . '/config/helper' . EXT;
+        
         if($module){
             // 加载模块配置
             $config = Config::load(APP_PATH . $module . '/config/config' . CONF_EXT);
@@ -49,6 +52,9 @@ class ModuleConfig{
             if (is_file(APP_PATH . $module . '/config/tags' . EXT)) {
                 Hook::import(include APP_PATH . $module . '/config/tags' . EXT);
             }
+            
+            
+            // 加载模块独立助手函数库
             
         }
     }
