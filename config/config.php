@@ -238,4 +238,9 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+    
+    //RBAC配置
+    'rbac'                   => [
+        'user'  => 'users'
+    ],
 ];
