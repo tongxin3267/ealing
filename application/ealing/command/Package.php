@@ -14,7 +14,7 @@ class Package extends Command
     private $list = [
         '__file__'   => [],
         '__dir__'    => ['config', 'controller/admin', 'controller/v1', 'model', 'route', 'services'],
-        'config'     => ['config'],
+        'config'     => ['config', 'publicHelper', 'privateHelper'],
         'controller/admin' => ['home'],
         'controller/v1' => ['home'],
         'model'      => [],
