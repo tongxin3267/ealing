@@ -28,6 +28,29 @@ class Advertising extends Migrator
      */
     public function change()
     {
-
+        $table = $this->table('advertising', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('advertising table');
+        
+        $table
+            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('advertising id.'))
+            ->addColumn(Column::integer('space_id')->setLimit(11)->setUnsigned()->setComment('advertising space id.'))
+            ->addColumn(Column::string('title', 191)->setComment('advertising title.'))
+            ->addColumn(Column::string('type', 191)->setComment('advertising type.'))
+            ->addColumn(Column::text('data')->setNullable()->setComment('for parmas.'))
+            ->addColumn(Column::integer('sort')->setLimit(11)->setDefault(0)->setComment('advertising space sort.'))
+            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+            ->create();
     }
+    
+    /**
+    * Down Method.
+    * @date: 2018年1月8日 下午2:42:59
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function down()
+    {
+        $this->dropTable('advertising');
+    }    
 }
