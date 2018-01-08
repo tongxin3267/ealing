@@ -33,7 +33,7 @@ class Package extends Command
     {
         $this
             ->setName('package')
-            ->setDescription('Here is the create package')
+            ->setDescription('Create a new module')
             ->addOption('packageName', 'd', Option::VALUE_OPTIONAL, 'Here is the package Name', null);
     }
     
