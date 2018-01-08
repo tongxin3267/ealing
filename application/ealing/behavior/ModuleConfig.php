@@ -22,7 +22,7 @@ class ModuleConfig{
         $module = isset($params['module'][0]) ? $params['module'][0] : 'ealing';
         
         // 载入公开助手函数库
-        include_once APP_PATH . 'ealing' . '/config/helper' . EXT;
+        
         
         if($module){
             // 加载模块配置
