@@ -40,6 +40,8 @@ class Advertising extends Migrator
             ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
             ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
             ->create();
+        
+        $table->addIndex('space_id');
     }
     
     /**
