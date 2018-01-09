@@ -40,7 +40,7 @@ www  WEB部署目录（或者子目录）
 │  │  ├─services        服务目录
 │  │  └─view        	视图目录（只有后端，前端都是API）
 │  │
-│  └─news				新闻项目
+│  └─news               新闻项目
 │
 ├─config				配置文件
 │  ├─command.php        cli命令扩展配置文件
