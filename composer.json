@@ -22,7 +22,9 @@
         "gmars/tp5-rbac": "dev-master",
         "topthink/think-migration": "1.1.1",
         "php-ai/php-ml": "^0.4.1",
-        "gmars/tp5-qiniu": "^1.0"
+        "gmars/tp5-qiniu": "^1.0",
+        "topthink/think-image": "^1.0",
+        "topthink/think-helper": "^1.0"
     },
     "extra": {
         "think-path": "thinkphp"
