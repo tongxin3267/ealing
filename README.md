@@ -16,30 +16,55 @@ www  WEB部署目录（或者子目录）
 ├─application           应用目录
 │  ├─ealing             主程拓展目录
 │  │  ├─behavior      	主程行为目录
-│  │  ├─config      	拓展配置目录
+│  │  ├─command      	主程cli命令目录
+│  │  │     └─Package.php   快速生成server项目
+│  │  ├─config      	配置目录
+│  │  │     ├─config.php    主程参数配置文件
+│  │  │     └─helper.php    主程助手函数文件
 │  │  ├─controller      控制器目录
-│  │  │     ├─v1        版本1目录
-|  |  |     ├─v2        版本2目录
-│  │  │     ├─AuthApi.php     授权基类
-│  │  │     ├─OpenApi.php     开放基类
-│  │  │     ├─Oauth.php       授权验证
-│  │  │     ├─Send.php        返回格式
-│  │  │     └─...			       其他基类
+│  │  │     ├─admin     后端主框架目录
+│  │  │     ├─v1        主程API版本1目录
+│  │  │     ├─AuthApi.php   授权基类
+│  │  │     ├─OpenApi.php   开放基类
+│  │  │     ├─Oauth.php     授权验证
+│  │  │     ├─Send.php      返回格式
+│  │  │     └─...			其他基类
+│  │  ├─lang            语言目录
+│  │  │     ├─en_us.php     英文语言文件
+│  │  │     └─zh_cn.php     中文语言文件
 │  │  ├─model           模型目录
+│  │  │     └─relations     关系模型目录
 │  │  ├─route           路由目录
-│  │  └─services        服务目录
+│  │  │     ├─admin.php     后台路由
+│  │  │     └─web.php       前台路由
+│  │  ├─services        服务目录
+│  │  └─view        	视图目录（只有后端，前端都是API）
 │  │
-│  └─feed         动态模型
+│  └─news         		新闻项目
 │
 ├─config				配置文件
+│  ├─command.php        cli命令扩展配置文件
+│  ├─common.php         应用公共（函数）文件
 │  ├─config.php         公共配置文件
-│  ├─tags.php           应用行为扩展定义文件
-│  └─database.php       数据库配置文件
+│  ├─database.php       数据库配置文件
+│  └─tags.php           应用行为扩展定义文件
+│
+├─database              数据文件
+│  ├─migrations         数据迁移文件目录
+│  └─seeds              基础数据导入文件目录
+│
+├─extend                扩展类库目录（可定义）
 │
 ├─public                WEB目录（对外访问目录）
+│  ├─h5                 H5版
+│  ├─pc                 PC版
 │  ├─index.php          入口文件
 │  ├─router.php         快速测试文件
 │  └─.htaccess          用于apache的重写
+│
+├─runtime               运行缓存目录
+│
+├─tests                 单元测试目录
 │
 ├─thinkphp              框架系统目录
 │  ├─lang               语言文件目录
@@ -55,12 +80,9 @@ www  WEB部署目录（或者子目录）
 │  ├─phpunit.xml        phpunit配置文件
 │  └─start.php          框架入口文件
 │
-├─extend                扩展类库目录
-├─runtime               应用的运行时目录（可写，可定制）
 ├─vendor                第三方类库目录（Composer依赖库）
 ├─build.php             自动生成定义文件（参考）
 ├─composer.json         composer 定义文件
-├─LICENSE.txt           授权说明文件
 ├─README.md             README 文件
 ├─think                 命令行入口文件
 ~~~
