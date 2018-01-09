@@ -15,6 +15,6 @@ class ExampleTest extends TestCase
 
     public function testBasicExample()
     {
-        $this->visit('/')->see('ThinkPHP');
+        $this->visit('/news/v1/news')->see('1');
     }
 }
