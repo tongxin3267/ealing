@@ -31,9 +31,9 @@ class RolePermission extends Migrator
         $table = $this->table('role_permission', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('role permission table');
         
         $table
-        ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('role permission id.'))
-        ->addColumn(Column::integer('role_id')->setLimit(11)->setNullable()->setDefault(0)->setComment('role id.'))
-        ->addColumn(Column::integer('permission_id')->setLimit(11)->setNullable()->setDefault(0)->setComment('permission id.'))
-        ->create();
+            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('role permission id.'))
+            ->addColumn(Column::integer('role_id')->setLimit(11)->setNullable()->setDefault(0)->setComment('role id.'))
+            ->addColumn(Column::integer('permission_id')->setLimit(11)->setNullable()->setDefault(0)->setComment('permission id.'))
+            ->create();
     }
 }

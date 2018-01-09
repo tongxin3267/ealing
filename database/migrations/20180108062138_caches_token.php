@@ -28,6 +28,33 @@ class CachesToken extends Migrator
      */
     public function change()
     {
-
+        $table = $this->table('caches_token', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('user token table');
+        
+        $table
+            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('token id.'))
+            ->addColumn(Column::integer('user_id')->setLimit(11)->setComment('user id.'))
+            ->addColumn(Column::string('access_token', 191)->setNullable()->setDefault(null)->setComment('cache token.'))
+            ->addColumn(Column::integer('expires_time')->setLimit(11)->setNullable()->setDefault(0)->setComment('token expires time.'))
+            ->addColumn(Column::text('client')->setComment('client info.'))
+            ->addColumn(Column::text('user')->setNullable()->setDefault(null)->setComment('user info.'))
+            ->addColumn(Column::tinyInteger('status')->setNullable()->setDefault(0)->setComment('token status.'))
+            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+            
+            ->addIndex('user_id')
+            
+            ->create();        
+    }
+    
+    /**
+    * Down Method.
+    * @date: 2018年1月9日 下午8:35:12
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function down()
+    {
+        $this->dropTable('caches_token');
     }
 }

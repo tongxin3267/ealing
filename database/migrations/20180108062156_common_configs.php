@@ -28,6 +28,29 @@ class CommonConfigs extends Migrator
      */
     public function change()
     {
-
+        $table = $this->table('common_configs', array('engine'=>'InnoDB', 'id'=>false))->setComment('common config table');
+        
+        $table
+            ->addColumn(Column::string('name', 100)->setComment('config name.'))
+            ->addColumn(Column::string('namespace', 100)->setComment('config namespace.'))
+            ->addColumn(Column::text('value')->setNullable()->setDefault(null)->setComment('config value.'))
+            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+            
+            ->setPrimaryKey(['name', ['namespace']])
+            
+            ->create();        
+    }
+    
+    /**
+    * Down Method.
+    * @date: 2018年1月9日 下午8:41:01
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function down()
+    {
+        $this->dropTable('common_configs');
     }
 }
