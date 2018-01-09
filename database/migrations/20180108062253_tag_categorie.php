@@ -28,6 +28,29 @@ class TagCategorie extends Migrator
      */
     public function change()
     {
-
+        $table = $this->table('tag_categories', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('tags cate table');
+        
+        $table
+            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('tags cate id.'))
+            ->addColumn(Column::string('name', 150)->setComment('tags cate name.'))
+            ->addColumn(Column::integer('weight')->setLimit(11)->setNullable()->setDefault(0)->setComment('tags cate weight for sort.'))
+            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+            
+            ->addIndex('app_key')
+            
+            ->create();
+    }
+    
+    /**
+    * Down Method.
+    * @date: 2018年1月9日 下午9:01:19
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function down()
+    {
+        $this->dropTable('tag_categories');
     }
 }
