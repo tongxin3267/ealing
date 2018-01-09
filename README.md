@@ -28,7 +28,7 @@ www  WEB部署目录（或者子目录）
 │  │  │     ├─OpenApi.php   开放基类
 │  │  │     ├─Oauth.php     授权验证
 │  │  │     ├─Send.php      返回格式
-│  │  │     └─...			其他基类
+│  │  │     └─...           其他基类
 │  │  ├─lang            语言目录
 │  │  │     ├─en_us.php     英文语言文件
 │  │  │     └─zh_cn.php     中文语言文件
@@ -42,7 +42,7 @@ www  WEB部署目录（或者子目录）
 │  │
 │  └─news               新闻项目
 │
-├─config				配置文件
+├─config                配置文件
 │  ├─command.php        cli命令扩展配置文件
 │  ├─common.php         应用公共（函数）文件
 │  ├─config.php         公共配置文件
