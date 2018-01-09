@@ -110,7 +110,7 @@ Route::resource('v1/goods','ealing/v1.Goods');
 
 ## 其他说明
 
-交流QQ群号：484193834
+交流QQ群号：[484193834](http://shang.qq.com/wpa/qunwpa?idkey=b6f7b764cd876af1c39e8cdcb48d45063b1744a5ce3b4f903346da33923ac3a6)
 
 ## 版权信息
 
