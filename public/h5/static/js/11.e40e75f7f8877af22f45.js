@@ -1,0 +1,2 @@
+webpackJsonp([11],{"e7J/":function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var l={name:"feedsDetail"},r={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("动态详情")])},staticRenderFns:[]},s=n("VU/8")(l,r,!1,null,null,null);t.default=s.exports}});
+//# sourceMappingURL=11.e40e75f7f8877af22f45.js.map
