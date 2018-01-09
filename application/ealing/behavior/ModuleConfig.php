@@ -75,7 +75,7 @@ class ModuleConfig{
                 include APP_PATH . $app . '/config/publicHelper' . CONF_EXT;
             }
         }else{
-            include APP_PATH . $module . '/config/privateHelper' . CONF_EXT;
+            if($module != 'ealing') include APP_PATH . $module . '/config/privateHelper' . CONF_EXT;
         }
     }
 }
