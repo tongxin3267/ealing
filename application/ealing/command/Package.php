@@ -13,14 +13,15 @@ class Package extends Command
 {
     private $list = [
         '__file__'   => [],
-        '__dir__'    => ['config', 'controller/admin', 'controller/v1', 'lang', 'model', 'route', 'services'],
+        '__dir__'    => ['config', 'controller/admin', 'controller/v1', 'lang', 'model', 'route', 'services', 'view'],
         'config'     => ['config', 'publicHelper', 'privateHelper'],
         'controller/admin' => ['home'],
         'controller/v1' => ['home'],
-        'lang'  => ['zh-cn', 'en-us'],
+        'lang'       => ['zh-cn', 'en-us'],
         'model'      => ['Model'],
         'route'      => ['admin', 'web'],
         'services'   => ['Service'],
+        'view'       => [],
     ];
     
     /**
