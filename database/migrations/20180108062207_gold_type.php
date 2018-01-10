@@ -37,9 +37,6 @@ class GoldType extends Migrator
             ->addColumn(Column::tinyInteger('status')->setNullable()->setDefault(1)->setComment('status 1-open 0-close'))
             ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
             ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
-            
-            ->addIndex('name')->addIndex('pid')
-            
             ->create();
     }
     

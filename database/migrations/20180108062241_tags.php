@@ -37,9 +37,6 @@ class Tags extends Migrator
             ->addColumn(Column::integer('weight')->setLimit(11)->setNullable()->setDefault(0)->setComment('tags weight for sort.'))
             ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
             ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
-            
-            ->addIndex('app_key')
-            
             ->create();
     }
     

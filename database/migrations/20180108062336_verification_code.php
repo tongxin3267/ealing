@@ -40,7 +40,7 @@ class VerificationCode extends Migrator
             ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
             ->addColumn(Column::timestamp('deleted_at')->setNullable()->setDefault(null)->setComment('deleted time.'))
             
-            ->addIndex('account')->addIndex('user_id')
+            ->addIndex('user_id')->addIndex('account')
             
             ->create();
     }

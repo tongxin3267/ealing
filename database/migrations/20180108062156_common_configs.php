@@ -37,7 +37,7 @@ class CommonConfigs extends Migrator
             ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
             ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
             
-            ->setPrimaryKey(['name', ['namespace']])
+            ->setPrimaryKey(['name', 'namespace'])
             
             ->create();        
     }

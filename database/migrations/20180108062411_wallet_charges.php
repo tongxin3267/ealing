@@ -31,8 +31,8 @@ class WalletCharges extends Migrator
         $table = $this->table('wallet_charges', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('charges table');
         
         $table
-            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setNullable()->setDefault(null)->setComment('关联用户，可不存在，例如直接支付方式等。存在便于按照用户检索。.'))
-            ->addColumn(Column::integer('user_id')->setUnsigned()->setComment('cashes user id.'))
+            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('charges id.'))
+            ->addColumn(Column::integer('user_id')->setUnsigned()->setNullable()->setDefault(null)->setComment('关联用户，可不存在，例如直接支付方式等。存在便于按照用户检索。.'))
             ->addColumn(Column::string('channel', 100)->setComment('支付频道，参考 Ping++，增加 user 选项，表示站内用户凭据'))
             ->addColumn(Column::string('account', 100)->setNullable()->setDefault(null)->setComment('交易账户，减项为目标账户，增项为来源账户，当 type 为 user 时，此处是用户ID'))
             ->addColumn(Column::string('charge_id', 150)->setNullable()->setDefault(null)->setComment('credential id(for ping++).'))
@@ -47,7 +47,7 @@ class WalletCharges extends Migrator
             ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
             ->addColumn(Column::timestamp('deleted_at')->setNullable()->setDefault(null)->setComment('deleted time.'))
             
-            ->addForeignKey('user_id', 'users', 'id', ['delete'=> 'SET_NULL', 'update'=> 'NO_ACTION'])
+            ->addForeignKey('user_id', 'users', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
             
             ->addIndex('user_id')
             ->addIndex('charge_id')
