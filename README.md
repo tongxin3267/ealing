@@ -99,14 +99,27 @@ php think migrate:run
 
 php think seed:run
 
-## 快速创建一个拓展控制器
+## 开发者助手
+
+快速生成一个拓展项目
+
+php think package --packageName feed
+
+快速创建一个拓展控制器
 
 cd 到项目根目录
 
-命令行 ：php think make:controller ealing/v1/Goods
+命令行 ：php think make:controller ealing/v1/User
 
-修改路由，注册一个资源路由：在route.php加入下面一行代码：
-Route::resource('v1/goods','ealing/v1.Goods'); 
+### 路由说明
+
+注册一个全资源的路由
+
+Route::resource('v1/user','ealing/v1.User'); 
+
+其他
+
+group（分组）、get（GET请求）、post（POST请求）...
 
 ## 其他说明
 
