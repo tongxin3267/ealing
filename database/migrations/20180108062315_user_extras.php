@@ -28,6 +28,29 @@ class UserExtras extends Migrator
      */
     public function change()
     {
-
+        $table = $this->table('user_extras', array('engine'=>'InnoDB', 'id'=>false))->setComment('user extras table');
+        
+        $table
+            ->addColumn(Column::integer('user_id')->setUnsigned()->setLimit(11)->setComment('user id.'))
+            ->addColumn(Column::integer('likes_count')->setUnsigned()->setLimit(11)->setNullable()->setDefault(0)->setComment('user likes count.'))
+            ->addColumn(Column::integer('comments_count')->setUnsigned()->setLimit(11)->setNullable()->setDefault(0)->setComment('user comments count.'))
+            ->addColumn(Column::integer('followers_count')->setUnsigned()->setLimit(11)->setNullable()->setDefault(0)->setComment('user followers count.'))
+            ->addColumn(Column::integer('followings_count')->setUnsigned()->setLimit(11)->setNullable()->setDefault(0)->setComment('user followings count.'))
+            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+            ->addColumn(Column::timestamp('deleted_at')->setNullable()->setDefault(null)->setComment('deleted time.'))
+            ->create();
+    }
+    
+    /**
+    * Down Method.
+    * @date: 2018年1月10日 上午10:06:54
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function down()
+    {
+        $this->dropTable('user_extras');
     }
 }
