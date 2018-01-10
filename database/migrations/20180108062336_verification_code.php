@@ -28,6 +28,32 @@ class VerificationCode extends Migrator
      */
     public function change()
     {
-
+        $table = $this->table('verification_code', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('verification code table');
+        
+        $table
+            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('code id.'))
+            ->addColumn(Column::integer('user_id')->setUnsigned()->setLimit(11)->setComment('user id.'))
+            ->addColumn(Column::string('channel', 50)->setComment('send channer eg:mail、sms.'))
+            ->addColumn(Column::string('account')->setComment('send account.'))
+            ->addColumn(Column::string('code', 20)->setComment('send code.'))
+            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+            ->addColumn(Column::timestamp('deleted_at')->setNullable()->setDefault(null)->setComment('deleted time.'))
+            
+            ->addIndex('account')->addIndex('user_id')
+            
+            ->create();
+    }
+    
+    /**
+    * Down Method.
+    * @date: 2018年1月10日 上午10:32:47
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function down()
+    {
+        $this->dropTable('verification_code');
     }
 }
