@@ -8,6 +8,10 @@ namespace app\ealing\model;
 
 class Area extends BaseModel
 {
+    protected $autoWriteTimestamp = 'timestamp';
+    protected $createTime = 'created_at';
+    protected $updateTime = 'updated_at';
+    
     /**
     * 根据父级获取子地区
     * @date: 2017年12月8日 上午8:34:42

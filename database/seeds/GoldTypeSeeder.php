@@ -1,6 +1,7 @@
 <?php
 
 use think\migration\Seeder;
+use app\ealing\model\GoldType;
 
 class GoldTypeSeeder extends Seeder
 {
@@ -14,6 +15,9 @@ class GoldTypeSeeder extends Seeder
      */
     public function run()
     {
-
+        $count = GoldType::where('name', '积分')->count();
+        if (! $count) {
+            GoldType::create(['name' => '积分', 'unit' => '点', 'status' => 1]);
+        }
     }
 }

@@ -8,6 +8,10 @@ namespace app\ealing\model;
 
 class AdvertisingSpace extends BaseModel
 {
+    protected $autoWriteTimestamp = 'timestamp';
+    protected $createTime = 'created_at';
+    protected $updateTime = 'updated_at';
+
     protected $fillable = ['channel', 'space', 'alias', 'allow_type', 'format', 'rule', 'message'];
 
     protected $casts = [

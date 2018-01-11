@@ -8,5 +8,9 @@ namespace app\ealing\model;
 
 class GoldType extends BaseModel
 {
+    protected $autoWriteTimestamp = 'timestamp';
+    protected $createTime = 'created_at';
+    protected $updateTime = 'updated_at';
+    
     public $fillable = ['name', 'unit', 'status'];
 }
