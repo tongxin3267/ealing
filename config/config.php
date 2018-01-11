@@ -238,14 +238,4 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
-    
-    //RBAC配置
-    'rbac'                   => [
-        'user'  => 'users'
-    ],
-    
-    //APP_ENV配置
-    'ENV'   => [
-        'APP_ENV'   => 'local'
-    ]
 ];
