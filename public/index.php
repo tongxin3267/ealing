@@ -24,6 +24,9 @@ header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 
+// ealing 服务端版本记录
+define('EALING_SERVER_VERSION', '0.0.1');
+
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/../application/');
   
