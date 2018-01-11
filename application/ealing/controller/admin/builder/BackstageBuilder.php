@@ -16,10 +16,9 @@ class BackstageBuilder extends Backstage{
         $viewReplaceStr = [
             '__PUBLIC__' => $root.'/',
             '__STATIC__' =>$root.'/static',
-            '__B_IMG__' =>$root.'/static/backstage/images',
-            '__B_CSS__' =>$root.'/static/backstage/css',
-            '__B_JS__' =>$root.'/static/backstage/js',
-            '__TEMP__' => $root.'/template',
+            '__B_IMG__' =>$root.'/backstage/images',
+            '__B_CSS__' =>$root.'/backstage/css',
+            '__B_JS__' =>$root.'/backstage/js',
             '__ROOT__'=>$root,
             '__ZUI__' => $root . '/static/zui',
             '__UPLOAD__' => $root,
