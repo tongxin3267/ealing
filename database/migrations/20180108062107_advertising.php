@@ -28,21 +28,24 @@ class Advertising extends Migrator
      */
     public function change()
     {
-        $table = $this->table('advertising', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('advertising table');
+        $exists = $this->hasTable('advertising');
         
-        $table
-            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('advertising id.'))
-            ->addColumn(Column::integer('space_id')->setLimit(11)->setUnsigned()->setComment('advertising space id.'))
-            ->addColumn(Column::string('title', 191)->setComment('advertising title.'))
-            ->addColumn(Column::string('type', 191)->setComment('advertising type.'))
-            ->addColumn(Column::text('data')->setNullable()->setComment('for parmas.'))
-            ->addColumn(Column::integer('sort')->setLimit(11)->setDefault(0)->setComment('advertising space sort.'))
-            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
-            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+        if(!$exists){
+            $table = $this->table('advertising', array('engine'=>'InnoDB'))->setComment('advertising table');
             
-            ->addIndex('space_id')
-            
-            ->create();
+            $table
+                ->addColumn(Column::integer('space_id')->setLimit(11)->setUnsigned()->setComment('advertising space id.'))
+                ->addColumn(Column::string('title', 191)->setComment('advertising title.'))
+                ->addColumn(Column::string('type', 191)->setComment('advertising type.'))
+                ->addColumn(Column::text('data')->setNullable()->setComment('for parmas.'))
+                ->addColumn(Column::integer('sort')->setLimit(11)->setDefault(0)->setComment('advertising space sort.'))
+                ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+                ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+                
+                ->addIndex('space_id')
+                
+                ->create();            
+        }
     }
     
     /**

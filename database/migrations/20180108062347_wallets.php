@@ -28,20 +28,23 @@ class Wallets extends Migrator
      */
     public function change()
     {
-        $table = $this->table('wallets', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('wallets table');
+        $exists = $this->hasTable('wallets');
         
-        $table
-            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('wallets id.'))
-            ->addColumn(Column::integer('user_id')->setUnsigned()->setUnique()->setComment('wallets owner user id.'))
-            ->addColumn(Column::bigInteger('balance')->setUnsigned()->setComment('wallets balance'))
-            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
-            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+        if(!$exists){
+            $table = $this->table('wallets', array('engine'=>'InnoDB'))->setComment('wallets table');
             
-            ->addForeignKey('user_id', 'users', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
-            
-            ->addIndex('balance')
-            
-            ->create();
+            $table
+                ->addColumn(Column::integer('user_id')->setUnique()->setComment('wallets owner user id.'))
+                ->addColumn(Column::bigInteger('balance')->setUnsigned()->setComment('wallets balance'))
+                ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+                ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+                
+                ->addForeignKey('user_id', 'users', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
+                
+                ->addIndex('balance')
+                
+                ->create();
+        }
     }
     
     /**

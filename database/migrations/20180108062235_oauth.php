@@ -28,20 +28,23 @@ class Oauth extends Migrator
      */
     public function change()
     {
-        $table = $this->table('oauth', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('oauth table');
+        $exists = $this->hasTable('oauth');
         
-        $table
-            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('oauth id.'))
-            ->addColumn(Column::string('app_key', 191)->setComment('app key.'))
-            ->addColumn(Column::string('app_secret', 191)->setNullable()->setDefault(null)->setComment('app secret.'))
-            ->addColumn(Column::integer('expires_in')->setLimit(11)->setComment('app oauth expires time.'))
-            ->addColumn(Column::string('remark', 191)->setComment('remark.'))
-            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
-            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+        if(!$exists){
+            $table = $this->table('oauth', array('engine'=>'InnoDB'))->setComment('oauth table');
             
-            ->addIndex('app_key')
-            
-            ->create();
+            $table
+                ->addColumn(Column::string('app_key', 191)->setComment('app key.'))
+                ->addColumn(Column::string('app_secret', 191)->setNullable()->setDefault(null)->setComment('app secret.'))
+                ->addColumn(Column::integer('expires_in')->setLimit(11)->setComment('app oauth expires time.'))
+                ->addColumn(Column::string('remark', 191)->setComment('remark.'))
+                ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+                ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+                
+                ->addIndex('app_key')
+                
+                ->create();            
+        }
     }
     
     /**

@@ -28,19 +28,22 @@ class Role extends Migrator
      */
     public function change()
     {
-        $table = $this->table('role', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('user role table');
+        $exists = $this->hasTable('role');
         
-        $table
-            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('role id.'))
-            ->addColumn(Column::string('name', 50)->setNullable()->setComment('role name.'))
-            ->addColumn(Column::integer('parent_id')->setLimit(11)->setNullable()->setDefault(0)->setComment('role pid.'))
-            ->addColumn(Column::string('description', 200)->setNullable()->setDefault(null)->setComment('role description.'))
-            ->addColumn(Column::tinyInteger('status')->setLimit(1)->setNullable()->setDefault(0)->setComment('role status.'))
-            ->addColumn(Column::integer('sort_num')->setLimit(11)->setNullable()->setDefault(0)->setComment('role list sort.'))
-            ->addColumn(Column::integer('left_key')->setLimit(11)->setNullable()->setDefault(0)->setComment('For an organization'))
-            ->addColumn(Column::integer('right_key')->setLimit(11)->setNullable()->setDefault(0)->setComment('To organize the relationship between rvalue'))
-            ->addColumn(Column::integer('level')->setLimit(11)->setNullable()->setDefault(0)->setComment('role for level'))
-            ->create();        
+        if(!$exists){
+            $table = $this->table('role', array('engine'=>'InnoDB'))->setComment('user role table');
+            
+            $table
+                ->addColumn(Column::string('name', 50)->setNullable()->setComment('role name.'))
+                ->addColumn(Column::integer('parent_id')->setLimit(11)->setNullable()->setDefault(0)->setComment('role pid.'))
+                ->addColumn(Column::string('description', 200)->setNullable()->setDefault(null)->setComment('role description.'))
+                ->addColumn(Column::tinyInteger('status')->setLimit(1)->setNullable()->setDefault(0)->setComment('role status.'))
+                ->addColumn(Column::integer('sort_num')->setLimit(11)->setNullable()->setDefault(0)->setComment('role list sort.'))
+                ->addColumn(Column::integer('left_key')->setLimit(11)->setNullable()->setDefault(0)->setComment('For an organization'))
+                ->addColumn(Column::integer('right_key')->setLimit(11)->setNullable()->setDefault(0)->setComment('To organize the relationship between rvalue'))
+                ->addColumn(Column::integer('level')->setLimit(11)->setNullable()->setDefault(0)->setComment('role for level'))
+                ->create();            
+        }      
     }
     
     /**

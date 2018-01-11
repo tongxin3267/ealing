@@ -28,16 +28,19 @@ class Permission extends Migrator
      */
     public function change()
     {
-        $table = $this->table('permission', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('permission table');
+        $exists = $this->hasTable('permission');
         
-        $table
-            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('permission id.'))
-            ->addColumn(Column::string('name', 50)->setNullable()->setDefault(null)->setComment('permission name.'))
-            ->addColumn(Column::string('path', 100)->setNullable()->setDefault(null)->setComment('permission path.'))
-            ->addColumn(Column::string('description', 200)->setNullable()->setDefault(null)->setComment('permission description.'))
-            ->addColumn(Column::tinyInteger('status')->setLimit(1)->setNullable()->setDefault(0)->setComment('permission status.'))
-            ->addColumn(Column::integer('create_time')->setLimit(11)->setNullable()->setDefault(0)->setComment('permission create time.'))
-            ->create();
+        if(!$exists){
+            $table = $this->table('permission', array('engine'=>'InnoDB'))->setComment('permission table');
+            
+            $table
+                ->addColumn(Column::string('name', 50)->setNullable()->setDefault(null)->setComment('permission name.'))
+                ->addColumn(Column::string('path', 100)->setNullable()->setDefault(null)->setComment('permission path.'))
+                ->addColumn(Column::string('description', 200)->setNullable()->setDefault(null)->setComment('permission description.'))
+                ->addColumn(Column::tinyInteger('status')->setLimit(1)->setNullable()->setDefault(0)->setComment('permission status.'))
+                ->addColumn(Column::integer('create_time')->setLimit(11)->setNullable()->setDefault(0)->setComment('permission create time.'))
+                ->create();            
+        }
     }
     
     /**

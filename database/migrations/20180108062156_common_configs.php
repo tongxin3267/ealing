@@ -28,18 +28,22 @@ class CommonConfigs extends Migrator
      */
     public function change()
     {
-        $table = $this->table('common_configs', array('engine'=>'InnoDB', 'id'=>false))->setComment('common config table');
+        $exists = $this->hasTable('common_configs');
         
-        $table
-            ->addColumn(Column::string('name', 100)->setComment('config name.'))
-            ->addColumn(Column::string('namespace', 100)->setComment('config namespace.'))
-            ->addColumn(Column::text('value')->setNullable()->setDefault(null)->setComment('config value.'))
-            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
-            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+        if(!$exists){
+            $table = $this->table('common_configs', array('engine'=>'InnoDB', 'id'=>false))->setComment('common config table');
             
-            ->setPrimaryKey(['name', 'namespace'])
-            
-            ->create();        
+            $table
+                ->addColumn(Column::string('name', 100)->setComment('config name.'))
+                ->addColumn(Column::string('namespace', 100)->setComment('config namespace.'))
+                ->addColumn(Column::text('value')->setNullable()->setDefault(null)->setComment('config value.'))
+                ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+                ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+                
+                ->setPrimaryKey(['name', 'namespace'])
+                
+                ->create();            
+        }
     }
     
     /**

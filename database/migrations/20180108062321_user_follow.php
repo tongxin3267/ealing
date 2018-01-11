@@ -28,20 +28,24 @@ class UserFollow extends Migrator
      */
     public function change()
     {
-        $table = $this->table('user_follow', array('engine'=>'InnoDB', 'id'=>false))->setComment('user follow table');
+        $exists = $this->hasTable('user_follow');
         
-        $table
-            ->addColumn(Column::integer('user_id')->setUnsigned()->setLimit(11)->setComment('user id.'))
-            ->addColumn(Column::integer('target')->setUnsigned()->setLimit(11)->setNullable()->setDefault(0)->setComment('target user.'))
-            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
-            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+        if(!$exists){
+            $table = $this->table('user_follow', array('engine'=>'InnoDB'))->setComment('user follow table');
             
-            ->addForeignKey('user_id', 'users', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
-            ->addForeignKey('target', 'users', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
-            
-            ->addIndex(['user_id', 'target'])
-            
-            ->create();
+            $table
+                ->addColumn(Column::integer('user_id')->setComment('user id.'))
+                ->addColumn(Column::integer('target')->setNullable()->setDefault(0)->setComment('target user.'))
+                ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+                ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+                
+                ->addForeignKey('user_id', 'users', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
+                ->addForeignKey('target', 'users', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
+                
+                ->addIndex('user_id')->addIndex('target')
+                
+                ->create();
+        }
     }
     
     /**

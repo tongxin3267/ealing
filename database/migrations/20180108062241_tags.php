@@ -28,16 +28,19 @@ class Tags extends Migrator
      */
     public function change()
     {
-        $table = $this->table('tags', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('tags table');
+        $exists = $this->hasTable('tags');
         
-        $table
-            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('tags id.'))
-            ->addColumn(Column::string('name', 150)->setComment('tags name.'))
-            ->addColumn(Column::integer('tag_category_id')->setLimit(11)->setComment('tags type.'))
-            ->addColumn(Column::integer('weight')->setLimit(11)->setNullable()->setDefault(0)->setComment('tags weight for sort.'))
-            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
-            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
-            ->create();
+        if(!$exists){
+            $table = $this->table('tags', array('engine'=>'InnoDB'))->setComment('tags table');
+            
+            $table
+                ->addColumn(Column::string('name', 150)->setComment('tags name.'))
+                ->addColumn(Column::integer('tag_category_id')->setLimit(11)->setComment('tags type.'))
+                ->addColumn(Column::integer('weight')->setLimit(11)->setNullable()->setDefault(0)->setComment('tags weight for sort.'))
+                ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+                ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+                ->create();            
+        }
     }
     
     /**

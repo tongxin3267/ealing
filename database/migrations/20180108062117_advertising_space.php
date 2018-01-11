@@ -28,23 +28,26 @@ class AdvertisingSpace extends Migrator
      */
     public function change()
     {
-        $table = $this->table('advertising_space', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('advertising space table');
+        $exists = $this->hasTable('advertising_space');
         
-        $table
-            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('advertising space id.'))
-            ->addColumn(Column::string('channel', 50)->setComment('advertising channel.'))
-            ->addColumn(Column::string('space', 191)->setUnique()->setComment('advertising space id.'))
-            ->addColumn(Column::string('alias', 191)->setComment('advertising space alias.'))
-            ->addColumn(Column::string('allow_type', 191)->setComment('advertising space allow type.'))
-            ->addColumn(Column::text('format')->setComment('advertising space data format.'))
-            ->addColumn(Column::text('rule')->setComment('advertising space data rule.'))
-            ->addColumn(Column::text('message')->setComment('advertising space form validation hints.'))
-            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
-            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+        if(!$exists){
+            $table = $this->table('advertising_space', array('engine'=>'InnoDB'))->setComment('advertising space table');
             
-            ->addIndex('channel')->addIndex('space')
-            
-            ->create();
+            $table
+                ->addColumn(Column::string('channel', 50)->setComment('advertising channel.'))
+                ->addColumn(Column::string('space', 191)->setUnique()->setComment('advertising space id.'))
+                ->addColumn(Column::string('alias', 191)->setComment('advertising space alias.'))
+                ->addColumn(Column::string('allow_type', 191)->setComment('advertising space allow type.'))
+                ->addColumn(Column::text('format')->setComment('advertising space data format.'))
+                ->addColumn(Column::text('rule')->setComment('advertising space data rule.'))
+                ->addColumn(Column::text('message')->setComment('advertising space form validation hints.'))
+                ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+                ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+                
+                ->addIndex('channel')->addIndex('space')
+                
+                ->create();            
+        }
     }
     
     /**

@@ -243,4 +243,9 @@ return [
     'rbac'                   => [
         'user'  => 'users'
     ],
+    
+    //APP_ENV配置
+    'ENV'   => [
+        'APP_ENV'   => 'local'
+    ]
 ];
