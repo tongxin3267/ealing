@@ -13,6 +13,6 @@ use think\Route;
 Route::group('ealingAdmin', function(){
     //主体框架后台路由
     Route::group('admin', function(){
-        Route::get('/', 'ealing/admin.Main/store');
+        Route::get('/', 'ealing/admin.Index/index');
     });  
 });
