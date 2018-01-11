@@ -14,6 +14,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-
+        echo Base64Encrypt('zhourui', 'YunshangEaling');exit;
     }
 }
