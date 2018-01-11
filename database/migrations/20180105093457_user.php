@@ -3,7 +3,7 @@
 use think\migration\Migrator;
 use think\migration\db\Column;
 
-class Users extends Migrator
+class User extends Migrator
 {
     /**
      * Change Method.
@@ -28,10 +28,10 @@ class Users extends Migrator
      */
     public function change()
     {
-        $exists = $this->hasTable('users');
+        $exists = $this->hasTable('user');
         
         if(!$exists){
-            $table = $this->table('users', array('engine'=>'InnoDB'))->setComment('user table');
+            $table = $this->table('user', array('engine'=>'InnoDB'))->setComment('user table');
             
             $table
                 ->addColumn(Column::string('name', 100)->setNullable()->setDefault(null)->setUnique()->setComment('user name.'))
@@ -58,6 +58,6 @@ class Users extends Migrator
      */
     public function down()
     {
-        $this->dropTable('users');
+        $this->dropTable('user');
     }    
 }

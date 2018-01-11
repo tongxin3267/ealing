@@ -39,8 +39,8 @@ class UserFollow extends Migrator
                 ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
                 ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
                 
-                ->addForeignKey('user_id', 'users', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
-                ->addForeignKey('target', 'users', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
+                ->addForeignKey('user_id', 'user', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
+                ->addForeignKey('target', 'user', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
                 
                 ->addIndex('user_id')->addIndex('target')
                 

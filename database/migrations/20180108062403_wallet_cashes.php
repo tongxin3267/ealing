@@ -44,7 +44,7 @@ class WalletCashes extends Migrator
                 ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
                 ->addColumn(Column::timestamp('deleted_at')->setNullable()->setDefault(null)->setComment('deleted time.'))
                 
-                ->addForeignKey('user_id', 'users', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
+                ->addForeignKey('user_id', 'user', 'id', ['delete'=> 'cascade', 'update'=> 'cascade'])
                 
                 ->addIndex('user_id')
                 

@@ -1,6 +1,8 @@
 <?php
 
 use think\migration\Seeder;
+use app\ealing\model\User;
+use think\Env;
 
 class UsersTableSeeder extends Seeder
 {
@@ -14,6 +16,11 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        echo Base64Encrypt('zhourui', 'YunshangEaling');exit;
+        $this->createFounderUser();
+    }
+    
+    protected function createFounderUser()
+    {
+        $user = User::create(['name' => 'root', 'password' => EalingEncrypt('root', Env::get('APP_KEY'))]);
     }
 }
