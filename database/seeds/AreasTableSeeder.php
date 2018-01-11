@@ -2,6 +2,7 @@
 
 use think\migration\Seeder;
 use app\ealing\model\Area;
+use think\Env;
 
 class AreasTableSeeder extends Seeder
 {
@@ -15,7 +16,109 @@ class AreasTableSeeder extends Seeder
      */
     public function run()
     {
+        //insert CN
+        $cn =Area::create([
+            'name'=>'中国',
+            'pid'=>0,
+            'extends'=>3,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s')
+        ]);
+        
         $gbs = array_keys($this->datas());
+        foreach ($gbs as $gb) {
+            $location = $this->get($gb);
+            $exp = explode(' ', $location);
+            $province_name = $this->array_get($exp, 0);
+            $city_name = $this->array_get($exp, 1);
+            $area_name = $this->array_get($exp, 2);
+            
+            $province = null;
+            if ($province_name) {
+                $province = Area::get(function($query) use($province_name, $cn){
+                   $query->where('name', $province_name); 
+                   $query->where('pid', $cn->id);
+                });
+
+                if (! $province) {
+                    $province = Area::create([
+                        'name' => $province_name,
+                        'pid'  => $cn->id,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s')
+                    ]);
+                }
+            }
+            
+            $city = null;
+            if ($province && $city_name) {
+                $city = Area::get(function($query) use($city_name, $province){
+                    $query->where('name', $city_name);
+                    $query->where('pid', $province->id);
+                });
+            
+                if (! $city) {
+                    $city = Area::create([
+                        'name' => $city_name,
+                        'pid'  => $province->id,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s')
+                    ]);
+                }
+            }
+            
+            if ($city && $area_name) {
+                $area = Area::get(function($query) use($area_name, $city){
+                    $query->where('name', $area_name);
+                    $query->where('pid', $city->id);
+                });
+            
+                if (! $area) {
+                    Area::create([
+                        'name' => $area_name,
+                        'pid'  => $city->id,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s')
+                    ]);
+                }
+            }
+        }
+    }
+
+    protected function get($code)
+    {
+        $code = preg_replace('/(00)+$/', '', $code);
+        $codeLength = strlen($code);
+        if ($codeLength < 2 || $codeLength > 6 || $codeLength % 2 !== 0) {
+            throw new \Exception('Invalid code');
+        }
+        $provinceCode = substr($code, 0, 2).'0000';
+        if (! isset($this->data[$provinceCode])) {
+            return;
+        }
+        $province = $this->data[$provinceCode];
+        if ($codeLength === 2) {
+            return $province;
+        }
+        $prefectureCode = substr($code, 0, 4).'00';
+        if (! isset($this->data[$prefectureCode])) {
+            return;
+        }
+        $area = $this->data[$prefectureCode];
+        if ($codeLength === 4) {
+            return $province.' '.$area;
+        }
+        if (! isset($this->data[$code])) {
+            return;
+        }
+        $name = $this->data[$code];
+
+        return $province.' '.$area.' '.$name;
+    }
+    
+    protected function array_get($arr, $index)
+    {
+        return sizeof($arr) > $index ? $arr[$index] : "";
     }
     
     /**
@@ -27,7 +130,7 @@ class AreasTableSeeder extends Seeder
     */
     protected function datas(): array
     {
-        if (config('ENV.APP_ENV') === 'testing') {
+        if (Env::get('APP_ENV') === 'testing') {
             return [];
         }
     
