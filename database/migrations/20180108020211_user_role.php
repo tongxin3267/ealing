@@ -28,13 +28,16 @@ class UserRole extends Migrator
      */
     public function change()
     {
-        $table = $this->table('user_role', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('user role table');
+        $exists = $this->hasTable('user_role');
         
-        $table
-            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('user role id.'))
-            ->addColumn(Column::integer('user_id')->setLimit(11)->setNullable()->setDefault(0)->setComment('user id.'))
-            ->addColumn(Column::integer('role_id')->setLimit(11)->setNullable()->setDefault(0)->setComment('role id.'))
-            ->create();
+        if(!$exists){
+            $table = $this->table('user_role', array('engine'=>'InnoDB'))->setComment('user role table');
+            
+            $table
+                ->addColumn(Column::integer('user_id')->setLimit(11)->setNullable()->setDefault(0)->setComment('user id.'))
+                ->addColumn(Column::integer('role_id')->setLimit(11)->setNullable()->setDefault(0)->setComment('role id.'))
+                ->create();
+        }
     }
     
     /**

@@ -28,21 +28,24 @@ class VerificationCode extends Migrator
      */
     public function change()
     {
-        $table = $this->table('verification_code', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('verification code table');
+        $exists = $this->hasTable('verification_code');
         
-        $table
-            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('code id.'))
-            ->addColumn(Column::integer('user_id')->setUnsigned()->setLimit(11)->setComment('user id.'))
-            ->addColumn(Column::string('channel', 50)->setComment('send channer eg:mail、sms.'))
-            ->addColumn(Column::string('account')->setComment('send account.'))
-            ->addColumn(Column::string('code', 20)->setComment('send code.'))
-            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
-            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
-            ->addColumn(Column::timestamp('deleted_at')->setNullable()->setDefault(null)->setComment('deleted time.'))
+        if(!$exists){
+            $table = $this->table('verification_code', array('engine'=>'InnoDB'))->setComment('verification code table');
             
-            ->addIndex('account')->addIndex('user_id')
-            
-            ->create();
+            $table
+                ->addColumn(Column::integer('user_id')->setUnsigned()->setLimit(11)->setComment('user id.'))
+                ->addColumn(Column::string('channel', 50)->setComment('send channer eg:mail、sms.'))
+                ->addColumn(Column::string('account')->setComment('send account.'))
+                ->addColumn(Column::string('code', 20)->setComment('send code.'))
+                ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+                ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+                ->addColumn(Column::timestamp('deleted_at')->setNullable()->setDefault(null)->setComment('deleted time.'))
+                
+                ->addIndex(['user_id','account'])
+                
+                ->create();
+        }
     }
     
     /**

@@ -28,19 +28,19 @@ class GoldType extends Migrator
      */
     public function change()
     {
-        $table = $this->table('gold_type', array('engine'=>'InnoDB', 'id'=>false, 'primary_key'=>'id'))->setComment('gold type table');
+        $exists = $this->hasTable('gold_type');
         
-        $table
-            ->addColumn(Column::integer('id')->setUnsigned()->setLimit(11)->setComment('gold type id.'))
-            ->addColumn(Column::string('name', 191)->setComment('gold type name.'))
-            ->addColumn(Column::string('unit', 191)->setNullable()->setDefault(null)->setComment('gold type unit.'))
-            ->addColumn(Column::tinyInteger('status')->setNullable()->setDefault(1)->setComment('status 1-open 0-close'))
-            ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
-            ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+        if(!$exists){
+            $table = $this->table('gold_type', array('engine'=>'InnoDB'))->setComment('gold type table');
             
-            ->addIndex('name')->addIndex('pid')
-            
-            ->create();
+            $table
+                ->addColumn(Column::string('name', 191)->setComment('gold type name.'))
+                ->addColumn(Column::string('unit', 191)->setNullable()->setDefault(null)->setComment('gold type unit.'))
+                ->addColumn(Column::tinyInteger('status')->setNullable()->setDefault(1)->setComment('status 1-open 0-close'))
+                ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
+                ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
+                ->create();            
+        }
     }
     
     /**
