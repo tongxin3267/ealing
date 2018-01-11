@@ -20,9 +20,7 @@ class AreasTableSeeder extends Seeder
         $cn =Area::create([
             'name'=>'中国',
             'pid'=>0,
-            'extends'=>3,
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
+            'extends'=>3
         ]);
         
         $gbs = array_keys($this->datas());
@@ -43,9 +41,7 @@ class AreasTableSeeder extends Seeder
                 if (! $province) {
                     $province = Area::create([
                         'name' => $province_name,
-                        'pid'  => $cn->id,
-                        'created_at'=>date('Y-m-d H:i:s'),
-                        'updated_at'=>date('Y-m-d H:i:s')
+                        'pid'  => $cn->id
                     ]);
                 }
             }
@@ -60,9 +56,7 @@ class AreasTableSeeder extends Seeder
                 if (! $city) {
                     $city = Area::create([
                         'name' => $city_name,
-                        'pid'  => $province->id,
-                        'created_at'=>date('Y-m-d H:i:s'),
-                        'updated_at'=>date('Y-m-d H:i:s')
+                        'pid'  => $province->id
                     ]);
                 }
             }
@@ -76,9 +70,7 @@ class AreasTableSeeder extends Seeder
                 if (! $area) {
                     Area::create([
                         'name' => $area_name,
-                        'pid'  => $city->id,
-                        'created_at'=>date('Y-m-d H:i:s'),
-                        'updated_at'=>date('Y-m-d H:i:s')
+                        'pid'  => $city->id
                     ]);
                 }
             }

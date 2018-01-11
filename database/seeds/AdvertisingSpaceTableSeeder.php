@@ -14,7 +14,6 @@ class AdvertisingSpaceTableSeeder extends Seeder
      */
     public function run()
     {
-        $seedTime = date('Y-m-d H:i:s');
         $data = [
             'channel' => 'boot',
             'space' => 'boot',
@@ -42,9 +41,7 @@ class AdvertisingSpaceTableSeeder extends Seeder
                     'link.url' => '广告位链接格式错误',
                     'duration' => '启动图广告时长不能为空',
                 ],
-            ]),
-            'created_at' => $seedTime,
-            'updated_at' => $seedTime
+            ])
         ];
         
         $AdvertisingSpace = $this->table('advertising_space');
