@@ -26,8 +26,7 @@
         "gmars/tp5-rbac": "dev-master",
         "gmars/tp5-qiniu": "^1.0",
         "tp5er/tp5-databackup": "dev-master",
-        "php-ai/php-ml": "^0.4.1",
-        "yfcmf/tp5-addons": "^1.0"
+        "php-ai/php-ml": "^0.4.1"
     },
     "extra": {
         "think-path": "thinkphp"
