@@ -13,6 +13,7 @@ ThinkPHP5 ealing
 
 ~~~
 www  WEB部署目录（或者子目录）
+├─addons                插件目录
 ├─application           应用目录
 │  ├─ealing             主程拓展目录
 │  │  ├─behavior      	主程行为目录
