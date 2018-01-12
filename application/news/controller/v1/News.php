@@ -7,6 +7,7 @@
 namespace app\news\controller\v1;
 
 use app\ealing\controller\AuthApi;
+use app\ealing\model\User as Users;
 
 class News extends AuthApi
 {
@@ -19,9 +20,18 @@ class News extends AuthApi
     * @param: variable
     * @return:
     */
-    public function store()
+    public function store(Users $model)
     {
-        return 1;
+        $model::get(function($query){
+            $query->where('id', 1);
+            $query->where('sex', 0);
+            $query->where(function($map){
+                $map->where('id',7);
+                $map->whereOr('name', 'root');
+            });
+        });
+        
+        echo $model->getLastSql();
     }
     
     /**
