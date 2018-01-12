@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9d27dc95c3c332af02e823b5b5bc5c6",
+    "content-hash": "638b8104c97f12d4e5a4d0b715ff0b76",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -1681,6 +1681,53 @@
                 "validate"
             ],
             "time": "2016-11-23T20:04:58+00:00"
+        },
+        {
+            "name": "yfcmf/tp5-addons",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rainfer520/tp5-addons.git",
+                "reference": "5ef41d85ceda6ae823d0e385e0d02f71c74fe379"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rainfer520/tp5-addons/zipball/5ef41d85ceda6ae823d0e385e0d02f71c74fe379",
+                "reference": "5ef41d85ceda6ae823d0e385e0d02f71c74fe379",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "topthink/think-helper": ">=1.0.4",
+                "topthink/think-installer": ">=1.0.10"
+            },
+            "type": "library",
+            "extra": {
+                "think-config": {
+                    "addons": "src/config.php"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "think\\": "src/"
+                },
+                "files": [
+                    "src/common.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "rainfer",
+                    "email": "81818832@qq.com"
+                }
+            ],
+            "description": "addons package for thinkphp5",
+            "homepage": "https://github.com/rainfer520/tp5-addons",
+            "time": "2017-02-18T13:48:16+00:00"
         }
     ],
     "packages-dev": [],
