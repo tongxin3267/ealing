@@ -5,7 +5,6 @@
 namespace app\ealing\controller;
 
 use think\Response;
-use think\Request;
 use think\response\Redirect;
 
 trait Send
@@ -16,6 +15,12 @@ trait Send
      * @var string
      */
     protected $restDefaultType = 'json';
+    
+    /**
+     * REST允许输出的资源类型列表
+     * @var array
+     */
+    protected $restOutputType = ['xml', 'json'];
     
     /**
      * 设置响应类型
