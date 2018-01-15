@@ -7,14 +7,12 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\OpenApi;
+use app\ealing\controller\BaseApi;
 use app\ealing\model\Area as AreaModel;
 use app\ealing\model\CommonConfigs;
 
-class Location extends OpenApi
+class Location extends BaseApi
 {
-    public $restMethodList = 'get';
-
     /**
     * get请求的城市搜索
     * @date: 2017年12月7日 上午10:20:51
@@ -81,8 +79,12 @@ class Location extends OpenApi
             $configMModel->scopeByName($query, 'hots_area');
         })->column('value');    
         
-        $hots = json_decode($hots[0], true);
-        array_multisort(array_column($hots,'sort'),SORT_ASC,$hots);
+        if(!empty($hots)) {
+            $hots = json_decode($hots[0], true);
+            array_multisort(array_column($hots,'sort'),SORT_ASC,$hots);
+        } else {
+            $hots = [];
+        }
         
         return $this->sendSuccess($hots, 'success', 200);
     }

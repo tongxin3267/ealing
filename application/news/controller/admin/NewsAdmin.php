@@ -6,12 +6,10 @@
 */
 namespace app\news\controller\admin;
 
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class NewsAdmin extends AuthApi
+class NewsAdmin extends BaseApi
 {
-    protected $openListAction = ['store', 'show'];
-    
     /**
     * 获取后台新闻列表数据
     * @date: 2017年12月27日 上午9:09:17

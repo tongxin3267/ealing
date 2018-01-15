@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class CurrentUser extends AuthApi
+class CurrentUser extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
     /**
     * 获取当前用户
     * @date: 2017年12月7日 下午3:29:36

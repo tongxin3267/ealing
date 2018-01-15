@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class WalletCash extends AuthApi
+class WalletCash extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
     /**
     * 获取提现记录
     * @date: 2017年12月7日 下午6:05:31

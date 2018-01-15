@@ -7,14 +7,12 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\OpenApi;
+use app\ealing\controller\BaseApi;
 use app\ealing\model\AdvertisingSpace;
 use app\ealing\model\Advertising as AdvModel;
 
-class Advertising extends OpenApi
+class Advertising extends BaseApi
 {
-    public $restMethodList = 'get';
-
     /**
     * 获得广告空间
     * @date: 2017年12月7日 下午3:37:06

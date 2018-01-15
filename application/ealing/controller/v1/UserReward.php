@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class UserReward extends AuthApi
+class UserReward extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
     /**
     * 打赏用户
     * @date: 2017年12月7日 下午6:03:30

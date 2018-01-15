@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class UserUnread extends AuthApi
+class UserUnread extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
    /**
    * 查看用户未读消息统计
    * @date: 2017年12月7日 下午4:42:43

@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class UserLike extends AuthApi
+class UserLike extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
    /**
    * 用户收到的赞
    * @date: 2017年12月7日 下午5:05:38

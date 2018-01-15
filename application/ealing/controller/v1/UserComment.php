@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class UserComment extends AuthApi
+class UserComment extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
    /**
    * 用户收到的评论
    * @date: 2017年12月7日 下午5:03:34

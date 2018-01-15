@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\OpenApi;
+use app\ealing\controller\BaseApi;
 
-class FindUser extends OpenApi
+class FindUser extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
     /**
     * 通过手机号查找
     * @date: 2017年12月7日 下午3:54:23

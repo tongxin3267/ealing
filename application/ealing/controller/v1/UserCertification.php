@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class UserCertification extends AuthApi
+class UserCertification extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
     /**
     * 申请认证
     * @date: 2017年12月7日 下午5:07:01

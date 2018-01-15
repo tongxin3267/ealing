@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\OpenApi;
+use app\ealing\controller\BaseApi;
 
-class UserFollow extends OpenApi
+class UserFollow extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
     /**
     * 获取用户关注者
     * @date: 2017年12月7日 下午4:06:25

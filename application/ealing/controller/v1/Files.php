@@ -7,14 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class Files extends AuthApi
+class Files extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
-    protected $openListAction = ['show'];
-    
     /**
     * 获取文件
     * @date: 2017年12月7日 下午3:52:36

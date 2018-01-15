@@ -3,13 +3,11 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\OpenApi;
+use app\ealing\controller\BaseApi;
 
 
-class User extends OpenApi
+class User extends BaseApi
 {
-    public $restMethodList = 'get|post|put';
-    
     /**
     * 创建一个用户
     * @date: 2017年12月7日 下午3:59:38

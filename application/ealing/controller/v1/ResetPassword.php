@@ -7,14 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class ResetPassword extends AuthApi
+class ResetPassword extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
-    protected $openListAction = ['retrieve'];
-    
     /**
     * 检索用户密码
     * @date: 2017年12月7日 下午4:09:23

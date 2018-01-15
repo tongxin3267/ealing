@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class UserNotification extends AuthApi
+class UserNotification extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
     /**
     * 用户通知列表
     * @date: 2017年12月7日 下午5:12:55

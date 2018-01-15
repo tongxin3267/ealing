@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class UserEmail extends AuthApi
+class UserEmail extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
     /**
     * 解除用户电子邮件绑定
     * @date: 2017年12月7日 下午6:05:31

@@ -6,13 +6,11 @@
 */
 namespace app\news\controller\v1;
 
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 use app\ealing\model\User as Users;
 
-class News extends AuthApi
-{
-    protected $openListAction = ['store', 'show'];
-    
+class News extends BaseApi
+{   
     /**
     * 获取新闻，用于主页   包含推荐新闻、热门新闻、最新新闻
     * @date: 2017年12月20日 上午10:16:05

@@ -7,14 +7,11 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\Factory;
+use app\ealing\controller\BaseApi;
 use app\ealing\model\VerificationCode;
-use app\ealing\controller\OpenApi;
 
-class VerifyCode extends OpenApi
+class VerifyCode extends BaseApi
 {
-    public $restMethodList = 'get|post';
-
     /**
      * 对应get请求的更新API
      * @date: 2017年12月4日 下午4:32:03
@@ -82,7 +79,7 @@ class VerifyCode extends OpenApi
 
         $data['account'] = $account;
         $data['channel'] = $channel;
-        $model = Factory::getInstance(VerificationCode::class)->create($data);
+        $model = VerificationCode::create($data);
         
         //DOTO:   这里要加入发送验证码的逻辑    短信   OR 邮件
         $model->notify($model);

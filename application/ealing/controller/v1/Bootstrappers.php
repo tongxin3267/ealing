@@ -7,12 +7,12 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
+use app\ealing\controller\BaseApi;
 use app\ealing\model\AdvertisingSpace;
 use app\ealing\model\GoldType;
-use app\ealing\controller\OpenApi;
 use app\ealing\model\CommonConfigs;
 
-class Bootstrappers extends OpenApi
+class Bootstrappers extends BaseApi
 {   
     /**
     * 对应get请求的获取API

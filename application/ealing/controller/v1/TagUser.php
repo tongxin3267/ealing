@@ -7,14 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class TagUser extends AuthApi
+class TagUser extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
-    protected $openListAction = ['userTgas'];
-    
     /**
     * 获取用户标签
     * @date: 2017年12月7日 下午4:07:46

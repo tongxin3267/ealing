@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class WalletConfig extends AuthApi
+class WalletConfig extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
     /**
     * 获取钱包配置信息
     * @date: 2017年12月7日 下午6:05:31

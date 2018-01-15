@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class WalletRecharge extends AuthApi
+class WalletRecharge extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
     /**
     * 充值钱包余额
     * @date: 2017年12月7日 下午6:13:05

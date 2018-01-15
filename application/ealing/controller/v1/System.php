@@ -8,14 +8,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class System extends AuthApi
+class System extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
-    protected $openListAction = ['about'];
-
     /**
     * 关于我们
     * @date: 2017年12月7日 下午3:42:49

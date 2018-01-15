@@ -7,12 +7,10 @@
 namespace app\ealing\controller\v1;
 
 use think\Controller;
-use app\ealing\controller\AuthApi;
+use app\ealing\controller\BaseApi;
 
-class Purchase extends AuthApi
+class Purchase extends BaseApi
 {
-    public $restMethodList = 'get|put';
-    
     /**
     * 显示一个付费节点
     * @date: 2017年12月7日 下午6:05:31
