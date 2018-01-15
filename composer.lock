@@ -4,8 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9d27dc95c3c332af02e823b5b5bc5c6",
+    "content-hash": "04ae1983447d89522826539e01d627b2",
     "packages": [
+        {
+            "name": "chouvc/ealing-packagest-addons",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chouvc/ealing-packagest-addons.git",
+                "reference": "14d9892d297eca44f0cb5edae32bf5e2b192e37c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chouvc/ealing-packagest-addons/zipball/14d9892d297eca44f0cb5edae32bf5e2b192e37c",
+                "reference": "14d9892d297eca44f0cb5edae32bf5e2b192e37c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "topthink/think-helper": ">=1.0.4",
+                "topthink/think-installer": ">=1.0.10"
+            },
+            "type": "library",
+            "extra": {
+                "think-config": {
+                    "addons": "src/config.php"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "think\\": "src/"
+                },
+                "files": [
+                    "src/common.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "chouvc",
+                    "email": "onep2p@163.com"
+                }
+            ],
+            "description": "addons package for ealing",
+            "time": "2018-01-15T02:36:26+00:00"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
@@ -1689,7 +1735,8 @@
     "stability-flags": {
         "gmars/tp5-nestedsets": 20,
         "gmars/tp5-rbac": 20,
-        "tp5er/tp5-databackup": 20
+        "tp5er/tp5-databackup": 20,
+        "chouvc/ealing-packagest-addons": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
