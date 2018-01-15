@@ -66,7 +66,9 @@ class BaseApi extends Controller
         
         $this->token = array(
             "iss" => Env::get('APP_URL'),
-            "iat" => $_SERVER['REQUEST_TIME']
+            "iat" => $_SERVER['REQUEST_TIME'],
+            "exp" => $_SERVER['REQUEST_TIME']+86400*30,//token令牌生命周期为30天
+            "nbf" => $_SERVER['REQUEST_TIME']-300,//设置创建令牌前5分钟外不被接受
         );
     }
     
