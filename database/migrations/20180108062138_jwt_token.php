@@ -3,7 +3,7 @@
 use think\migration\Migrator;
 use think\migration\db\Column;
 
-class Oauth extends Migrator
+class JwtToken extends Migrator
 {
     /**
      * Change Method.
@@ -28,34 +28,35 @@ class Oauth extends Migrator
      */
     public function change()
     {
-        $exists = $this->hasTable('oauth');
+        $exists = $this->hasTable('jwt_caches');
         
         if(!$exists){
-            $table = $this->table('oauth', array('engine'=>'InnoDB'))->setComment('oauth table');
+            $table = $this->table('jwt_caches', array('engine'=>'InnoDB'))->setComment('json web token table');
             
             $table
-                ->addColumn(Column::string('app_key', 191)->setComment('app key.'))
-                ->addColumn(Column::string('app_secret', 191)->setNullable()->setDefault(null)->setComment('app secret.'))
-                ->addColumn(Column::integer('expires_in')->setLimit(11)->setComment('app oauth expires time.'))
-                ->addColumn(Column::string('remark', 191)->setComment('remark.'))
+                ->addColumn(Column::integer('user_id')->setLimit(11)->setComment('user id.'))
+                ->addColumn(Column::string('key')->setComment('json web token key.'))
+                ->addColumn(Column::text('value')->setComment('json web token info.'))
+                ->addColumn(Column::integer('expires')->setLimit(11)->setNullable()->setDefault(0)->setComment('json web token expires time.'))
+                ->addColumn(Column::tinyInteger('status')->setNullable()->setDefault(0)->setComment('json web token status.'))
                 ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
                 ->addColumn(Column::timestamp('updated_at')->setNullable()->setDefault(null)->setComment('updated time.'))
                 
-                ->addIndex('app_key')
+                ->addIndex('key')->addIndex('user_id')
                 
                 ->create();            
-        }
+        }      
     }
     
     /**
     * Down Method.
-    * @date: 2018年1月9日 下午8:51:23
+    * @date: 2018年1月9日 下午8:35:12
     * @author: onep2p <324834500@qq.com>
     * @param: variable
     * @return:
     */
     public function down()
     {
-        $this->dropTable('oauth');
+        $this->dropTable('jwt_caches');
     }
 }
