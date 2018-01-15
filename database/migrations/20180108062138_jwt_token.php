@@ -36,7 +36,6 @@ class JwtToken extends Migrator
             $table
                 ->addColumn(Column::integer('user_id')->setLimit(11)->setComment('user id.'))
                 ->addColumn(Column::string('key')->setComment('json web token key.'))
-                ->addColumn(Column::text('value')->setComment('json web token info.'))
                 ->addColumn(Column::integer('expires')->setLimit(11)->setNullable()->setDefault(0)->setComment('json web token expires time.'))
                 ->addColumn(Column::tinyInteger('status')->setNullable()->setDefault(0)->setComment('json web token status.'))
                 ->addColumn(Column::timestamp('created_at')->setNullable()->setDefault(null)->setComment('created time.'))
