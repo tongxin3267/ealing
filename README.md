@@ -25,9 +25,7 @@ www  WEB部署目录（或者子目录）
 │  │  ├─controller      控制器目录
 │  │  │     ├─admin     后端主框架目录
 │  │  │     ├─v1        主程API版本1目录
-│  │  │     ├─AuthApi.php   授权基类
-│  │  │     ├─OpenApi.php   开放基类
-│  │  │     ├─Oauth.php     授权验证
+│  │  │     ├─BaseApi.php   授权基类
 │  │  │     ├─Send.php      返回格式
 │  │  │     └─...           其他基类
 │  │  ├─lang            语言目录
@@ -35,6 +33,7 @@ www  WEB部署目录（或者子目录）
 │  │  │     └─zh_cn.php     中文语言文件
 │  │  ├─model           模型目录
 │  │  │     └─relations     关系模型目录
+│  │  ├─validate        验证目录
 │  │  ├─route           路由目录
 │  │  │     ├─admin.php     后台路由
 │  │  │     └─web.php       前台路由
