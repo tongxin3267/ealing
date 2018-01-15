@@ -28,7 +28,8 @@
         "gmars/tp5-qiniu": "^1.0",
         "tp5er/tp5-databackup": "dev-master",
         "php-ai/php-ml": "^0.4.1",
-        "chouvc/ealing-packagest-addons": "dev-master"
+        "chouvc/ealing-packagest-addons": "dev-master",
+        "firebase/php-jwt": "4.0.0"
     },
     "extra": {
         "think-path": "thinkphp"
