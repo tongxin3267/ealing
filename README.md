@@ -92,6 +92,10 @@ www  WEB部署目录（或者子目录）
 
 cd 到项目根目录
 
+安装依赖
+
+composer install
+
 迁移数据
 
 php think migrate:run
