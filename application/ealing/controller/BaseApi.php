@@ -66,8 +66,7 @@ class BaseApi extends Controller
         
         $this->token = array(
             "iss" => Env::get('APP_URL'),
-            "iat" => $_SERVER['REQUEST_TIME'],
-            "exp" => $_SERVER['REQUEST_TIME']+3600
+            "iat" => $_SERVER['REQUEST_TIME']
         );
     }
     
