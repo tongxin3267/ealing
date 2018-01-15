@@ -30,7 +30,7 @@ class Token extends BaseApi
 		    $data = [
 		        'token' => JWT::encode($this->token, $this->app_key),
 		        'token_type' => $token_type,
-		        'expires_in' => 3600
+		        'expires_in' => 7200
 		    ];
 		    
 		    return $this->sendSuccess($data,'success',201);
@@ -59,7 +59,7 @@ class Token extends BaseApi
 	        $data = [
 	            'token' => JWT::encode($this->token, $this->app_key),
 	            'token_type' => 'bearer',
-	            'expires_in' => 3600
+	            'expires_in' => 7200
 	        ];
 	    
 	        return $this->sendSuccess($data,'success',201);
