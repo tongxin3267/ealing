@@ -22,9 +22,12 @@ class Token extends BaseApi
 	* @param: variable
 	* @return:
 	*/
-	public function store($uid = 0, $token_type = 'bearer')
+	public function store()
 	{
 		try {
+		    //:DOTO 用户验证
+		    $login = input('get.login', '', 'htmlspecialchars');
+		    
 		    $this->token['uid'] = $uid;
 
 		    $data = [
