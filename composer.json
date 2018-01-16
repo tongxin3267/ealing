@@ -29,7 +29,8 @@
         "tp5er/tp5-databackup": "dev-master",
         "php-ai/php-ml": "^0.4.1",
         "chouvc/ealing-packagest-addons": "dev-master",
-        "firebase/php-jwt": "4.0.0"
+        "firebase/php-jwt": "4.0.0",
+        "topthink/think-validate": "^1.0"
     },
     "extra": {
         "think-path": "thinkphp"
