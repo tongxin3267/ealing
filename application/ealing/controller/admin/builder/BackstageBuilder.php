@@ -29,7 +29,7 @@ class BackstageBuilder extends Backstage{
 
     public function display($templateFile='',$charset='',$contentType='',$content='',$prefix='') {
         //获取模版的名称
-        $template = '/builder/'.$templateFile;
+        $template = '/admin/builder/'.$templateFile;
         //显示页面
         return parent::display($template);
     }
