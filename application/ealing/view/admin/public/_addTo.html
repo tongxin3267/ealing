@@ -1,7 +1,8 @@
 <a class="btn btn-danger" data-role="addTo"><i class="icon-plus"></i> 添加到常用操作</a>
-<php>$controller = Request()->controller();
+{php}
+    $controller = Request()->controller();
     $current = model('Menu')->where("url like '%$controller/" . Request()->action() . "' AND pid > 0")->field('id')->find();
-</php>
+{/php}
 <input type="hidden" id="current" value="{$current}">
 
 <script>

@@ -1,10 +1,10 @@
 <label class="item-label">
     {$field.title|htmlspecialchars}
-    <if condition="$field['subtitle']">
+    {if condition="$field['subtitle']"}
         <span class="check-tips">（{$field.subtitle}）</span>
-    </if>
+    {/if}
 </label>
-<if condition="$field['name'] == 'action'">
+{if condition="$field['name'] == 'action'"}
     <p style="color: #f00;">
         开发人员注意
         你使用了一个名称为action的字段，
@@ -12,75 +12,77 @@
         [action]
         冲突，导致无法提交表单，请换用另外一个名字。
     </p>
-</if>
+{/if}
 <div class="controls layui-form-item">
-<switch name="field.type">
-    <case value="text">
+{switch name="field.type"}
+    {case value="text"}
         <input type="text" name="{$field.name}" value="{$field.value|htmlspecialchars}" class="input-large layui-input" />
-    </case>
-    <case value="password">
+    {/case}
+    {case value="password"}
         <input type="password" name="{$field.name}" value="{$field.value|htmlspecialchars}" class="input-large layui-input" />
-    </case>
-    <case value="label">
+    {/case}
+    {case value="label"}
         {$field.value}
-    </case>
-    <case value="hidden">
+    {/case}
+    {case value="hidden"}
         <input type="hidden" name="{$field.name}" value="{$field.value}" class=" input-large"/>
-    </case>
-    <case value="readonly">
+    {/case}
+    {case value="readonly"}
         <input type="hidden" name="{$field.name}" value="{$field.value}" class="text input-large layui-input"
                 placeholder="无需填写" readonly />
         <p class="lead" >{$field.value}</p>
-    </case>
-    <case value="area_readonly">
+    {/case}
+    {case value="area_readonly"}
         <p class="lead" >{$field.value}</p>
-    </case>
-    <case value="integer">
+    {/case}
+    {case value="integer"}
         <input type="text" name="{$field.name}" value="{$field.value}" class="text input-large layui-input"   />
-    </case>
-    <case value="uid">
+    {/case}
+    {case value="uid"}
         <input type="text" name="{$field.name}" value="{$field.value}" class="text input-large layui-input"   />
-    </case>
-    <case value="select">
+    {/case}
+    {case value="select"}
         <div class="input-large">
             <select name="{$field.name}">
-                <volist name="field.opt" id="option">
-                    <php>
+                {volist name="field.opt" id="option"}
+                    {php}
                         $selected = $field['value']==$key ? 'selected' : '';
-                    </php>
+                    {/php}
                     <option value="{$key}"  {$selected}>{$option}</option>
-                </volist>
+                {/volist}
             </select>
         </div>
-    </case>
-    <case value="colorPicker">
-        <php>
+    {/case}
+    {case value="colorPicker"}
+        {php}
             $colorPicker = 1;
-        </php>
+        {/php}
         <div class="color-picker">
             <input type="text" name="{$field.name}" class="simple_color_callback layui-input" onchange="setColorPicker(this);" value="{$field.value|default=''}" />
         </div>
-    </case>
-    <case value="radio">
-        <volist name="field.opt" id="option">
-            <php>
+    {/case}
+    {case value="radio"}
+        {volist name="field.opt" id="option"}
+            {php}
                 $checked = $field['value']==$key ? 'checked' : '';
                 $inputId = "id_$field[name]_$key";
-            </php>
+            {/php}
             <input type="radio" name="{$field.name}" value="{$key}" title="{$option}" {$checked} />
-        </volist>
-    </case>
-    <case value="icon">
+        {/volist}
+    {/case}
+    {case value="icon"}
         <div class='icon-chose input-large' title="选择icon" >
             <select name="{$field.name}" title="选择icon" class="chosen-icons" data-value="{$field.value|default='icon-star'}"></select>
         </div>
-        <php>
+        {php}
             if(!$have_icon){
             $have_icon=1;
-        </php>
+        {/php}
         <script src="__ZUI__/lib/chosen/chosen.icons.min.js"></script>
         <link href="__ZUI__/lib/chosen/chosen.icons.css" rel="stylesheet">
-        <php>}</php>
+        {php}
+            }
+        {/php}
         <script>
             $(function(){
                 $('.chosen-container').remove();
@@ -90,20 +92,20 @@
                 $('form select.chosen-icons').chosenIcons();
             });
         </script>
-    </case>
-    <case value="singleFile">
+    {/case}
+    {case value="singleFile"}
         {:widget('ealing/UploadFile/render',array(array('name'=>$field['name'],'value'=>$field['value'])))}
-    </case>
-    <case value="multiFile">
+    {/case}
+    {case value="multiFile"}
         {:widget('ealing/UploadMultiFile/render',array(array('name'=>$field['name'],'limit'=>9,'value'=>$field['value'])))}
-    </case>
-    <case value="singleImage">
+    {/case}
+    {case value="singleImage"}
         <div class="controls">
             <div id="upload_single_image_{$field.name}" style="padding-bottom: 5px;">选择图片</div>
             <input class="attach" type="hidden" name="{$field.name}" value="{$field['value']}"/>
             <div class="upload-img-box">
                 <div class="upload-pre-item popup-gallery">
-                <notempty name="field.value">
+                {notempty name="field.value"}
                     <div class="each">
                     <a href="{$field.value|get_cover='path'}" title="点击查看大图">
                         <img src="{$field.value|get_cover='path'}">
@@ -111,7 +113,7 @@
                         <div class="text-center opacity del_btn" ></div>
                         <div onclick="admin_image.removeImage($(this),'{$field.value}')"  class="text-center del_btn">删除</div>
                     </div>
-                </notempty>
+                {/notempty}
                 </div>
             </div>
         </div>
@@ -157,17 +159,17 @@
             })
         </script>
 
-    </case>
+    {/case}
 
-    <case value="multiImage">
+    {case value="multiImage"}
         <div class="controls multiImage">
             <div id="upload_multi_image_{$field.name}" style="padding-bottom: 5px;">选择图片</div>
             <input class="attach" type="hidden" name="{$field.name}" value="{$field['value']}"/>
             <div class="upload-img-box">
                 <div class="upload-pre-item popup-gallery">
-                    <notempty name="field.value">
-                        <php>$aIds = explode(',',$field['value']);</php>
-                        <volist name="aIds" id="aId">
+                    {notempty name="field.value"}
+                        {php}$aIds = explode(',',$field['value']);{/php}
+                        {volist name="aIds" id="aId"}
                             <div class="each">
                                 <a href="{$aId|get_cover='path'}" title="点击查看大图">
                                     <img src="{$aId|get_cover='path'}">
@@ -175,8 +177,8 @@
                                 <div class="text-center opacity del_btn" ></div>
                                 <div onclick="admin_image.removeImage($(this),'{$aId}')"  class="text-center del_btn">删除</div>
                             </div>
-                        </volist>
-                    </notempty>
+                        {/volist}
+                    {/notempty}
                 </div>
             </div>
         </div>
@@ -236,39 +238,39 @@
                 });
             })
         </script>
-    </case>
-    <case value="checkbox">
-        <php>
+    {/case}
+    {case value="checkbox"}
+        {php}
             $importCheckBox = true;
-        </php>
-        <php>
+        {/php}
+        {php}
             $field['value_array'] = explode(',', $field['value']);
-        </php>
-        <volist name="field.opt" id="option">
-            <php>
+        {/php}
+        {volist name="field.opt" id="option"}
+            {php}
                 $checked = in_array($key,$field['value_array']) ? 'checked' : '';
                 $inputId = "id_$field[name]_$key";
-            </php>
+            {/php}
             <input type="checkbox"  class="oneplus-checkbox" data-field-name="{$field.name}" lay-filter="oneplusCheckbox" value="{$key}" lay-skin="primary" title="{$option}" {$checked}  />
-        </volist>
+        {/volist}
         <input type="hidden" name="{$field.name}" class="oneplus-checkbox-hidden"
                data-field-name="{$field.name}" value="{$field.value}"/>
-    </case>
-    <case value="editor">
+    {/case}
+    {case value="editor"}
             {:widget('ealing/Ueditor/editor',array($field['name'],$field['name'],$field['value'],$field['style']['width'],$field['style']['height'],$field['config']))}
 
-    </case>
-    <case value="textarea">
+    {/case}
+    {case value="textarea"}
         <textarea name="{$field.name}" class="text input-large layui-textarea" >{$field.value|htmlspecialchars}</textarea>
-    </case>
-    <case value="time">
-        <php>
+    {/case}
+    {case value="time"}
+        {php}
             $importDatetimePicker = true;
             //默认为当前时间
             if(!$field['value']){
             $field['value'] = time();
             }
-        </php>
+        {/php}
         <input type="hidden" name="{$field.name}" value="{$field.value}"/>
         <div class="input-group  input-large">
             <div class="input-group-addon">
@@ -277,15 +279,15 @@
             <input type="text" data-field-name="{$field.name}" class="form-time layui-input pull-left"
                     value="{$field.value|time_format='H:i'}" placeholder="请选择时间"/>
         </div>
-    </case>
-    <case value="date">
-        <php>
+    {/case}
+    {case value="date"}
+        {php}
             $importDatetimePicker = true;
             //默认为当前时间
             if(!$field['value']){
             $field['value'] = time();
             }
-        </php>
+        {/php}
 
         <input type="hidden" name="{$field.name}" value="{$field.value}"/>
         <div class="input-group  input-large">
@@ -295,15 +297,15 @@
             <input type="text" data-field-name="{$field.name}" class="form-date layui-input pull-left"
                     value="{$field.value|time_format='Y-m-d'}" placeholder="请选择时间"/>
         </div>
-    </case>
-    <case value="datetime">
-        <php>
+    {/case}
+    {case value="datetime"}
+        {php}
             $importDatetimePicker = true;
             //默认为当前时间
             if(!$field['value']){
             $field['value'] = time();
             }
-        </php>
+        {/php}
         <input type="hidden" name="{$field.name}" value="{$field.value}"/>
         <div class="input-group  input-large">
             <div class="input-group-addon">
@@ -312,10 +314,10 @@
             <input type="text" data-field-name="{$field.name}" class="form-datetime  layui-input pull-left"
                     value="{$field.value|time_format='Y-m-d H:i:s'}" placeholder="请选择时间" />
         </div>
-    </case>
+    {/case}
 
     <!--添加城市选择（需安装城市联动插件,css样式不好处理排版有点怪）-->
-    <case value="city">
+    {case value="city"}
             <style type="text/css">
     			.form-control {
 				display:inline-block;
@@ -324,13 +326,13 @@
 			</style>
             <!--修正在编辑信息时无法正常显示已经保存的地区信息-->
             {:hook('J_China_City',array('province'=>$field['value']['0'],'city'=>$field['value']['1'],'district'=>$field['value']['2'],'community'=>$field['value']['3']))}
-    </case>
+    {/case}
 
-    <case value="nestable">
-        <php>$has_nestable=1;</php>
+    {case value="nestable"}
+        {php} $has_nestable=1; {/php}
         <input type="hidden" name="{$field.name}" value='{:json_encode($field["value"])}'/>
         <div class="nestables nestable-group" data-name="{$field.name}">
-            <php>foreach($field['value'] as $key =>$nestable){</php>
+            {php} foreach($field['value'] as $key =>$nestable){ {/php}
             <div class="portlet light bordered" data-id="{$nestable['data-id']}" data-title="{$nestable['title']}" style="float:left;margin-right:10px;width: {$nestable['width']|default=300}px;">
                 <div class="portlet-title">
                     <div class="caption">
@@ -339,94 +341,94 @@
                 </div>
                 <div class="portlet-body">
                     <div class="dd nestable_list_one" id="nestable_list_{$key+1}">
-                        <notEmpty name="nestable.items">
+                        {notEmpty name="nestable.items"}
                             <ol class="dd-list">
-                                <volist name="nestable.items" id="vo">
+                                {volist name="nestable.items" id="vo"}
                                     <li class="dd-item" data-id="{$vo.data-id}" data-title="{$vo.title}">
                                         <div class="dd-handle"> {$vo.title} </div>
                                     </li>
-                                </volist>
+                                {/volist}
                             </ol>
-                            <else/>
+                            {else/}
                             <div class="dd-empty"></div>
-                        </notEmpty>
+                        {/notEmpty}
                     </div>
                 </div>
             </div>
-            <php>}</php>
+            {php} } {/php}
             <div class="clearfix"></div>
         </div>
-    </case>
-    <case value="chosen">
+    {/case}
+    {case value="chosen"}
         <div class="input-large">
             <select name="{$field.name}"  multiple="multiple" data-placeholder="{$field.title}"  tabindex="-1" aria-hidden="true">
                 <option value=""></option>
-                <php>
+                {php}
                     if( key($field['opt']) === 0){
-                </php>
-                <volist name="field['opt']" id="option">
-                    <php>
+                {/php}
+                {volist name="field['opt']" id="option"}
+                    {php}
                         if($field['value']){
                         $selected = in_array(reset($option),$field['value'])? 'selected' : '';
                         }else{
                         $selected = '';
                         }
-                    </php>
+                    {/php}
                     <option value="{:reset($option)}" {$selected}>{$option|end|htmlspecialchars}</option>
-                </volist>
-                <php>
+                {/volist}
+                {php}
                     }else{
                     foreach($field['opt'] as $optgroupkey =>$optgroup){
-                </php>
+                {/php}
                 <optgroup label="{$optgroupkey}">
-                    <volist name="optgroup" id="option">
-                        <php>
+                    {volist name="optgroup" id="option"}
+                        {php}
                             $selected = in_array(reset($option),$field['value'])? 'selected' : '';
-                        </php>
+                        {/php}
                         <option value="{:reset($option)}" {$selected}>{$option|end|htmlspecialchars}</option>
-                    </volist>
+                    {/volist}
                 </optgroup>
-                <php>
+                {php}
                     }
                     }
-                </php>
+                {/php}
             </select>
         </div>
-    </case>
-    <case value="multiInput">
+    {/case}
+    {case value="multiInput"}
         <div class="clearfix" style="{$field['style']}">
-        <php>
+        {php}
             $field['name'] = is_array($field['name'])?$field['name']:explode('|',$field['name']);
             foreach($field['name'] as $key=>$val){
-        </php>
-        <switch name="field['config'][$key]['type']">
-            <case value="text">
+        {/php}
+        {switch name="field['config'][$key]['type']"}
+            {case value="text"}
                 <input type="text" name="{$val}" value="{$field['value'][$key]|htmlspecialchars}"
                        class=" pull-left text layui-input" style="{$field['config'][$key]['style']}" />
-            </case>
-            <case value="select">
+            {/case}
+            {case value="select"}
                 <div  style="float: left;{$field['config'][$key]['style']}">
                     <select name="{$val}" class="pull-left layui-input">
-                        <php>foreach($field['config'][$key]['opt'] as $key_opt =>$option){</php>
-                        <php>
+                        {php}foreach($field['config'][$key]['opt'] as $key_opt =>$option){ {/php}
+                        {php}
                             $selected = $field['value'][$key]==$key_opt ? 'selected' : '';
-                        </php>
+                        {/php}
                         <option value="{$key_opt}"{$selected}>{$option|htmlspecialchars}</option>
-                        <php>}</php>
+                        {php} } {/php}
                     </select>
                 </div>
-            </case>
-        </switch>
-        <php>
+            {/case}
+        {/switch}
+        {php}
             }
-        </php>
+        {/php}
         </div>
-    </case>
+    {/case}
 
-    <case value="autoComplete">
-        <php>
+    {case value="autoComplete"}
+        {php}
             $delimiter = $field['opt']['delimiter']?$field['opt']['delimiter']:',';
-        </php>
+        {/php}
 
         <input type="text" name="{$field.name}" value="{$field.value|htmlspecialchars}"
                class="text input-large layui-input" />
@@ -442,14 +444,14 @@
                 });
             });
         </script>
-    </case>
+    {/case}
 
-    <case value="userDefined">
+    {case value="userDefined"}
         {$field.definedHtml}
-    </case>
+    {/case}
 
-    <default/>
+    {default/}
     <span style="color: #f00;">错误：未知字段类型{$field.type}</span>
     <input type="hidden" name="{$field.name}" value="{$field.value|htmlspecialchars}"/>
-</switch>
+{/switch}
 </div>

@@ -1,25 +1,25 @@
-<extend name="Public/base"/>
+{extend name="admin/public/base"/}
 
-<block name="body">
+{block name="body"}
     <div class="layui-main">
         <div class="layui-elem-quote" >
             <a href="{:url('Index/index')}">首页<span class="layui-box">&gt;</span></a>
             <a><cite>{$title}</cite></a>
             <div class="page-toolbar">
-                <include file="public/_addTo"/>
+                {include file="admin/public/_addTo"/}
             </div>
         </div>
         <fieldset class="layui-elem-field layui-field-title">
             <legend>
-                {$title|htmlspecialchars} <if condition="$suggest">（{$suggest|htmlspecialchars}）</if>
+                {$title|htmlspecialchars} {if condition="$suggest"}（{$suggest|htmlspecialchars}）{/if}
             </legend>
         </fieldset>
         <div class="with-padding" style="margin-bottom: 0px;">
             <div class="fl layui-form">
                 <div class="layui-btn-group" style="margin-bottom: 10px;">
-                <volist name="buttonList" id="button">
+                {volist name="buttonList" id="button"}
                     <{$button.tag} {$button.attr}>{$button.title|htmlspecialchars}</{$button.tag}>&nbsp;
-                </volist>
+                {/volist}
                 </div>
 
                 <!-- 选择框select -->
@@ -47,29 +47,29 @@
                         }
                     </style>
                     <form id="selectForm" method="get" action="{$searchPostUrl}" class="form-dont-clear-url-param">
-                        <volist name="selects" id="select">
+                        {volist name="selects" id="select"}
                             <div class="oneselect">
                                 <div class="title">{$select.title}</div>
                                 <div class="select_box">
                                     <php> $select_get = input($select['name'],'-1'); </php>
-                                    <notempty name="select['attr']">
+                                    {notempty name="select['attr']"}
                                         <select name="{$select['name']}"  {$select['attr']}>
-                                            <volist name="select['arrvalue']" id="svo">
-                                                <option value="{$svo['id']}" <eq name="svo['id']" value="$select_get">selected</eq>>{$svo['value']}</option>
-                                            </volist>
+                                            {volist name="select['arrvalue']" id="svo"}
+                                                <option value="{$svo['id']}" {eq name="svo['id']" value="$select_get"}selected{/eq}>{$svo['value']}</option>
+                                            {/volist}
                                         </select>
-                                    <else/>
+                                    {else/}
                                         <select name="{$select['name']}"   lay-filter="select_text">
-                                            <volist name="select['arrvalue']" id="svo">
-                                                <option value="{$svo['id']}" <eq name="svo['id']" value="$select_get">selected</eq>>{$svo['value']}</option>
-                                            </volist>
+                                            {volist name="select['arrvalue']" id="svo"}
+                                                <option value="{$svo['id']}" {eq name="svo['id']" value="$select_get"}selected{/eq}>{$svo['value']}</option>
+                                            {/volist}
                                         </select>
-                                    </notempty>
+                                    {/notempty}
 
                                 </div>
                             </div>
-                        </volist>
-                        <volist name="datetime"  id ="date_time">
+                        {/volist}
+                        {volist name="datetime"  id ="date_time"}
                             <div class="oneselect">
                                 <div class="title">{$date_time.title}</div>
                                 <div class="select_box">
@@ -78,8 +78,8 @@
                                     <input style="width: 130px; float: none;" type="text" data-field-name="{$date_time.name}" class="form-datetime  layui-input" value="{$datetime_get|time_format}" placeholder="{$date_time.des}" />
                                 </div>
                             </div>
-                        </volist>
-                        <volist name="texts" id="text">
+                        {/volist}
+                        {volist name="texts" id="text"}
                             <div class="oneselect">
                                 <div class="title">{$text.title}</div>
                                 <div class="select_box">
@@ -87,8 +87,8 @@
                                     <input style="float: none;width:180px;" type="text" name="{$text.name}" class="layui-input"  value="{$text_get}" placeholder="{$text.des}" />
                                 </div>
                             </div>
-                        </volist>
-                        <notempty name="searchPostUrl">
+                        {/volist}
+                        {notempty name="searchPostUrl"}
                             <div class="oneselect">
                                 <div class="btns">
                                     <button class="layui-btn layui-btn-primary" type="submit">
@@ -96,16 +96,16 @@
                                     </button>
                                 </div>
                             </div>
-                        </notempty>
+                        {/notempty}
                     </form>
                 </div>
             </div>
         </div>
-        <notempty name="tips">
+        {notempty name="tips"}
             <div  class="with-padding">
                 {$tips}
             </div>
-        </notempty>
+        {/notempty}
         <div class="with-padding layui-form">
             <table id="table-data" class="layui-table" lay-even>
                 <!-- 表头 -->
@@ -114,35 +114,35 @@
                     <th  style="width: 20px">
                         <input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" />
                     </th>
-                    <volist name="keyList" id="field">
+                    {volist name="keyList" id="field"}
                         <th>{$field.title|htmlspecialchars}</th>
-                    </volist>
+                    {/volist}
                 </tr>
                 </thead>
 
                 <!-- 列表 -->
                 <tbody>
-                <notempty name="list">
-                    <foreach name="list" item="e">
+                {notempty name="list"}
+                    {foreach name="list" item="e"}
                         <tr>
                             <td>
                                 <input type="checkbox" class="ids" name="ids[]" lay-skin="primary" value="{$e['id']}" />
                             </td>
-                            <notempty name="keyList">
-                                <foreach name="keyList" item="field">
+                            {notempty name="keyList"}
+                                {foreach name="keyList" item="field"}
                                     <td style="display: none">{:preg_match_all('/href/i', $e[$field['name']], $m); }</td>
-                                    <if condition="mb_strlen($e[$field['name']],'UTF8') lt 30 ">
-                                        <td  style="width:auto;max-width: {$field['width']};" class="text-ellipsis" <eq name="field.opt" value="tooltip">data-title="{$e[$field['name']]}" data-role="watch"</eq>>{$e[$field['name']]}</td>
-                                        <elseif condition="$m[0] neq null" />
-                                        <td  data-role="tdclick" style="width:auto;max-width: {$field['width']};" class="text-ellipsis" <eq name="field.opt" value="tooltip">data-title="{$e[$field['name']]}" data-role="watch"</eq>>{$e[$field['name']]}</td>
-                                        <else/>
-                                        <td   title="双击显示全部内容" data-role="tdclick" style="width:auto;max-width: {$field['width']};" class="text-ellipsis" <eq name="field.opt" value="tooltip">data-title="{$e[$field['name']]}" data-role="watch"</eq><a href="{:url('index/index')}">{$e[$field['name']]}</a></td>
-                                    </if>
-                                </foreach>
-                            </notempty>
+                                    {if condition="mb_strlen($e[$field['name']],'UTF8') lt 30 "}
+                                        <td  style="width:auto;max-width: {$field['width']};" class="text-ellipsis" {eq name="field.opt" value="tooltip"}data-title="{$e[$field['name']]}" data-role="watch"{/eq}>{$e[$field['name']]}</td>
+                                        {elseif condition="$m[0] neq null" /}
+                                        <td  data-role="tdclick" style="width:auto;max-width: {$field['width']};" class="text-ellipsis" {eq name="field.opt" value="tooltip"}data-title="{$e[$field['name']]}" data-role="watch"{/eq}>{$e[$field['name']]}</td>
+                                        {else/}
+                                        <td   title="双击显示全部内容" data-role="tdclick" style="width:auto;max-width: {$field['width']};" class="text-ellipsis" {eq name="field.opt" value="tooltip"}data-title="{$e[$field['name']]}" data-role="watch"{/eq}<a href="{:url('index/index')}">{$e[$field['name']]}</a></td>
+                                    {/if}
+                                {/foreach}
+                            {/notempty}
                         </tr>
-                    </foreach>
-                </notempty>
+                    {/foreach}
+                {/notempty}
                 </tbody>
             </table>
         </div>
@@ -150,9 +150,9 @@
             {$pagination}
         </div>
     </div>
-</block>
+{/block}
 
-<block name="script">
+{block name="script"}
     <link type="text/css" rel="stylesheet" href="__STATIC__/js/ext/magnific/magnific-popup.css"/>
     <script type="text/javascript" src="__STATIC__/js/ext/magnific/jquery.magnific-popup.min.js"></script>
     <script type="text/javascript">
@@ -332,4 +332,4 @@
         //导航高亮
         highlight_subnav("{:url('ealing/admin'.'/'.Request()->controller().'/'.Request()->action())}");
     </script>
-</block>
+{/block}

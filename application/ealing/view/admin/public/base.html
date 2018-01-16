@@ -19,7 +19,7 @@
     <script type="text/javascript" src="__STATIC__/js/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="__B_JS__/jquery.mousewheel.js"></script>
     <!--<![endif]-->
-    <block name="style"></block>
+    {block name="style"}{/block}
     <script type="text/javascript">
         var ThinkPHP = window.Think = {
             "ROOT": "__ROOT__", //当前网站地址
@@ -37,26 +37,28 @@
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header header header-demo">
         <div class="layui-main">
-            <php>$logo = get_cover(modC('LOGO',0,'Config'),'path');
+            {php}
+                $logo = get_cover(modC('LOGO',0,'Config'),'path');
                 $logo = $logo?$logo:think_get_root().'/static/images/logo.png';
-            </php>
+            {/php}
             <a class="logo" href="{:url('Index/index')}">
                 <img src="{$logo}" alt="{$meta_title}" />
             </a>
             <ul class="layui-nav" pc="">
-                <volist name="__MENU__.main" id="menu">
-                    <neq name="menu.hide" value="1">
+                {volist name="__MENU__.main" id="menu"}
+                    {neq name="menu.hide" value="1"}
                         <li data-id="{$menu.id}" class="layui-nav-item {$menu.class|default=''}" pc="">
                             <a href="{$menu.url|url}">
                                 {$menu.title}
                             </a>
                         </li>
-                    </neq>
-                </volist>
+                    {/neq}
+                {/volist}
                 <li class="layui-nav-item" pc="">
-                    <php>
+                    {php}
                         $avatar = query_user(array('avatar128'));
-                    </php>
+                        if(empty($avatar)) $avatar = ['avatar32'=>think_get_root().'/static/images/default_avatar.jpg'];
+                    {/php}
                     <a href="javascript:;">
                         <img  src="{$avatar.avatar32}" class="small-img">
                         {:session('user_auth.username')}
@@ -79,9 +81,9 @@
                 <li class="layui-nav-item" mobile="">
                     <a href="javascript:;">更多<span class="layui-nav-more"></span></a>
                     <ul class="layui-nav-child">
-                        <volist name="__MENU__.main" id="menu">
+                        {volist name="__MENU__.main" id="menu"}
                             <li data-id="{$menu.id}"><a href="{$menu.url|url}">{$menu.title}</a></li>
-                        </volist>
+                        {/volist}
                     </ul>
                 </li>
             </ul>
@@ -91,26 +93,26 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll" id="sub_menu">
             <ul class="layui-nav layui-nav-tree" lay-filter="demo">
-                <notEmpty name="__MENU__.child">
-                    <volist name="__MENU__.child" id="children">
-                        <notEmpty name="children">
+                {notEmpty name="__MENU__.child"}
+                    {volist name="__MENU__.child" id="children"}
+                        {notEmpty name="children"}
                         <li class="layui-nav-item layui-nav-itemed">
                             <a href="javascript:;">{$key}</a>
                             <dl class="layui-nav-child">
-                                <volist name="children" id="child">
+                                {volist name="children" id="child"}
                                     <dd><a href="{$child.url|url}">{$child.title}</a></dd>
-                                </volist>
+                                {/volist}
                             </dl>
                         </li>
-                        </notEmpty>
-                    </volist>
-                </notEmpty>
+                        {/notEmpty}
+                    {/volist}
+                {/notEmpty}
             </ul>
         </div>
     </div>
 
     <div class="layui-body layui-tab-content">
-        <block name="body"></block>
+        {block name="body"}{/block}
     </div>
 
 </div>
@@ -139,9 +141,9 @@
     })();
 </script>
 <script type="text/javascript" src="__B_JS__/common.js"></script>
-<block name="script"></block>
-<block name="modal">
+{block name="script"}{/block}
+{block name="modal"}
 
-</block>
+{/block}
 </body>
 </html>

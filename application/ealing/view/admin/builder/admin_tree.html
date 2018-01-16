@@ -1,42 +1,42 @@
-<extend name="Public/base"/>
+{extend name="admin/public/base"/}
 
-<block name="body">
+{block name="body"}
     <div class="layui-main">
         <div class="layui-elem-quote" >
             <a href="{:url('Backstage/Index/index')}">首页<span class="layui-box">&gt;</span></a>
             <a><cite>{$title}</cite></a>
             <div class="page-toolbar">
-                <include file="Public/_addTo"/>
+                {include file="admin/public/_addTo"/}
             </div>
         </div>
         <fieldset class="layui-elem-field layui-field-title">
             <legend>
-                {$title|htmlspecialchars}            <if condition="$suggest"><span style="font-size: 14px;">（{$suggest|htmlspecialchars}）</span></if>
+                {$title|htmlspecialchars}            {if condition="$suggest"}<span style="font-size: 14px;">（{$suggest|htmlspecialchars}）</span>{/if}
             </legend>
         </fieldset>
         <div class="with-padding">
               <div class="tb-unit posr">
                     <div class="tb-unit-bar">
-                        <volist name="buttonList" id="button">
+                        {volist name="buttonList" id="button"}
                             <{$button.tag} {$button.attr} style="margin-right:5px;">{$button.title|htmlspecialchars}</{$button.tag}>
-                        </volist>
+                        {/volist}
                     </div>
                   <div class="category" style="padding: 5px;padding-bottom: 10px;">
                       <div class="hd clearfix">
                           <div class="fold">折叠</div>
                           <div class="order">排序</div>
-                          <volist name="keyList" id="field">
+                          {volist name="keyList" id="field"}
                               <th>{$field.title|htmlspecialchars}</th>
-                          </volist>
+                          {/volist}
                           <div class="order">代码</div>
                           <div class="name">名称</div>
                       </div>
-                      <php>
+                      {php}
                           $tree_list = new app\ealing\admin\builder\BackstageTreeListBuilder();
                           $tree_list->setLevel($level);
                           $tree_list->setModel($model);
                           echo $tree_list->tree($tree);
-                      </php>
+                      {/php}
                   </div>
               </div>
             <div class="page">
@@ -44,8 +44,8 @@
             </div>
         </div>
      </div>
-</block>
-<block name="script">
+{/block}
+{block name="script"}
     <script type="text/javascript">
         (function($){
             /* 分类展开收起 */
@@ -101,4 +101,4 @@
         //导航高亮
         highlight_subnav("{:url('ealing/admin'.'/'.Request()->controller().'/'.Request()->action())}");
     </script>
-</block>
+{/block}

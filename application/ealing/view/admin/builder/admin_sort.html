@@ -1,6 +1,6 @@
-<extend name="Public/base" />
+{extend name="admin/public/base" /}
 
-<block name="body">
+{block name="body"}
     <div class="layui-main">
         <fieldset class="layui-elem-field layui-field-title">
             <legend>
@@ -12,9 +12,9 @@
                 <div class="sort_center">
                     <div class="sort_option">
                         <select value="" size="8" class="form-select-size form-control">
-                            <volist name="list" id="vo">
+                            {volist name="list" id="vo"}
                                 <option class="ids" title="{$vo.title}" value="{$vo.id}">{$vo.title}</option>
-                            </volist>
+                            {/volist}
                         </select>
                     </div>
                     <div class="sort_btn">
@@ -26,16 +26,16 @@
                 </div>
                 <div class="sort_bottom">
                     <input type="hidden" name="ids">
-                    <volist name="buttonList" id="button">
+                    {volist name="buttonList" id="button"}
                         <a {$button.attr}>{$button.title}</a>&nbsp;&nbsp;
-                    </volist>
+                    {/volist}
                 </div>
             </form>
         </div>
     </div>
-</block>
+{/block}
 
-<block name="script">
+{block name="script"}
     <script type="text/javascript">
         $(function(){
             sort();
@@ -109,4 +109,4 @@
 
         })
     </script>
-</block>
+{/block}
