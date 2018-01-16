@@ -509,3 +509,48 @@ if(!function_exists("getSubByKey")){
         }
     }
 }
+
+if(!function_exists("modC")){
+    /**获取模块的后台设置
+     * @param        $key 获取模块的配置
+     * @param string $default 默认值
+     * @param string $module 模块名，不设置用当前模块名
+     * @return string
+     */
+    function modC($key, $default = '', $module = '')
+    {
+        $mod = $module ? $module : Request()->module();
+        if (Request()->module() == "install" && $key == "NOW_THEME") {
+            return $default;
+        }
+        $tag = 'conf_' . strtoupper($mod) . '_' . strtoupper($key);
+        $result = cache($tag);
+        if ($result === false) {
+            $config = db("Config")->field('value')->where(['name' => '_' . strtoupper($mod) . '_' . strtoupper($key)])->find();
+            if (!$config) {
+                $result = $default;
+            } else {
+                $result = $config['value'];
+            }
+            cache($tag, $result);
+        }
+        return $result;
+    }
+}
+
+if(!function_exists("is_login")){
+    /**
+     * 检测用户是否登录
+     * @return integer 0-未登录，大于0-当前登录用户ID
+     */
+    function is_login()
+    {
+
+        $user = session('user_auth');
+        if (empty($user)) {
+            return 0;
+        } else {
+            return session('user_auth_sign') == data_auth_sign($user) ? $user['uid'] : 0;
+        }
+    }
+}
