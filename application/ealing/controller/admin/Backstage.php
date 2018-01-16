@@ -42,6 +42,8 @@ class Backstage extends Controller{
                     $this->beforeAction($method, $options);
             }
         }
+
+        $this->assign('__MENU__', ['main'=>[]]);
     }
 
     // 初始化视图配置
@@ -49,4 +51,9 @@ class Backstage extends Controller{
     {
 
     }
+
+
+
+
+
 }
