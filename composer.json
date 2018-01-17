@@ -22,15 +22,18 @@
         "topthink/think-helper": "^1.0",
         "topthink/think-installer": "^1.0",
         "topthink/think-migration": "1.1.1",
-        "topthink/think-testing": "1.0.6",
+        "topthink/think-validate": "^1.0",
         "gmars/tp5-nestedsets": "dev-master",
         "gmars/tp5-rbac": "dev-master",
         "gmars/tp5-qiniu": "^1.0",
         "tp5er/tp5-databackup": "dev-master",
         "php-ai/php-ml": "^0.4.1",
         "chouvc/ealing-packagest-addons": "dev-master",
-        "firebase/php-jwt": "4.0.0",
-        "topthink/think-validate": "^1.0"
+        "chouvc/ealing-packagest-ueditor": "dev-master",
+        "firebase/php-jwt": "4.0.0"
+    },
+    "require-dev": {
+        "topthink/think-testing": "1.0.6"
     },
     "extra": {
         "think-path": "thinkphp"
