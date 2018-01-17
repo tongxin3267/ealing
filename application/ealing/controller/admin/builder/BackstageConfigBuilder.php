@@ -590,7 +590,7 @@ class BackstageConfigBuilder extends BackstageBuilder
         if (Request()->isPost()) {
             $data = $this->request->param();
             $success = false;
-            $configModel = model('Config');
+            $configModel = model('CommonConfigs');
 
             foreach ($data as $k => $v) {
                 if (in_array($k, $this->_filter)) {
@@ -636,7 +636,7 @@ class BackstageConfigBuilder extends BackstageBuilder
 
 
         } else {
-            $configs = model('Config')->where(['name' => ['like', '_' . strtoupper(Request()->controller()) . '_' . '%']])->limit(999)->select();
+            $configs = model('CommonConfigs')->where(['name' => ['like', '_' . strtoupper(Request()->controller()) . '_' . '%']])->limit(999)->select();
             $data = [];
             foreach ($configs as $k => $v) {
                 $key = str_replace('_' . strtoupper(Request()->controller()) . '_', '', strtoupper($v['name']));

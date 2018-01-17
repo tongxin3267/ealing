@@ -526,7 +526,7 @@ if(!function_exists("modC")){
         $tag = 'conf_' . strtoupper($mod) . '_' . strtoupper($key);
         $result = cache($tag);
         if ($result === false) {
-            $config = db("Config")->field('value')->where(['name' => '_' . strtoupper($mod) . '_' . strtoupper($key)])->find();
+            $config = db("CommonConfigs")->field('value')->where(['name' => '_' . strtoupper($mod) . '_' . strtoupper($key)])->find();
             if (!$config) {
                 $result = $default;
             } else {
