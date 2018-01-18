@@ -25,6 +25,8 @@ class ModuleConfig{
         $this->loadHelper();
         
         if($module){
+            config('template.view_path', APP_PATH . $module . DS . 'view' . DS);//使用类@方法的方式定制路由是，目录会错误，这里纠正下
+            
             // 加载模块配置
             $config = Config::load(APP_PATH . $module . '/config/config' . CONF_EXT);
 
