@@ -191,6 +191,3 @@ Route::group('ealing', function(){
         Route::get('/', 'ealing/admin.Index/index');
     });
 });
-    
-//默认API地址  与版本无关
-Route::miss('Error/index');
