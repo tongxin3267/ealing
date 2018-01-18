@@ -20,7 +20,7 @@ class Package extends Command
         'lang'       => ['zh-cn', 'en-us'],
         'model'      => ['Model'],
         'validate'   => [],
-        'route'      => ['route'],
+        'route'      => ['api', 'admin'],
         'services'   => ['Service'],
         'view'       => [],
     ];

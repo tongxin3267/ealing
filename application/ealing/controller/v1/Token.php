@@ -22,7 +22,7 @@ class Token extends BaseApi
 	* @param: variable
 	* @return:
 	*/
-	public function store()
+	public function store($uid = 1, $token_type = 'admin')
 	{
 		try {
 		    //:DOTO 用户验证
@@ -35,7 +35,7 @@ class Token extends BaseApi
 		        'token_type' => $token_type,
 		        'expires_in' => 7200
 		    ];
-		    
+
 		    return $this->sendSuccess($data,'success',201);
 		} catch (\Exception $e) {
 		    $this->sendError(500, 'server error!!', 500);

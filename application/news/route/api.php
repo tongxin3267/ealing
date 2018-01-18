@@ -25,12 +25,4 @@ Route::group('news', function(){
             return '获取置顶列表';
         });
     });
-    
-    
-    //后端路由
-    Route::group('admin', function(){
-        Route::get('/', function(){
-            return 'newsadmin';
-        });
-    });
 });
