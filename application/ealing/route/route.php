@@ -186,6 +186,10 @@ Route::group('ealing', function(){
             Route::post('/purchases/:node', 'ealing/v1.Purchase/pay');//为一个付费节点支付           
         });
     });
+    
+    Route::group('admin', function(){
+        Route::get('/', 'ealing/admin.Index/index');
+    });
 });
     
 //默认API地址  与版本无关

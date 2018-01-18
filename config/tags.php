@@ -12,7 +12,7 @@
 // 应用行为扩展定义文件
 return [
     // 应用初始化
-    'app_init'     => ['app\\ealing\\behavior\\RouteConfig'],
+    'app_init'     => [],
     // 应用开始
     'app_begin'    => ['app\\ealing\\behavior\\ModuleConfig'],
     // 模块初始化

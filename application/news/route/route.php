@@ -10,9 +10,27 @@
 // +----------------------------------------------------------------------
 use think\Route;
 
-Route::group('ealingAdmin', function(){
-    //主体框架后台路由
+Route::group('news', function(){
+    //前端路由   可以定义N个版本
+    Route::group('v1', function(){
+        Route::get('/', 'news/v1.News/store');
+        
+        Route::group('cates', function(){
+            Route::get('/', function(){
+                return 123;
+            });
+        });
+        
+        Route::get('categories/pinneds', function(){
+            return '获取置顶列表';
+        });
+    });
+    
+    
+    //后端路由
     Route::group('admin', function(){
-        Route::get('/', 'ealing/admin.Index/index');
-    });  
+        Route::get('/', function(){
+            return 'newsadmin';
+        });
+    });
 });
