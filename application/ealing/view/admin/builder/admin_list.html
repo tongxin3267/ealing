@@ -51,7 +51,7 @@
                             <div class="oneselect">
                                 <div class="title">{$select.title}</div>
                                 <div class="select_box">
-                                    <php> $select_get = input($select['name'],'-1'); </php>
+                                    {php} $select_get = input($select['name'],'-1'); {/php}
                                     {notempty name="select['attr']"}
                                         <select name="{$select['name']}"  {$select['attr']}>
                                             {volist name="select['arrvalue']" id="svo"}
@@ -73,7 +73,7 @@
                             <div class="oneselect">
                                 <div class="title">{$date_time.title}</div>
                                 <div class="select_box">
-                                    <php> $datetime_get = input($date_time['name']); </php>
+                                    {php} $datetime_get = input($date_time['name']); {/php}
                                     <input type="hidden" name="{$date_time.name}" value="{$datetime_get}"/>
                                     <input style="width: 130px; float: none;" type="text" data-field-name="{$date_time.name}" class="form-datetime  layui-input" value="{$datetime_get|time_format}" placeholder="{$date_time.des}" />
                                 </div>
@@ -83,7 +83,7 @@
                             <div class="oneselect">
                                 <div class="title">{$text.title}</div>
                                 <div class="select_box">
-                                    <php> $text_get = input($text['name']); </php>
+                                    {php} $text_get = input($text['name']); {/php}
                                     <input style="float: none;width:180px;" type="text" name="{$text.name}" class="layui-input"  value="{$text_get}" placeholder="{$text.des}" />
                                 </div>
                             </div>
