@@ -11,13 +11,12 @@ use app\ealing\controller\admin\builder\BackstageListBuilder;
 class Index extends Backstage{
 
     public function index(){
-
         $builder = new BackstageListBuilder();
 
         $list = [];
 
         $builder->title("测试")
-            ->buttonNew(url('add'))
+            ->buttonNew(url('app\ealing\controller\admin\Index@index'))
             ->setSearchPostUrl(url('index'))
             ->searchText('','title','text',"关键词")
             ->keyText('id',lang('_ID_'))
