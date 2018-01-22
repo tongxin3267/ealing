@@ -1,5 +1,8 @@
 # CakePHP 3
 
+/.settings/*
+/.buildpath
+/.project
 /vendor/*
 /config/app.php
 
