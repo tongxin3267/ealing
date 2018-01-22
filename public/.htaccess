@@ -10,5 +10,5 @@
   
   RewriteRule ^(h5|h5/.*)$ h5/index.html [L]
   RewriteRule ^(web|web/.*)$ pc/index.html [L]
-  RewriteRule ^((?!(h5|pc|static)).*)$ index.php?s=/$1 [QSA,PT,L]
+  RewriteRule ^((?!(h5|web|static|facicon)).*)$ index.php?s=/$1 [QSA,PT,L]
 </IfModule>
