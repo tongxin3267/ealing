@@ -1,9 +1,7 @@
-ThinkPHP5 ealing
+Ealing
 ===============
 
-基于ThinkPHP5 基础上开发的一个简单的restful api ，带权限验证等
-
-> ThinkPHP5的运行环境要求PHP5.4以上。
+基于 ThinkPHP 开发的用户生态系统
 
 详细开发文档参考 [ThinkPHP5完全开发手册](http://www.kancloud.cn/manual/thinkphp5)
 
