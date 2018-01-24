@@ -10,7 +10,7 @@ return [
     'icon' => 'easel',//模块栏目图标
     'path' => url(app\ealing\controller\admin\Index::class.'@index'),//模块入口地址(路由)
     
-    'open' => 'user',//默认打开的侧边一级栏目
+    'open' => ['user'],//默认打开的侧边一级栏目  这里必须用数组
     'active' => 'user-list',//默认页面指定
     
     'title' => '系统',//面包屑一级名称

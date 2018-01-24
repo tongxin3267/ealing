@@ -12,39 +12,39 @@
     <div class="layout">
         <Layout>
             <Header>
-                <i-Menu mode="horizontal" theme="dark" active-name="{$topMenu.active}">
+                <i-Menu mode="horizontal" theme="dark" v-bind:active-name="topMenu.active">
                     <div class="layout-logo"></div>
                     <div class="layout-nav">
-                    	{volist name="topMenu.menu" id="top"}
-                        	<a href="{$top.path}"><Menu-item name="{$top.alias}"><Icon type="{$top.icon}"></Icon>{$top.title}</Menu-item></a>
-                        {/volist}
+                    	<a v-for="top in topMenu.menu" :href="top.path"><Menu-item :name="top.alias"><Icon :type="top.icon"></Icon>{{ top.title }}</Menu-item></a>
+                    </div>
+                    <div class="layout-userSub">
+	                	<Submenu name="userSub">
+	                		<template slot="title"><Icon type="person"></Icon>admin</template>
+	                	</Submenu>                    
                     </div>
                 </i-Menu>
             </Header>
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
-                    <i-Menu active-name="{$Think.config.summary.active}" style="height:100%;" theme="light" width="auto" :open-names="['{$Think.config.summary.open}']">
-                        {volist name="Think.config.summary.template" id="menu"}
-                        	{notempty name="menu.name"}
-                        	<Submenu name="{$menu.alias}">
-                        		<template slot="title"><Icon type="{$menu.icon}"></Icon>{$menu.name}</template>
-                        		{volist name="menu.submenu" id="submenu"}
-                        			<a href="{$submenu.path}" style="color:#495060;"><Menu-item name="{$submenu.alias}">{$submenu.name}</Menu-item></a>
-                        		{/volist}
-                        	</Submenu>
-                        	{else /}
-                        		{volist name="menu.submenu" id="submenu"}
-                        			<a href="{$submenu.path}" style="color:#495060;"><Menu-item name="{$submenu.alias}">{$submenu.name}</Menu-item></a>
-                        		{/volist}
-                        	{/notempty}
-                        {/volist}
+                    <i-Menu :active-name="summary.active" style="height:100%;" theme="light" width="auto" :open-names="summary.open">
+                    	<div v-for="menu in summary.template">
+                    		<div v-if="menu.alias != null">
+                    			<Submenu :name="menu.alias">
+                    				<template slot="title"><Icon :type="menu.icon"></Icon>{{ menu.name }}</template>
+                    				<a v-for="submenu in menu.submenu" style="color:#495060;" :href="submenu.path"><Menu-item :name="submenu.alias">{{ submenu.name }}</Menu-item></a>
+                    			</Submenu>
+                    		</div>
+                    		<div v-else>
+                    			<a v-for="submenu in menu.submenu" style="color:#495060;" :href="submenu.path"><Menu-item :name="submenu.alias">{{ submenu.name }}</Menu-item></a>
+                    		</div>
+                    	</div>
                     </i-Menu>
                 </Sider>
                 <Layout :style="{padding: '0 24px 0'}">
                     <Breadcrumb :style="{margin: '24px 0', height: '5%'}">
-                        <Breadcrumb-item>{$Think.config.summary.title}</Breadcrumb-item>
-                        <Breadcrumb-item>{$Think.config.summary.subTitle}</Breadcrumb-item>
-                        <Breadcrumb-item>{$Think.config.summary.actionTitle}</Breadcrumb-item>
+                        <Breadcrumb-item>{{ summary.title }}</Breadcrumb-item>
+                        <Breadcrumb-item>{{ summary.subTitle }}</Breadcrumb-item>
+                        <Breadcrumb-item>{{ summary.actionTitle }}</Breadcrumb-item>
                     </Breadcrumb>
                     <Content :style="{padding: '24px', background: '#fff'}">
                     	{block name="content"}默认内容{/block}
@@ -70,7 +70,7 @@ html,body{height:100%;margin:0px;padding:0px;}
 .ivu-layout{height:100%;}
 .ivu-layout-sider{height:100%;}
 .layout-logo{
-    width: 100px;
+    width: 10%;
     height: 30px;
     background: #5b6270;
     border-radius: 3px;
@@ -80,9 +80,14 @@ html,body{height:100%;margin:0px;padding:0px;}
     left: 20px;
 }
 .layout-nav{
-    width: 420px;
+	width: 80%;
     margin: 0 auto;
     margin-right: 20px;
+}
+.layout-userSub{
+	width: 10%;
+    margin: 0 auto;
+    margin-right: 20px;	
 }
 .layout-footer-center{
 	width: 100%;
@@ -94,9 +99,13 @@ html,body{height:100%;margin:0px;padding:0px;}
 </style>
 
 <script>
-    new Vue({
-        el: '#app'
-    })
+	new Vue({
+	    el: '#app',
+	    data: {
+	    	topMenu: {$topMenu},
+	    	summary: {$summary}
+	    }
+	})
 </script>
 </body>
 </html>
