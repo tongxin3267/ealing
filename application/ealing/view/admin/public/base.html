@@ -16,7 +16,7 @@
                     <div class="layout-logo"></div>
                     <div class="layout-nav">
                     	{volist name="topMenu.menu" id="top"}
-                        <a href="{$top.path}"><Menu-item name="{$top.alias}"><Icon type="{$top.icon}"></Icon>{$top.title}</Menu-item></a>
+                        	<a href="{$top.path}"><Menu-item name="{$top.alias}"><Icon type="{$top.icon}"></Icon>{$top.title}</Menu-item></a>
                         {/volist}
                     </div>
                 </i-Menu>
@@ -29,12 +29,12 @@
                         	<Submenu name="{$menu.alias}">
                         		<template slot="title"><Icon type="{$menu.icon}"></Icon>{$menu.name}</template>
                         		{volist name="menu.submenu" id="submenu"}
-                        			<Menu-item name="{$submenu.alias}">{$submenu.name}</Menu-item>
+                        			<a href="{$submenu.path}"><Menu-item name="{$submenu.alias}">{$submenu.name}</Menu-item></a>
                         		{/volist}
                         	</Submenu>
                         	{else /}
                         		{volist name="menu.submenu" id="submenu"}
-                        			<Menu-item name="{$submenu.alias}">{$submenu.name}</Menu-item>
+                        			<a href="{$submenu.path}"><Menu-item name="{$submenu.alias}">{$submenu.name}</Menu-item></a>
                         		{/volist}
                         	{/notempty}
                         {/volist}
