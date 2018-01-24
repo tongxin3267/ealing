@@ -38,7 +38,7 @@ www  WEB部署目录（或者子目录）
 │  │  ├─services        服务目录
 │  │  └─view        	视图目录（只有后端，前端都是API）
 │  │
-│  └─news               新闻项目
+│  └─news               新闻项目（具体拓展请于Ealing拓展仓库进行下载，通过git下载即可  [仓库地址](https://github.com/chouvc)）
 │
 ├─config                配置文件
 │  ├─command.php        cli命令扩展配置文件
