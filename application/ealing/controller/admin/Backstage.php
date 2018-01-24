@@ -41,6 +41,9 @@ class Backstage extends Controller{
     private function moduleMenu()
     {
         $module = $this->request->module();
+        $controller = strtolower($this->request->controller());
+        $action = strtolower($this->request->action());
+        
         /* 载入安装模块导航  */
         $apps = scandir(APP_PATH);
         $topMenu = ['active' => empty($module) ? 'ealing' : $module, 'menu' => []];
@@ -53,6 +56,9 @@ class Backstage extends Controller{
         $this->assign('topMenu', json_encode($topMenu));
         
         $summary = include APP_PATH . $module . '/config/summary' . CONF_EXT;
+        $summary['open'] = $summary['open'] == $controller ? $summary['open'] : $controller;
+        $summary['active'] = $summary['active'] == $action ? $summary['active'] : $action;
+
         $this->assign('summary', json_encode($summary));
     }
 }

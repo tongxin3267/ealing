@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="app">
-    <div class="layout">
+    <div class="layout" v-cloak>
         <Layout>
             <Header>
                 <i-Menu mode="horizontal" theme="dark" v-bind:active-name="topMenu.active">
@@ -20,6 +20,14 @@
                     <div class="layout-userSub">
 	                	<Submenu name="userSub">
 	                		<template slot="title"><Icon type="person"></Icon>admin</template>
+				            <Menu-group title="基础">
+				                <Menu-item name="3-1">个人信息</Menu-item>
+				                <Menu-item name="3-2">修改密码</Menu-item>
+				            </Menu-group>
+				            <Menu-group title="生态">
+				                <Menu-item name="3-4">模块管理</Menu-item>
+				                <Menu-item name="3-5">插件管理</Menu-item>
+				            </Menu-group>
 	                	</Submenu>                    
                     </div>
                 </i-Menu>
@@ -28,7 +36,7 @@
                 <Sider hide-trigger :style="{background: '#fff'}">
                     <i-Menu :active-name="summary.active" style="height:100%;" theme="light" width="auto" :open-names="summary.open">
                     	<div v-for="menu in summary.template">
-                    		<div v-if="menu.alias != null">
+                    		<div v-if="menu.alias">
                     			<Submenu :name="menu.alias">
                     				<template slot="title"><Icon :type="menu.icon"></Icon>{{ menu.name }}</template>
                     				<a v-for="submenu in menu.submenu" style="color:#495060;" :href="submenu.path"><Menu-item :name="submenu.alias">{{ submenu.name }}</Menu-item></a>
@@ -58,6 +66,9 @@
 
 <style scoped>
 html,body{height:100%;margin:0px;padding:0px;}
+[v-cloak] {
+	display: none;
+}
 #app{height:100%;}
 .layout{
     border: 1px solid #d7dde4;
@@ -87,7 +98,7 @@ html,body{height:100%;margin:0px;padding:0px;}
 .layout-userSub{
 	width: 10%;
     margin: 0 auto;
-    margin-right: 20px;	
+    margin-right: 10px;
 }
 .layout-footer-center{
 	width: 100%;
