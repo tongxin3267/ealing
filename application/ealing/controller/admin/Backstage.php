@@ -40,7 +40,19 @@ class Backstage extends Controller{
     */
     private function moduleMenu()
     {
-        $summary = APP_PATH . $this->request->module() . '/config/summary' . CONF_EXT;
+        $module = $this->request->module();
+        /* 载入安装模块导航  */
+        $apps = scandir(APP_PATH);
+        $topMenu = ['active' => empty($module) ? 'ealing' : $module, 'menu' => []];
+        foreach ($apps as $app){
+            if('.' == $app || '..' == $app) continue;
+        
+            $set = include APP_PATH . $app . '/config/summary' . CONF_EXT;
+            $topMenu['menu'][] = ['alias' => $set['alias'], 'icon' => $set['icon'], 'title' => $set['title'], 'path' => $set['path']];
+        }
+        $this->assign('topMenu', $topMenu);
+        
+        $summary = APP_PATH . $module . '/config/summary' . CONF_EXT;
         Config::load($summary, 'summary');
     }
 }

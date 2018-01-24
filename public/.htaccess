@@ -9,6 +9,6 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   
   RewriteRule ^(h5|h5/.*)$ h5/index.html [L]
-  RewriteRule ^(web|web/.*)$ pc/index.html [L]
+  RewriteRule ^(web|web/.*)$ web/index.html [L]
   RewriteRule ^((?!(h5|web|static)).*)$ index.php?s=/$1 [QSA,PT,L]
 </IfModule>
