@@ -14,7 +14,7 @@ class Index{
 
         $list = [];
 
-        $builder->title("测试")
+        $builder->title("用户列表 - 用户管理")
             ->buttonNew(url('app\ealing\controller\admin\Index@index'))
             ->setSearchPostUrl(url('index'))
             ->searchText('','title','text',"关键词")
