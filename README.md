@@ -125,7 +125,7 @@ group（分组）、get（GET请求）、post（POST请求）...
 
 ## 其他说明
 
-交流QQ群号：[484193834](http://shang.qq.com/wpa/qunwpa?idkey=b6f7b764cd876af1c39e8cdcb48d45063b1744a5ce3b4f903346da33923ac3a6)
+交流QQ群号：[484193834](https://jq.qq.com/?_wv=1027&k=5ZOhtgg)
 
 ## 版权信息
 
