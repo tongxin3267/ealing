@@ -7,53 +7,40 @@
 namespace app\ealing\controller\admin;
 
 use think\Controller;
-use think\Request;
-use think\View;
 use think\Config;
 
 class Backstage extends Controller{
+    public function _initialize()
+    {
+        $this->init();
+    }
+    
+    private function init()
+    {
+        /* 自定义解析路由 */
+        $route = $this->request->routeInfo()['route'];
+        list($dispatch, $actionName) = explode('@', $route);
+        list($appNamespace, $moduleName, $controller, $controllerV, $controllerName) = explode('\\', $dispatch);
+        
 
+        $this->request->module($moduleName);//设置当前模块
+        $this->request->controller($controllerName);//设置当前控制器
+        $this->request->action($actionName);//设置当前操作
+        
+        /* 设置当前模块下的侧边栏目数据 */
+        $this->moduleMenu();
+    }
+    
     /**
-     * 构造函数
-     * @param Request $request Request对象
-     * @access public
-     */
-    public function __construct(Request $request = null)
+    * 获取当前模块的侧边栏目
+    * @date: 2018年1月24日 上午11:05:02
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    private function moduleMenu()
     {
-
-        if (is_null($request)) {
-            $request = Request::instance();
-        }
-
-        $this->request = $request;
-
-        $this->_initializeView();
-        $this->view = View::instance(Config::get('template'), Config::get('view_replace_str'));
-
-
-        // 控制器初始化
-        $this->_initialize();
-
-        // 前置操作方法
-        if ($this->beforeActionList) {
-            foreach ($this->beforeActionList as $method => $options) {
-                is_numeric($method) ?
-                    $this->beforeAction($options) :
-                    $this->beforeAction($method, $options);
-            }
-        }
-
-        $this->assign('__MENU__', ['main'=>[]]);
+        $summary = APP_PATH . $this->request->module() . '/config/summary' . CONF_EXT;
+        Config::load($summary, 'summary');
     }
-
-    // 初始化视图配置
-    protected function _initializeView()
-    {
-
-    }
-
-
-
-
-
 }

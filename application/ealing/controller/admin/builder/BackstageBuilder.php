@@ -11,7 +11,7 @@ use app\ealing\controller\admin\Backstage;
 class BackstageBuilder extends Backstage{
     public function display($templateFile='',$charset='',$contentType='',$content='',$prefix='') {
         //获取模版的名称
-        $template = '/admin/builder/'.$templateFile;
+        $template = '/default/builder/'.$templateFile;
         //显示页面
         return parent::display($template);
     }

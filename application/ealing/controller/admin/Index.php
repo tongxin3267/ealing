@@ -8,8 +8,7 @@ namespace app\ealing\controller\admin;
 
 use app\ealing\controller\admin\builder\BackstageListBuilder;
 
-class Index extends Backstage{
-
+class Index{
     public function index(){
         $builder = new BackstageListBuilder();
 
@@ -22,6 +21,7 @@ class Index extends Backstage{
             ->keyText('id',lang('_ID_'))
             ->keyText('title',"名称")
             ->data($list);
+        
         return $builder->show();
     }
 }
