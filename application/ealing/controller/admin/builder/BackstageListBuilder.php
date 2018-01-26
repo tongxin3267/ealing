@@ -9,7 +9,6 @@ namespace app\ealing\controller\admin\builder;
 class BackstageListBuilder extends  BackstageBuilder{
 
     private $_title;
-    private $_suggest;
     private $_tips;
     private $_keyList = [];
     private $_buttonList = [];
@@ -31,17 +30,6 @@ class BackstageListBuilder extends  BackstageBuilder{
     public function title($title)
     {
         $this->_title = $title;
-        return $this;
-    }
-
-    /**
-     * suggest  页面标题边上的提示信息
-     * @param $suggest
-     * @return $this
-     */
-    public function suggest($suggest)
-    {
-        $this->_suggest = $suggest;
         return $this;
     }
 
@@ -762,7 +750,6 @@ class BackstageListBuilder extends  BackstageBuilder{
         //显示页面
         $this->assign('title', $this->_title);
         $this->assign('meta_title', $this->_title);
-        $this->assign('suggest', $this->_suggest);
         $this->assign('tips', $this->_tips);
         $this->assign('keyList', $this->_keyList);
         $this->assign('buttonList', $this->_buttonList);
