@@ -18,6 +18,8 @@
 		{volist name="buttonList" id="button"}
 			<{$button.tag} {$button.attr}>{$button.title|htmlspecialchars}</{$button.tag}>
 		{/volist}
+		<Modal v-model="modalEnable" title="确认提示" :loading="setStatusloading" @on-ok="setEnableAsyncOK"><p>确认启用选中单位吗？</p></Modal>
+		<Modal v-model="modalDisable" title="确认提示" :loading="setStatusloading" @on-ok="setDisableAsyncOK"><p>确认禁用选中单位吗？</p></Modal>
 	</Header>
 	<Content class="list-content">
 		<i-table :stripe="true" :columns="columns" :data="data"></i-table>
@@ -34,6 +36,9 @@
 <script>
 ealingBuilder = {
 	'data': {
+		setStatusloading: true,
+		modalEnable: false,
+		modalDisable: false,
 		columns: [
 			{
 			    type: 'selection',
@@ -53,8 +58,29 @@ ealingBuilder = {
 		],
 		data: [
 			{name: '逸秋'},
-			{name: '逸秋1'}
+			{name: '逸秋1'},
+			{name: '逸秋2'},
+			{name: '逸秋3'},
+			{name: '逸秋4'},
+			{name: '逸秋5'},
+			{name: '逸秋6'},
+			{name: '逸秋7'},
+			{name: '逸秋8'},
+			{name: '逸秋9'},
+			{name: '逸秋10'}
 		]
+	},
+	methods: {
+		setEnableAsyncOK () {
+            setTimeout(() => {
+                this.modalEnable = false;
+            }, 2000);
+		},
+		setDisableAsyncOK () {
+            setTimeout(() => {
+                this.modalDisable = false;
+            }, 2000);
+		}
 	}
 };
 </script>

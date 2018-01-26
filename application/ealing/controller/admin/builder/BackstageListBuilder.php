@@ -156,6 +156,7 @@ class BackstageListBuilder extends  BackstageBuilder{
         if (!$url) $url = $this->_setStatusUrl;
         $attr['class'] = 'ivu-btn ivu-btn-warning ajax-post';
         $attr['icon'] = 'minus';
+        $attr['@click'] = 'modalDisable = true';
         return $this->buttonSetStatus($url, 0, $title, $attr);
     }
 
@@ -171,6 +172,7 @@ class BackstageListBuilder extends  BackstageBuilder{
         if (!$url) $url = $this->_setStatusUrl;
         $attr['class']='ivu-btn ivu-btn-success ajax-post';
         $attr['icon'] = 'checkmark';
+        $attr['@click'] = 'modalEnable = true';
         return $this->buttonSetStatus($url, 1, $title, $attr);
     }
     /**
