@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview@2.9.0/dist/styles/iview.css">
     <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
     <script type="text/javascript" src="http://unpkg.com/iview@2.9.0/dist/iview.min.js"></script>
+    {block name="link"}{/block}
 </head>
 <body>
 <div id="app">
@@ -108,6 +109,10 @@ html,body{height:100%;margin:0px;padding:0px;}
 	line-height: 48px;
 }
 </style>
+
+{block name="style"}{/block}
+
+{block name="script"}{/block}
 
 <script>
 	new Vue({

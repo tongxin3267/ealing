@@ -94,15 +94,16 @@ class BackstageListBuilder extends  BackstageBuilder{
     }
 
     /**加入新增按钮
-     * @param        $href
+     * @param        $link
      * @param string $title
      * @param array $attr
      * @return BackstageListBuilder
      */
-    public function buttonNew($href, $title = '新增', $attr = [])
+    public function buttonNew($link, $title = '新增', $attr = [])
     {
-        $attr['href'] = $href;
-        $attr['class']='layui-btn btn-ajax';
+        $attr['link-path'] = $link;
+        $attr['class'] = 'ivu-btn ivu-btn-info';
+        $attr['icon'] = 'plus';
         return $this->button($title, $attr);
     }
 
@@ -116,9 +117,11 @@ class BackstageListBuilder extends  BackstageBuilder{
      */
     public function ajaxButton($url, $params, $title, $attr = [])
     {
-        $attr['class'] = 'layui-btn layui-btn-normal ajax-post';
-        $attr['url'] = $this->addUrlParam($url, $params);
+        $attr['class'] = 'ivu-btn ajax-post';
+        $attr['link-path'] = $this->addUrlParam($url, $params);
         $attr['target-form'] = 'ids';
+        $attr[':loading'] = 'loading';
+        $attr['@click'] = '';
         return $this->button($title, $attr);
     }
 
@@ -137,27 +140,49 @@ class BackstageListBuilder extends  BackstageBuilder{
         return $this->button($title, $attr);
     }
 
+    /**
+    * 设置状态的按钮
+    * @date: 2018年1月26日 上午10:21:32
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
     public function buttonSetStatus($url, $status, $title, $attr)
     {
 
-        $attr['class'] = isset($attr['class']) ? $attr['class'] : 'layui-btn layui-btn-primary ajax-post';
+        $attr['class'] = isset($attr['class']) ? $attr['class'] : 'ivu-btn ivu-btn-primary ajax-post';
         $attr['url'] = $this->addUrlParam($url, ['status' => $status]);
         $attr['target-form'] = 'ids';
         return $this->button($title, $attr);
-
     }
 
+    /**
+    * 禁用按钮
+    * @date: 2018年1月26日 上午10:21:48
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
     public function buttonDisable($url = null, $title = '禁用', $attr = [])
     {
         if (!$url) $url = $this->_setStatusUrl;
-        $attr['class']='layui-btn ajax-post layui-btn-normal';
+        $attr['class'] = 'ivu-btn ivu-btn-warning ajax-post';
+        $attr['icon'] = 'minus';
         return $this->buttonSetStatus($url, 0, $title, $attr);
     }
 
+    /**
+    * 启用按钮
+    * @date: 2018年1月26日 上午10:21:58
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
     public function buttonEnable($url = null, $title = '启用', $attr = [])
     {
         if (!$url) $url = $this->_setStatusUrl;
-        $attr['class']='layui-btn ajax-post layui-btn-normal';
+        $attr['class']='ivu-btn ivu-btn-success ajax-post';
+        $attr['icon'] = 'checkmark';
         return $this->buttonSetStatus($url, 1, $title, $attr);
     }
     /**
@@ -166,7 +191,8 @@ class BackstageListBuilder extends  BackstageBuilder{
     public function buttonDelete($url = null, $title = '删除', $attr = [])
     {
         if (!$url) $url = $this->_setStatusUrl;
-        $attr['class']='layui-btn ajax-post layui-btn-danger';
+        $attr['class']='ivu-btn ivu-btn-error ajax-post';
+        $attr['icon'] = 'android-delete';
         return $this->buttonSetStatus($url, -1, $title, $attr);
     }
 
@@ -710,8 +736,7 @@ class BackstageListBuilder extends  BackstageBuilder{
 
         //编译buttonList中的属性
         foreach ($this->_buttonList as &$button) {
-            $button['tag'] = isset($button['attr']['href']) ? 'a' : 'button';
-            $this->addDefaultCssClass($button);
+            $button['tag'] = 'i-button';
             $button['attr'] = $this->compileHtmlAttr($button['attr']);
         }
 

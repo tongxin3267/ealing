@@ -1,5 +1,36 @@
 {extend name="admin/public/base"/}
 
+{block name="style"}
+	<style>
+		.list-header{
+			background-color: #fff;
+			padding-bottom: 24px;
+		}
+		.list-content{
+			padding: 24px;
+		}
+	</style>
+{/block}
+
 {block name="content"}
-	测试
+	<Layout>
+		<Header class="list-header">
+			{volist name="buttonList" id="button"}
+				<{$button.tag} {$button.attr}>{$button.title|htmlspecialchars}</{$button.tag}>
+			{/volist}
+		</Header>
+		<Content class="list-content"><div>列表数据</div></Content>
+	</Layout>
+{/block}
+
+{block name="script"}
+	<script>
+		export default {
+			data () {
+				return {
+					loading: false
+				}
+			}
+		}
+	</script>
 {/block}
