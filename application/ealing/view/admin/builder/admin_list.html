@@ -1,45 +1,61 @@
 {extend name="admin/public/base"/}
 
 {block name="style"}
-	<style>
-		.list-header{
-			background-color: #ffffff;
-			padding-bottom: 24px;
-		}
-		.list-content{
-			padding: 24px;
-		}
-	</style>
+<style>
+	.list-header{
+		background-color: #ffffff;
+		padding-bottom: 24px;
+	}
+	.list-content{
+		padding: 24px 24px 14px 24px;
+	}
+</style>
 {/block}
 
 {block name="content"}
-	<Layout>
-		<Header class="list-header">
-			{volist name="buttonList" id="button"}
-				<{$button.tag} {$button.attr}>{$button.title|htmlspecialchars}</{$button.tag}>
-			{/volist}
-		</Header>
-		<Content class="list-content">
-			<div id="list"><i-table :columns="columns" :data="data"></i-table></div>
-		</Content>
-	</Layout>
+<Layout>
+	<Header class="list-header">
+		{volist name="buttonList" id="button"}
+			<{$button.tag} {$button.attr}>{$button.title|htmlspecialchars}</{$button.tag}>
+		{/volist}
+	</Header>
+	<Content class="list-content">
+		<i-table :stripe="true" :columns="columns" :data="data"></i-table>
+	    <div style="margin: 10px;overflow: hidden">
+	        <div style="float: right;">
+	            <Page :total="100" :current="1"></Page>
+	        </div>
+	    </div>		
+	</Content>
+</Layout>
 {/block}
 
 {block name="script"}
-	<script>
-		new Vue({
-			el: '#list',
-			data () {
-				return {
-					loading: false,
-					columns: [
-						{title: 'Name', key: 'name'}
-					],
-					data: [
-						{name: '逸秋'}
-					]
-				}
-			}
-		});
-	</script>
+<script>
+ealingBuilder = {
+	'data': {
+		columns: [
+			{
+			    type: 'selection',
+			    width: 60,
+			    align: 'center'
+			},
+            {
+                type: 'index',
+                width: 60,
+                align: 'center'
+            },
+			{
+            	title: 'Name', 
+            	key: 'name',
+            	sortable: true,
+            }
+		],
+		data: [
+			{name: '逸秋'},
+			{name: '逸秋1'}
+		]
+	}
+};
+</script>
 {/block}

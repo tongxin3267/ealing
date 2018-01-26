@@ -56,7 +56,7 @@
                         <Breadcrumb-item>{{ summary.actionTitle }}</Breadcrumb-item>
                     </Breadcrumb>
                     <Content :style="{padding: '24px', background: '#fff'}">
-                    	{block name="content"}默认内容{/block}
+                    	<div id="list">{block name="content"}默认内容{/block}</div>
                     </Content>
                 </Layout>
             </Layout>
@@ -124,16 +124,22 @@ html,body{height:100%;margin:0px;padding:0px;}
 
 {block name="style"}{/block}
 
+<script>
+	var ealingBuilder = {
+		'data':{},//定义VUE中用到的data数据
+	};
+</script>
+
 {block name="script"}{/block}
 
 <script>
+	ealingBuilder.data.topMenu = {$topMenu};
+	ealingBuilder.data.summary = {$summary};
+
 	new Vue({
 	    el: '#app',
-	    data: {
-	    	topMenu: {$topMenu},
-	    	summary: {$summary}
-	    }
-	})
+	    data: ealingBuilder.data
+	});
 </script>
 </body>
 </html>

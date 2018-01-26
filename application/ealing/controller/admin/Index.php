@@ -15,7 +15,7 @@ class Index{
         $list = [];
 
         $builder->title("用户列表 - 用户管理")
-            ->buttonNew(url('app\ealing\controller\admin\Index@index'), '新增')
+            ->buttonNew(url('app\ealing\controller\admin\Main@index'), '新增')
             ->buttonEnable()
             ->buttonDisable()
             ->buttonDelete()

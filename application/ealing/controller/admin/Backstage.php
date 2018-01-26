@@ -56,7 +56,7 @@ class Backstage extends Controller{
         $this->assign('topMenu', json_encode($topMenu));
         
         $summary = include APP_PATH . $module . '/config/summary' . CONF_EXT;
-        $summary['open'] = $summary['open'] == $controller ? $summary['open'] : $controller;
+        $summary['open'] = $summary['open'] == $controller ? $summary['open'] : [$controller];
         $summary['active'] = $summary['active'] == $action ? $summary['active'] : $action;
 
         $this->assign('summary', json_encode($summary));
