@@ -19,6 +19,7 @@ class Index{
             ->buttonEnable()
             ->buttonDisable()
             ->buttonDelete()
+            ->buttonRestore()
             ->setSearchPostUrl(url('index'))
             ->searchText('','title','text',"关键词")
             ->keyText('id',lang('_ID_'))

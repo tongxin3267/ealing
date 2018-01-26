@@ -196,9 +196,18 @@ class BackstageListBuilder extends  BackstageBuilder{
         return $this->buttonSetStatus($url, -1, $title, $attr);
     }
 
+    /**
+    * 还原按钮
+    * @date: 2018年1月26日 上午10:31:54
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
     public function buttonRestore($url = null, $title = '还原', $attr = [])
     {
         if (!$url) $url = $this->_setStatusUrl;
+        $attr['class']='ivu-btn ivu-btn-restore ajax-post';
+        $attr['icon'] = 'social-designernews';
         return $this->buttonSetStatus($url, 1, $title, $attr);
     }
 
