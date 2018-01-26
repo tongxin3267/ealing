@@ -18,8 +18,8 @@
 		{volist name="buttonList" id="button"}
 			<{$button.tag} {$button.attr}>{$button.title|htmlspecialchars}</{$button.tag}>
 		{/volist}
-		<Modal v-model="modalEnable" title="确认提示" :loading="setStatusloading" @on-ok="setEnableAsyncOK"><p>确认启用选中单位吗？</p></Modal>
-		<Modal v-model="modalDisable" title="确认提示" :loading="setStatusloading" @on-ok="setDisableAsyncOK"><p>确认禁用选中单位吗？</p></Modal>
+		<Modal v-model="modalEnable" class-name="vertical-center-modal" title="确认提示" :loading="setStatusloading" @on-ok="setEnableAsyncOK"><p>确认启用选中单位吗？</p></Modal>
+		<Modal v-model="modalDisable" class-name="vertical-center-modal" title="确认提示" :loading="setStatusloading" @on-ok="setDisableAsyncOK"><p>确认禁用选中单位吗？</p></Modal>
 	</Header>
 	<Content class="list-content">
 		<i-table :stripe="true" :columns="columns" :data="data"></i-table>
