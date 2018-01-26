@@ -3,7 +3,7 @@
 {block name="style"}
 	<style>
 		.list-header{
-			background-color: #fff;
+			background-color: #ffffff;
 			padding-bottom: 24px;
 		}
 		.list-content{
@@ -19,18 +19,27 @@
 				<{$button.tag} {$button.attr}>{$button.title|htmlspecialchars}</{$button.tag}>
 			{/volist}
 		</Header>
-		<Content class="list-content"><div>列表数据</div></Content>
+		<Content class="list-content">
+			<div id="list"><i-table :columns="columns" :data="data"></i-table></div>
+		</Content>
 	</Layout>
 {/block}
 
 {block name="script"}
 	<script>
-		export default {
+		new Vue({
+			el: '#list',
 			data () {
 				return {
-					loading: false
+					loading: false,
+					columns: [
+						{title: 'Name', key: 'name'}
+					],
+					data: [
+						{name: '逸秋'}
+					]
 				}
 			}
-		}
+		});
 	</script>
 {/block}
