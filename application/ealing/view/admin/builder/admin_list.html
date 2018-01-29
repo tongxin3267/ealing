@@ -25,7 +25,7 @@
 		<i-table :stripe="true" :columns="columns" :data="data"></i-table>
 	    <div style="margin: 10px;overflow: hidden">
 	        <div style="float: right;">
-	            <Page :total="100" :current="1" :show-elevator="true" :show-sizer="true"></Page>
+	            <Page :total="100" :current="1" :show-elevator="true" :show-sizer="true" @on-change="pageChange"></Page>
 	        </div>
 	    </div>		
 	</Content>
@@ -34,12 +34,53 @@
 
 {block name="script"}
 <script>
+var columns = {$columns};
+
+/* 这里加入对操作render的解析
+ * 解析按钮、解析方式（跳转、ajax）、解析文字 
+ */
+columns.push({
+    title: '操作',
+    key: 'action',
+    width: 150,
+    align: 'center',
+    render: (h, params) => {
+        return h('div', [
+            h('Button', {
+                props: {
+                    type: 'primary',
+                    size: 'small'
+                },
+                style: {
+                    marginRight: '5px'
+                },
+                on: {
+                    click: () => {
+                        console.log(params)
+                    }
+                }
+            }, 'View'),
+            h('Button', {
+                props: {
+                    type: 'error',
+                    size: 'small'
+                },
+                on: {
+                    click: () => {
+                        console.log(params)
+                    }
+                }
+            }, 'Delete')
+        ]);
+    }
+});
+
 ealingBuilder = {
 	data: {
 		setStatusloading: true,
 		modalEnable: false,
 		modalDisable: false,
-		columns: {$columns},
+		columns: columns,
 		data: {$list}
 	},
 	methods: {
@@ -52,6 +93,11 @@ ealingBuilder = {
             setTimeout(() => {
                 this.modalDisable = false;
             }, 2000);
+		},
+		pageChange () {
+			this.data = [
+				{id:3,status:'禁用',title:'onep2p'}
+			];
 		}
 	}
 };

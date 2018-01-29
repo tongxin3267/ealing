@@ -10,6 +10,7 @@ class BackstageListBuilder extends BackstageBuilder{
 
     private $_title;//标题
     private $_buttonList = [];//按钮列表   默认、新增、编辑、禁用、启用等等
+    private $_actionList = [];//操作
     private $_columns = [];//head 表头
     private $_data = [];//数据
     private $_pagination = [];//分页
@@ -138,6 +139,13 @@ class BackstageListBuilder extends BackstageBuilder{
         return $this->key('', '', 'selection', 60, ['align'=>'center']);
     }
     
+    /**
+    * 开启行数记录
+    * @date: 2018年1月29日 下午6:19:32
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
     public function keyIndex()
     {
         return $this->key('', '', 'index', 60, ['align'=>'center']);
@@ -168,6 +176,25 @@ class BackstageListBuilder extends BackstageBuilder{
     }
 
     /**
+     * keyLinkByFlag  带替换表示的链接
+     * @param        $name
+     * @param        $title
+     * @param        $getUrl
+     * @param string $flag
+     * @return $this
+     */
+    public function keyLinkByFlag($name, $title, $getUrl, $flag = 'id')
+    {
+        //如果getUrl是一个字符串，则表示getUrl是一个U函数解析的字符串
+        if (is_string($getUrl)) {
+            $getUrl = $this->ParseUrl($getUrl, $flag);
+        }
+
+        //添加key
+        return $this->key($name, $title, 'link', $getUrl);
+    }
+
+    /**
     * 操作
     * @date: 2018年1月29日 下午5:10:45
     * @author: onep2p <324834500@qq.com>
@@ -176,35 +203,7 @@ class BackstageListBuilder extends BackstageBuilder{
     */
     public function keyDoAction($getUrl, $text, $title = '操作')
     {
-        //获取默认getUrl函数
-        if (is_string($getUrl)) {
-            $getUrl = $this->createDefaultGetUrlFunction($getUrl);
-        }
-
-        //确认已经创建了DOACTIONS字段
-        $doActionKey = null;
-        foreach ($this->_columns as $key) {
-            if ($key['name'] === 'DOACTIONS') {
-                $doActionKey = $key;
-                break;
-            }
-        }
-
-        if (!$doActionKey) {
-            $this->key('DOACTIONS', $title, 'doaction', []);
-        }
-
-        //找出第一个DOACTIONS字段
-        $doActionKey = null;
-        foreach ($this->_columns as &$key) {
-            if ($key['name'] == 'DOACTIONS') {
-                $doActionKey = &$key;
-                break;
-            }
-        }
-
-        //在DOACTIONS中增加action
-        $doActionKey['opt']['actions'][] = ['text' => $text, 'get_url' => $getUrl];
+        $this->_actionList[] = ['text' => $text, 'get_url' => $getUrl];
         return $this;
     }
 
@@ -246,33 +245,6 @@ class BackstageListBuilder extends BackstageBuilder{
         $this->convertKey('text', 'html', function ($value) {
             return $value;
         });
-
-        //doaction转换为html
-        $this->convertKey('doaction', 'html', function ($value, $key, $item) {
-            $actions = $key['opt']['actions'];
-            $result = [];
-            foreach ($actions as $action) {
-                $getUrl = $action['get_url'];
-                $linkText = $action['text'];
-                $url = $getUrl($item);
-                if (isset($action['opt'])) {
-                    $content = [];
-                    foreach ($action['opt'] as $key => $value) {
-                        $value = htmlspecialchars($value);
-                        $content[] = "$key=\"$value\"";
-                    }
-                    $content = implode(' ', $content);
-                    if (isset($action['opt']['data-role']) && $action['opt']['data-role'] == "modal_popup") {//模态弹窗
-                        $result[] = "<a href=\" javascript:void(0);\" modal-url=\"$url\" " . $content . ">$linkText</a>";
-                    } else {
-                        $result[] = "<a href=\"$url\" " . $content . ">$linkText</a>";
-                    }
-                } else {
-                    $result[] = "<a href=\"$url\">$linkText</a>";
-                }
-            }
-            return implode(' ', $result);
-        });
         
         //编译buttonList中的属性
         foreach ($this->_buttonList as &$button) {
@@ -291,6 +263,7 @@ class BackstageListBuilder extends BackstageBuilder{
         $this->assign('title', $this->_title);
         $this->assign('columns', json_encode($this->_columns));
         $this->assign('buttonList', $this->_buttonList);
+        $this->assign('actionList', $this->_actionList);
         $this->assign('pagination', $paginationHtml);
         $this->assign('list', json_encode($this->_data));
         $this->assign('searchPostUrl', $this->_searchPostUrl);
@@ -342,11 +315,17 @@ class BackstageListBuilder extends BackstageBuilder{
         return $this;
     }
 
-
+    /**
+    * 转义基础函数
+    * @date: 2018年1月29日 下午5:39:34
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
     private function convertKey($from, $to, $convertFunction)
     {
         foreach ($this->_columns as &$key) {
-            if ($key['type'] == $from) {
+            if (isset($key['type']) && $key['type'] == $from) {
                 $key['type'] = $to;
                 foreach ($this->_data as &$data) {
                     $value = &$data[$key['key']];
@@ -359,7 +338,14 @@ class BackstageListBuilder extends BackstageBuilder{
         unset($key);
     }
 
-    public function addUrlParam($url, $params)
+    /**
+    * 处理url地址的函数
+    * @date: 2018年1月29日 下午5:40:03
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    private function addUrlParam($url, $params)
     {
         if (strpos($url, '?') === false) {
             $seperator = '?';
@@ -368,26 +354,6 @@ class BackstageListBuilder extends BackstageBuilder{
         }
         $params = http_build_query($params);
         return $url . $seperator . $params;
-    }
-
-    /**
-     * keyLinkByFlag  带替换表示的链接
-     * @param        $name
-     * @param        $title
-     * @param        $getUrl
-     * @param string $flag
-     * @return $this
-     */
-    public function keyLinkByFlag($name, $title, $getUrl, $flag = 'id')
-    {
-
-        //如果getUrl是一个字符串，则表示getUrl是一个U函数解析的字符串
-        if (is_string($getUrl)) {
-            $getUrl = $this->ParseUrl($getUrl, $flag);
-        }
-
-        //添加key
-        return $this->key($name, $title, 'link', $getUrl);
     }
 
     /**解析Url
