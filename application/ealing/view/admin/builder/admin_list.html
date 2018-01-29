@@ -39,70 +39,8 @@ ealingBuilder = {
 		setStatusloading: true,
 		modalEnable: false,
 		modalDisable: false,
-		columns: [
-			{
-			    type: 'selection',
-			    width: 60,
-			    align: 'center'
-			},
-            {
-                type: 'index',
-                width: 60,
-                align: 'center'
-            },
-			{
-            	title: '用户名', 
-            	key: 'name',
-            	sortable: true,
-            },
-            {
-                title: '操作',
-                key: 'action',
-                align: 'center',
-                render: (h, params) => {
-                    return h('div', [
-                        h('Button', {
-                            props: {
-                                type: 'primary',
-                                size: 'small'
-                            },
-                            style: {
-                                marginRight: '5px'
-                            },
-                            on: {
-                                click: function () {
-                                	console.log('show');
-                                }
-                            }
-                        }, 'View'),
-                        h('Button', {
-                            props: {
-                                type: 'error',
-                                size: 'small'
-                            },
-                            on: {
-                                click: () => {
-                                	console.log('delete');
-                                }
-                            }
-                        }, 'Delete')
-                    ]);
-                }
-            }            
-		],
-		data: [
-			{name: '逸秋'},
-			{name: '逸秋1'},
-			{name: '逸秋2'},
-			{name: '逸秋3'},
-			{name: '逸秋4'},
-			{name: '逸秋5'},
-			{name: '逸秋6'},
-			{name: '逸秋7'},
-			{name: '逸秋8'},
-			{name: '逸秋9'},
-			{name: '逸秋10'}
-		]
+		columns: {$columns},
+		data: {$list}
 	},
 	methods: {
 		setEnableAsyncOK () {

@@ -12,7 +12,10 @@ class User{
     public function store(){
         $builder = new BackstageListBuilder();
 
-        $list = [];
+        $list = [
+            ['id'=>1,'title'=>'逸秋', 'status'=>1],
+            ['id'=>2,'title'=>'逸秋1', 'status'=>0]
+        ];
 
         $builder->title("用户列表 - 用户管理")
             ->buttonNew(url('app\ealing\controller\admin\User@main'), '新增')
@@ -20,9 +23,10 @@ class User{
             ->buttonDisable()
             ->buttonDelete()
             ->buttonRestore()
-            ->searchText('','title','text',"关键词")
-            ->keyText('id',lang('_ID_'))
-            ->keyText('title',"名称")
+            ->keySelection()
+            ->keyIndex()
+            ->keyText('title', '名称')
+            ->keyMap('status', '状态', [1=>'启用', 0=>'禁用'])
             ->data($list);
         
         return $builder->show();
