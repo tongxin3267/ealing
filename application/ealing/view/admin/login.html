@@ -6,7 +6,6 @@
 <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview@2.9.0/dist/styles/iview.css">
 <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
 <script type="text/javascript" src="http://unpkg.com/iview@2.9.0/dist/iview.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <style type="text/css">
 html,body{height:100%;margin:0px;padding:0px;}
 .app-main {
@@ -79,8 +78,6 @@ html,body{height:100%;margin:0px;padding:0px;}
 		methods: {
 			handleSubmit () {
 				this.$refs.loginForm.validate((valid) => {
-                    Cookies.set('user', this.form.userName);
-                    Cookies.set('password', this.form.password);
 
                     window.location.href = "{:url(app\\ealing\\controller\\admin\\User::class.'@store')}";
 				});
