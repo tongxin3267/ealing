@@ -8,7 +8,7 @@
 return [
     'alias' => 'ealing',//模块栏目别名
     'icon' => 'easel',//模块栏目图标
-    'path' => url(app\ealing\controller\admin\Main::class.'@login'),//模块入口地址(路由)
+    'path' => url(app\ealing\controller\admin\User::class.'@store'),//模块入口地址(路由)
     
     'open' => ['user'],//默认打开的侧边一级栏目  这里必须用数组
     'active' => 'store',//默认页面指定

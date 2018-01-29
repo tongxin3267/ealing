@@ -35,7 +35,7 @@
 {block name="script"}
 <script>
 ealingBuilder = {
-	'data': {
+	data: {
 		setStatusloading: true,
 		modalEnable: false,
 		modalDisable: false,
@@ -51,10 +51,44 @@ ealingBuilder = {
                 align: 'center'
             },
 			{
-            	title: 'Name', 
+            	title: '用户名', 
             	key: 'name',
             	sortable: true,
-            }
+            },
+            {
+                title: '操作',
+                key: 'action',
+                align: 'center',
+                render: (h, params) => {
+                    return h('div', [
+                        h('Button', {
+                            props: {
+                                type: 'primary',
+                                size: 'small'
+                            },
+                            style: {
+                                marginRight: '5px'
+                            },
+                            on: {
+                                click: function () {
+                                	console.log('show');
+                                }
+                            }
+                        }, 'View'),
+                        h('Button', {
+                            props: {
+                                type: 'error',
+                                size: 'small'
+                            },
+                            on: {
+                                click: () => {
+                                	console.log('delete');
+                                }
+                            }
+                        }, 'Delete')
+                    ]);
+                }
+            }            
 		],
 		data: [
 			{name: '逸秋'},
