@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview@2.9.0/dist/styles/iview.css">
 <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
 <script type="text/javascript" src="http://unpkg.com/iview@2.9.0/dist/iview.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <style type="text/css">
 html,body{height:100%;margin:0px;padding:0px;}
 .app-main {
@@ -47,12 +48,12 @@ html,body{height:100%;margin:0px;padding:0px;}
             <Card :bordered="false">
                 <p slot="title"><Icon type="log-in"></Icon>欢迎登录</p>
                 <div class="form-con">
-                    <i-form>
-                        <form-item prop="userName"><i-input placeholder="请输入用户名"><span slot="prepend"><Icon :size="16" type="person"></Icon></span></i-input></form-item>
-                        <form-item prop="password"><i-input type="password" placeholder="请输入密码"><span slot="prepend"><Icon :size="14" type="locked"></Icon></span></i-input></form-item>
-                        <form-item><i-button type="primary" long>登录</i-button></form-item>
+                    <i-form ref="loginForm" :model="form" :rules="rules">
+                        <form-item prop="userName"><i-input v-model="form.userName" placeholder="请输入用户名"><span slot="prepend"><Icon :size="16" type="person"></Icon></span></i-input></form-item>
+                        <form-item prop="password"><i-input type="password" v-model="form.password" placeholder="请输入密码"><span slot="prepend"><Icon :size="14" type="locked"></Icon></span></i-input></form-item>
+                        <form-item><i-button @click="handleSubmit" type="primary" long>登录</i-button></form-item>
                     </i-form>
-                    <p class="login-tip">还没有账户？ <a>立即注册</a></p>
+                    <p class="login-tip">还没有账户？ <a>联系管理</a></p>
                 </div>
             </Card>
         </div>
@@ -60,7 +61,31 @@ html,body{height:100%;margin:0px;padding:0px;}
 </div>
 <script>
 	new Vue({
-		el: '#main'
+		el: '#main',
+		data: {
+            form: {
+                userName: 'admin',
+                password: ''
+            },
+            rules: {
+                userName: [
+                    { required: true, message: '账号不能为空', trigger: 'blur' }
+                ],
+                password: [
+                    { required: true, message: '密码不能为空', trigger: 'blur' }
+                ]
+            }
+		},
+		methods: {
+			handleSubmit () {
+				this.$refs.loginForm.validate((valid) => {
+                    Cookies.set('user', this.form.userName);
+                    Cookies.set('password', this.form.password);
+                    
+                    window.location.href = "{:url(app\\ealing\\controller\\admin\\User::class.'@store')}";
+				});
+			}
+		}
 	});
 </script>    
 </body>
