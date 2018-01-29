@@ -8,19 +8,18 @@ namespace app\ealing\controller\admin;
 
 use app\ealing\controller\admin\builder\BackstageListBuilder;
 
-class Index{
-    public function index(){
+class User{
+    public function store(){
         $builder = new BackstageListBuilder();
 
         $list = [];
 
         $builder->title("用户列表 - 用户管理")
-            ->buttonNew(url('app\ealing\controller\admin\Main@index'), '新增')
+            ->buttonNew(url('app\ealing\controller\admin\User@main'), '新增')
             ->buttonEnable()
             ->buttonDisable()
             ->buttonDelete()
             ->buttonRestore()
-            ->setSearchPostUrl(url('index'))
             ->searchText('','title','text',"关键词")
             ->keyText('id',lang('_ID_'))
             ->keyText('title',"名称")

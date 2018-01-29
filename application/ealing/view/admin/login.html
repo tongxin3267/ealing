@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ealing Admin</title>
+<link rel="stylesheet" type="text/css" href="http://unpkg.com/iview@2.9.0/dist/styles/iview.css">
+<script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+<script type="text/javascript" src="http://unpkg.com/iview@2.9.0/dist/iview.min.js"></script>
+<style type="text/css">
+html,body{height:100%;margin:0px;padding:0px;}
+.app-main {
+    width: 100%;
+    height: 100%;
+}
+[v-cloak] {
+	display: none;
+}
+.login{
+    width: 100%;
+    height: 100%;
+    background-image: url('__STATIC__/images/login_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+.login .login-con{
+    position: absolute;
+    right: 160px;
+    top: 50%;
+    transform: translateY(-60%);
+    width: 300px;	
+}
+.login-con .form-con {
+    padding: 10px 0 0;
+}
+.login-con .login-tip {
+    font-size: 10px;
+    text-align: center;
+    color: #c3c3c3;
+}
+</style>
+</head>
+<body>
+<div id="main" class="app-main">
+   <div class="login">
+        <div class="login-con">
+            <Card :bordered="false">
+                <p slot="title"><Icon type="log-in"></Icon>欢迎登录</p>
+                <div class="form-con">
+                    <i-form>
+                        <form-item prop="userName"><i-input placeholder="请输入用户名"><span slot="prepend"><Icon :size="16" type="person"></Icon></span></i-input></form-item>
+                        <form-item prop="password"><i-input type="password" placeholder="请输入密码"><span slot="prepend"><Icon :size="14" type="locked"></Icon></span></i-input></form-item>
+                        <form-item><i-button type="primary" long>登录</i-button></form-item>
+                    </i-form>
+                    <p class="login-tip">还没有账户？ <a>立即注册</a></p>
+                </div>
+            </Card>
+        </div>
+    </div>
+</div>
+<script>
+	new Vue({
+		el: '#main'
+	});
+</script>    
+</body>
+</html>
