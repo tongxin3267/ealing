@@ -20,7 +20,7 @@
 {block name="content"}
 <Layout>
 	<Header class="list-header">
-		<i-button v-for="button in buttonList" :class="button.attr.class" :icon="button.attr.icon">{{ button.title }}</i-button>
+		<i-button v-for="button in buttonList" :class="button.attr.class" :icon="button.attr.icon" @click="{{ eval(button.attr.click) }}">{{ button.title }}</i-button>
 		<Modal v-model="modalEnable" class-name="vertical-center-modal" title="确认提示" :loading="setStatusloading" @on-ok="setEnableAsyncOK"><p>确认启用选中单位吗？</p></Modal>
 		<Modal v-model="modalDisable" class-name="vertical-center-modal" title="确认提示" :loading="setStatusloading" @on-ok="setDisableAsyncOK"><p>确认禁用选中单位吗？</p></Modal>
 	</Header>
