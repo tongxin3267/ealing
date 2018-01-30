@@ -158,13 +158,13 @@ class BackstageListBuilder extends BackstageBuilder{
      * * @param $opt 选项
      * @return BackstageListBuilder
      */
-    public function keyText($name, $title ,$opt = null)
+    public function keyText($name, $title, $opt = null)
     {
         return $this->key($name, text($title), 'text' , '', $opt);
     }
 
     /**
-    * 替换数据
+    * 替换数据 用于状态等数字转文字的操作
     * @date: 2018年1月29日 下午5:10:04
     * @author: onep2p <324834500@qq.com>
     * @param: variable
@@ -185,13 +185,19 @@ class BackstageListBuilder extends BackstageBuilder{
      */
     public function keyLinkByFlag($name, $title, $getUrl, $flag = 'id')
     {
-        //如果getUrl是一个字符串，则表示getUrl是一个U函数解析的字符串
-        if (is_string($getUrl)) {
-            $getUrl = $this->ParseUrl($getUrl, $flag);
-        }
-
-        //添加key
-        return $this->key($name, $title, 'link', $getUrl);
+        return $this->key($name, $title, 'link', '', ['link' => $getUrl]);
+    }
+    
+    /**
+    * 时间转换
+    * @date: 2018年1月30日 下午2:28:23
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function keyTime($name, $title, $opt = null)
+    {
+        return $this->key($name, $title, 'time', '', $opt);
     }
     
     /**
@@ -262,9 +268,10 @@ class BackstageListBuilder extends BackstageBuilder{
         });
 
         //time转换成text
-        $this->convertKey('time', 'text', function ($value) {
+        $this->convertKey('time', 'text', function ($value, $key) {
+            $format = !empty($key['opt']['format']) ? $key['opt']['format'] : 'Y-m-d H:i';
             if ($value != 0) {
-                return time_format($value);
+                return time_format($value, $format);
             } else {
                 return '-';
             }
@@ -274,6 +281,19 @@ class BackstageListBuilder extends BackstageBuilder{
         $this->convertKey('text', 'html', function ($value) {
             return $value;
         });
+        
+        //link转换为html
+        $this->convertKey('link', 'html', function ($value, $key, $item) {
+            $value = htmlspecialchars($value);
+            $url = $key['opt']['link'];
+            
+            //允许字段为空，如果字段名为空将标题名填充到A变现里
+            if (!$value) {
+                return "<a href=\"$url\">" . $key['title'] . "</a>";
+            } else {
+                return "<a href=\"$url\">$value</a>";
+            }
+        });        
         
         //编译buttonList中的属性
         foreach ($this->_buttonList as &$button) {
