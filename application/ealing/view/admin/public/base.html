@@ -14,7 +14,7 @@
         <Layout>
             <Header>
                 <i-Menu mode="horizontal" theme="dark" v-bind:active-name="topMenu.active">
-                    <div class="layout-logo"></div>
+                    <div class="layout-logo"><img alt="" src="__STATIC__/images/easyapi-logo.png"></div>
                     <div class="layout-nav">
                     	<a v-for="top in topMenu.menu" :href="top.path"><Menu-item :name="top.alias"><Icon :type="top.icon"></Icon>{{ top.title }}</Menu-item></a>
                     </div>
@@ -66,7 +66,7 @@
 </div>
 
 <style type="text/css">
-html,body{height:100%;margin:0px;padding:0px;}
+html,body{height:100%;}
 [v-cloak] {
 	display: none;
 }
@@ -83,13 +83,12 @@ html,body{height:100%;margin:0px;padding:0px;}
 .ivu-layout-sider{height:100%;}
 .layout-logo{
     width: 10%;
-    height: 30px;
-    background: #5b6270;
+    height: 50px;
     border-radius: 3px;
     float: left;
     position: relative;
-    top: 15px;
-    left: 20px;
+    top: 5px;
+    left: 5px;
 }
 .layout-nav{
 	width: 80%;
@@ -107,11 +106,6 @@ html,body{height:100%;margin:0px;padding:0px;}
 	color: #ffffff;
     text-align: center;
 	line-height: 48px;
-}
-
-/* 列表按钮间隙 */
-.ivu-btn{
-	margin: 0px 2px;
 }
 
 /* 新增还原按钮样式  */
