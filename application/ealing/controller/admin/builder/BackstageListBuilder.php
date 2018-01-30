@@ -123,6 +123,7 @@ class BackstageListBuilder extends BackstageBuilder{
     {
         if (!$url) $url = $this->_setStatusUrl;
         $attr['class']='ivu-btn ivu-btn-restore ajax-post';
+        $attr['type'] = 'ghost';
         $attr['icon'] = 'social-designernews';
         return $this->buttonSetStatus($url, 1, $title, $attr);
     }
@@ -293,13 +294,7 @@ class BackstageListBuilder extends BackstageBuilder{
             } else {
                 return "<a href=\"$url\">$value</a>";
             }
-        });        
-        
-        //编译buttonList中的属性
-        foreach ($this->_buttonList as &$button) {
-            $button['tag'] = 'i-button';
-            $button['attr'] = $this->compileHtmlAttr($button['attr']);
-        }
+        });
 
         //生成翻页
         if(!empty($this->_pagination['totalCount'])){
@@ -311,7 +306,7 @@ class BackstageListBuilder extends BackstageBuilder{
         //显示页面
         $this->assign('title', $this->_title);
         $this->assign('columns', json_encode($this->_columns));
-        $this->assign('buttonList', $this->_buttonList);
+        $this->assign('buttonList', json_encode($this->_buttonList));
         $this->assign('actionList', json_encode($this->_actionList));
         $this->assign('pagination', $paginationHtml);
         $this->assign('list', json_encode($this->_data));
