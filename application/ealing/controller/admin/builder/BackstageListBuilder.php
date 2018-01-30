@@ -10,7 +10,7 @@ class BackstageListBuilder extends BackstageBuilder{
 
     private $_title;//标题
     private $_buttonList = [];//按钮列表   默认、新增、编辑、禁用、启用等等
-    private $_actionList = [];//操作
+    private $_actionList = ['head'=>'操作', 'width'=>150, 'align'=>'center', 'actions'=>[]];//操作组件
     private $_columns = [];//head 表头
     private $_data = [];//数据
     private $_pagination = [];//分页
@@ -193,17 +193,46 @@ class BackstageListBuilder extends BackstageBuilder{
         //添加key
         return $this->key($name, $title, 'link', $getUrl);
     }
+    
+    /**
+    * 编辑操作
+    * @date: 2018年1月30日 上午10:13:48
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function keyEditAction($getUrl, $text = '编辑', $title = '操作')
+    {
+        $render = ['props' => ['type' => 'primary', 'size' => 'small'], 'style' => ['marginRight' => '5px']];
+        
+        return $this->keyDoAction($getUrl, $text, $title, $render);
+    }
+    
+    /**
+    * 删除操作
+    * @date: 2018年1月30日 上午10:28:40
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function keyDelAction($getUrl, $text = '删除', $title = '操作')
+    {
+        $render = ['props' => ['type' => 'error', 'size' => 'small'], 'style' => ['marginRight' => '5px']];
+        
+        return $this->keyDoAction($getUrl, $text, $title, $render);
+    }
 
     /**
-    * 操作
+    * 操作基础函数
     * @date: 2018年1月29日 下午5:10:45
     * @author: onep2p <324834500@qq.com>
     * @param: variable
     * @return:
     */
-    public function keyDoAction($getUrl, $text, $title = '操作')
+    public function keyDoAction($getUrl, $text, $title = '操作', $render = ['props' => ['size' => 'small'], 'style' => ['marginRight' => '5px']])
     {
-        $this->_actionList[] = ['text' => $text, 'get_url' => $getUrl];
+        $this->_actionList['head'] = $title;
+        $this->_actionList['actions'][] = ['text' => $text, 'get_url' => $getUrl, 'props' => json_encode($render['props']), 'style' => json_encode($render['style'])];
         return $this;
     }
 
@@ -263,7 +292,7 @@ class BackstageListBuilder extends BackstageBuilder{
         $this->assign('title', $this->_title);
         $this->assign('columns', json_encode($this->_columns));
         $this->assign('buttonList', $this->_buttonList);
-        $this->assign('actionList', $this->_actionList);
+        $this->assign('actionList', json_encode($this->_actionList));
         $this->assign('pagination', $paginationHtml);
         $this->assign('list', json_encode($this->_data));
         $this->assign('searchPostUrl', $this->_searchPostUrl);

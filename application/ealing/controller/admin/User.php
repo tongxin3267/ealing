@@ -27,7 +27,8 @@ class User{
             ->keyIndex()
             ->keyText('title', '名称')
             ->keyMap('status', '状态', [1=>'启用', 0=>'禁用'])
-            ->keyDoAction(url('app\ealing\controller\admin\User@main'), '编辑')
+            ->keyEditAction(url('app\ealing\controller\admin\User@Edit'))
+            ->keyDelAction(url('app\ealing\controller\admin\User@Del'))
             ->data($list);
         
         return $builder->show();

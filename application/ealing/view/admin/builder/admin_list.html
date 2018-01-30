@@ -25,7 +25,7 @@
 		<i-table :stripe="true" :columns="columns" :data="data"></i-table>
 	    <div style="margin: 10px;overflow: hidden">
 	        <div style="float: right;">
-	            <Page :total="100" :current="1" :show-elevator="true" :show-sizer="true" @on-change="pageChange"></Page>
+	            <Page :total="100" :current="1" :show-elevator="true" :show-sizer="true" @on-page-size-change="pageSize" @on-change="pageChange"></Page>
 	        </div>
 	    </div>		
 	</Content>
@@ -35,43 +35,33 @@
 {block name="script"}
 <script>
 var columns = {$columns};
+var actionList = {$actionList};
 
 /* 这里加入对操作render的解析
  * 解析按钮、解析方式（跳转、ajax）、解析文字 
  */
 columns.push({
-    title: '操作',
+    title: actionList.head,
     key: 'action',
-    width: 150,
-    align: 'center',
+    width: actionList.width,
+    align: actionList.align,
     render: (h, params) => {
-        return h('div', [
-            h('Button', {
-                props: {
-                    type: 'primary',
-                    size: 'small'
-                },
-                style: {
-                    marginRight: '5px'
-                },
-                on: {
-                    click: () => {
-                        console.log(params)
+    	var renders = [];
+    	for (var i = 0; i < actionList.actions.length; i++) {
+    		renders.push(
+                h('Button', {
+                	props: eval('(' + actionList.actions[i].props + ')'),
+                	style: eval('(' + actionList.actions[i].style + ')'),
+                    on: {
+                        click: () => {
+                            console.log(params)
+                        }
                     }
-                }
-            }, 'View'),
-            h('Button', {
-                props: {
-                    type: 'error',
-                    size: 'small'
-                },
-                on: {
-                    click: () => {
-                        console.log(params)
-                    }
-                }
-            }, 'Delete')
-        ]);
+                }, actionList.actions[i].text)
+    		);
+    	}
+    	
+        return h('div', renders);
     }
 });
 
@@ -93,6 +83,9 @@ ealingBuilder = {
             setTimeout(() => {
                 this.modalDisable = false;
             }, 2000);
+		},
+		pageSize () {
+			console.log('调整每页显示行数');
 		},
 		pageChange () {
 			this.data = [
