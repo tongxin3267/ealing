@@ -8,8 +8,8 @@ namespace app\ealing\controller\admin;
 
 use app\ealing\controller\admin\builder\BackstageListBuilder;
 
-class User{
-    public function store(){
+class User extends BaseController{    
+    public function users(){
         $builder = new BackstageListBuilder();
 
         $list = [

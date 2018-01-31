@@ -68,35 +68,34 @@ columns.push({
     }
 });
 
-ealingBuilder = {
-	data: {
-		setStatusloading: true,
-		modalEnable: false,
-		modalDisable: false,
-		buttonList: {$buttonList},
-		columns: columns,
-		data: {$list}
-	},
-	methods: {
-		setEnableAsyncOK () {
-            setTimeout(() => {
-                this.modalEnable = false;
-            }, 2000);
-		},
-		setDisableAsyncOK () {
-            setTimeout(() => {
-                this.modalDisable = false;
-            }, 2000);
-		},
-		pageSize () {
-			console.log('调整每页显示行数');
-		},
-		pageChange () {
-			this.data = [
-				{id:3,status:'禁用',title:'onep2p'}
-			];
-		}
-	}
-};
+
+ealingBuilder.data.setStatusloading = true;
+ealingBuilder.data.modalEnable = false;
+ealingBuilder.data.modalDisable = false;
+ealingBuilder.data.buttonList = {$buttonList};
+ealingBuilder.data.columns = columns;
+ealingBuilder.data.data = {$list};
+
+ealingBuilder.methods.setEnableAsyncOK = function () {
+    setTimeout(() => {
+        this.modalEnable = false;
+    }, 2000);
+}
+
+ealingBuilder.methods.setDisableAsyncOK = function () {
+    setTimeout(() => {
+        this.modalDisable = false;
+    }, 2000);
+}
+
+ealingBuilder.methods.pageSize = function () {
+	console.log('调整每页显示行数');
+}
+
+ealingBuilder.methods.pageChange = function () {
+	this.data = [
+		{id:3,status:'禁用',title:'onep2p'}
+	];
+}
 </script>
 {/block}

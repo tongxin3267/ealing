@@ -6,9 +6,7 @@
 */
 namespace app\ealing\controller\admin;
 
-use think\Controller;
-
-class Main extends Controller{
+class Main extends BaseController{
     /**
     * 后台登录
     * @date: 2018年1月29日 上午9:42:35
@@ -17,6 +15,19 @@ class Main extends Controller{
     * @return:
     */
     public function login(){
-        return $this->fetch('admin/login');
+        return $this->fetch();
+    }
+    
+    /**
+    * 后台首页
+    * @date: 2018年1月31日 上午10:14:58
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function store(){
+        $this->assign('title', '首页');
+        
+        return $this->fetch();
     }
 }
