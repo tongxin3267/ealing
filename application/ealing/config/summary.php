@@ -30,8 +30,8 @@ return [
             'alias' => 'cash',
             'icon' => 'cash',
             'submenu' => [
-                ['name' => '充值列表', 'alias' => '', 'icon'  => '', 'path'  => ''],
-                ['name' => '提现列表', 'alias' => '', 'icon'  => '', 'path'  => ''],
+                ['name' => '充值列表', 'alias' => 'recharge', 'icon'  => '', 'path'  => ''],
+                ['name' => '提现列表', 'alias' => 'cash', 'icon'  => '', 'path'  => ''],
             ]
         ],
         [
@@ -39,8 +39,8 @@ return [
             'alias' => 'card',
             'icon' => 'card',
             'submenu' => [
-                ['name' => '标签管理', 'alias' => '', 'icon'  => '', 'path'  => ''],
-                ['name' => '身份认证', 'alias' => '', 'icon'  => '', 'path'  => ''],
+                ['name' => '标签管理', 'alias' => 'tag', 'icon'  => '', 'path'  => ''],
+                ['name' => '身份认证', 'alias' => 'auth', 'icon'  => '', 'path'  => ''],
             ]
         ]
     ],

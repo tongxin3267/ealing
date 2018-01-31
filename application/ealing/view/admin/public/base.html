@@ -14,10 +14,10 @@
     <div class="layout" v-cloak>
         <Layout>
             <Header>
-                <i-Menu mode="horizontal" theme="dark" v-bind:active-name="topMenu.active">
+                <i-Menu mode="horizontal" theme="dark" :active-name="topMenu.active" @on-select="topSelect($event)">
                     <div class="layout-logo"><img alt="" src="__STATIC__/images/easyapi-logo.png"></div>
                     <div class="layout-nav">
-                    	<Menu-item v-for="top in topMenu.menu" :to="top.path" :name="top.alias" @on-select="topSelect"><Icon :type="top.icon"></Icon>{{ top.title }}</Menu-item>
+                    	<Menu-item v-for="top in topMenu.menu" :to="top.path" :name="top.alias"><Icon :type="top.icon"></Icon>{{ top.title }}</Menu-item>
                     </div>
                     <div class="layout-userSub">
 	                	<Submenu name="userSub">
@@ -36,12 +36,12 @@
             </Header>
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
-                    <i-Menu :active-name="summary.active" style="height:100%;" theme="light" width="auto" :open-names="summary.open">
+                    <i-Menu :active-name="summary.active" style="height:100%;" theme="light" width="auto" :open-names="summary.open" :accordion="true" @on-select="subSelect($event)">
                     	<div v-for="menu in summary.template">
                     		<div v-if="menu.alias">
                     			<Submenu :name="menu.alias">
                     				<template slot="title"><Icon :type="menu.icon"></Icon>{{ menu.name }}</template>
-                    				<Menu-item v-for="submenu in menu.submenu" :to="submenu.path" :name="submenu.alias" @on-select="subSelect">{{ submenu.name }}</Menu-item>
+                    				<Menu-item v-for="submenu in menu.submenu" :to="submenu.path" :name="submenu.alias">{{ submenu.name }}</Menu-item>
                     			</Submenu>
                     		</div>
                     		<div v-else>
@@ -140,15 +140,13 @@ html,body{height:100%;}
 <script>
 	var ealingBuilder = {
 		el: '#app',
-		data:{
-			title: '首页',
-		},
+		data:{},
 		methods:{
-			topSelect () {
-				console.log(1);
+			topSelect (event) {
+				console.log(event);
 			},
-			subSelect () {
-				console.log(2);
+			subSelect (event) {
+				console.log(event);
 			}
 		}
 	};
