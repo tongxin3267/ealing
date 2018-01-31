@@ -21,7 +21,7 @@ return [
             'icon' => 'person-stalker',//当没有二级的时候可以忽略，但必须在二级中填写icon，否则栏目有可能结构错误
             'submenu' => [
                 ['name' => '用户列表', 'alias' => 'users', 'icon'  => '', 'path'  => url(app\ealing\controller\admin\User::class.'@users')],
-                ['name' => '用户角色', 'alias' => 'role', 'icon'  => '', 'path'  => ''],
+                ['name' => '用户角色', 'alias' => 'roles', 'icon'  => '', 'path'  => url(app\ealing\controller\admin\User::class.'@roles')],
                 ['name' => '权限列表', 'alias' => 'access', 'icon'  => '', 'path'  => ''],
             ]
         ],

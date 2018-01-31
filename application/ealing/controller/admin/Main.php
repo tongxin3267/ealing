@@ -26,8 +26,6 @@ class Main extends BaseController{
     * @return:
     */
     public function store(){
-        $this->assign('title', '首页');
-        
         return $this->fetch();
     }
 }

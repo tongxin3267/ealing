@@ -53,12 +53,12 @@ class Backstage extends Controller{
             $set = include APP_PATH . $app . '/config/summary' . CONF_EXT;
             $topMenu['menu'][] = ['alias' => $set['alias'], 'icon' => $set['icon'], 'title' => $set['title'], 'path' => $set['path']];
         }
-        $this->assign('topMenu', json_encode($topMenu));
         
         $summary = include APP_PATH . $module . '/config/summary' . CONF_EXT;
         $summary['open'] = $summary['open'] == $controller ? $summary['open'] : [$controller];
         $summary['active'] = $summary['active'] == $action ? $summary['active'] : $action;
 
+        $this->assign('topMenu', json_encode($topMenu));
         $this->assign('summary', json_encode($summary));
     }
 }

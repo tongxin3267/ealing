@@ -14,10 +14,10 @@
     <div class="layout" v-cloak>
         <Layout>
             <Header>
-                <i-Menu mode="horizontal" theme="dark" :active-name="topMenu.active" @on-select="topSelect($event)">
+                <i-Menu mode="horizontal" theme="dark" :active-name="topMenu.active">
                     <div class="layout-logo"><img alt="" src="__STATIC__/images/easyapi-logo.png"></div>
                     <div class="layout-nav">
-                    	<Menu-item v-for="top in topMenu.menu" :to="top.path" :name="top.alias"><Icon :type="top.icon"></Icon>{{ top.title }}</Menu-item>
+                    	<a v-for="top in topMenu.menu" :href="top.path"><Menu-item :name="top.alias"><Icon :type="top.icon"></Icon>{{ top.title }}</Menu-item></a>
                     </div>
                     <div class="layout-userSub">
 	                	<Submenu name="userSub">
@@ -36,12 +36,12 @@
             </Header>
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
-                    <i-Menu :active-name="summary.active" style="height:100%;" theme="light" width="auto" :open-names="summary.open" :accordion="true" @on-select="subSelect($event)">
+                    <i-Menu :active-name="summary.active" style="height:100%;" theme="light" width="auto" :open-names="summary.open" :accordion="true">
                     	<div v-for="menu in summary.template">
                     		<div v-if="menu.alias">
                     			<Submenu :name="menu.alias">
                     				<template slot="title"><Icon :type="menu.icon"></Icon>{{ menu.name }}</template>
-                    				<Menu-item v-for="submenu in menu.submenu" :to="submenu.path" :name="submenu.alias">{{ submenu.name }}</Menu-item>
+                    				<a v-for="submenu in menu.submenu" style="color:#495060;" :href="submenu.path"><Menu-item :name="submenu.alias">{{ submenu.name }}</Menu-item></a>
                     			</Submenu>
                     		</div>
                     		<div v-else>
@@ -51,11 +51,11 @@
                     </i-Menu>
                 </Sider>
                 <Layout>
-                	<Header :style="{background: '#f0f0f0', borderBottom: '2px solid #495060', padding: '5px 0px 0px'}">
+<!--                 	<Header :style="{background: '#f0f0f0', borderBottom: '2px solid #495060', padding: '5px 0px 0px'}">
                 		<Tag type="dot" color="blue">首页</Tag>
                 		<Tag type="dot" :closable="true">用户列表</Tag>
                 		<Tag type="dot" :closable="true">用户角色</Tag>
-                	</Header>
+                	</Header> -->
                 	<Layout :style="{padding: '24px 24px 0'}">
 	                    <Content :style="{padding: '24px', background: '#fff'}">
 	                    	<div id="list">{block name="content"}默认内容{/block}</div>
@@ -85,7 +85,7 @@ html,body{height:100%;}
 .ivu-layout{height:100%;}
 .ivu-layout-sider{height:100%;}
 .layout-logo{
-    width: 10%;
+	width: 200px;
     height: 50px;
     border-radius: 3px;
     float: left;
@@ -94,7 +94,6 @@ html,body{height:100%;}
     left: 5px;
 }
 .layout-nav{
-	width: 80%;
     margin: 0 auto;
     margin-right: 20px;
 }
@@ -140,15 +139,10 @@ html,body{height:100%;}
 <script>
 	var ealingBuilder = {
 		el: '#app',
-		data:{},
-		methods:{
-			topSelect (event) {
-				console.log(event);
-			},
-			subSelect (event) {
-				console.log(event);
-			}
-		}
+		data:{
+			title: '首页',
+		},
+		methods:{}
 	};
 </script>
 
