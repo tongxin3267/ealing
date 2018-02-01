@@ -20,7 +20,18 @@
 {block name="content"}
 <Layout>
 	<Header class="list-header">
-		<i-button v-for="button in buttonList" :class="button.attr.class" :icon="button.attr.icon" @click="{{ eval(button.attr.click) }}">{{ button.title }}</i-button>
+		<div>
+			<i-button v-for="button in buttonList" :class="button.attr.class" :icon="button.attr.icon" @click="{{ eval(button.attr.click) }}">{{ button.title }}</i-button>
+		</div>
+	    <div style="padding-top:24px;">
+	    	<i-input placeholder="input" :style="{width: '150px'}"></i-input>
+	    	<i-input placeholder="search" :style="{width: '200px'}" icon="ios-search"></i-input>
+	    	<date-picker type="date" placeholder="Select date" style="width: 200px"></date-picker>
+	    	
+		    <i-select style="width:200px">
+		        <i-option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+		    </i-select>	    	
+	    </div>
 		<Modal v-model="modalEnable" class-name="vertical-center-modal" title="确认提示" :loading="setStatusloading" @on-ok="setEnableAsyncOK"><p>确认启用选中单位吗？</p></Modal>
 		<Modal v-model="modalDisable" class-name="vertical-center-modal" title="确认提示" :loading="setStatusloading" @on-ok="setDisableAsyncOK"><p>确认禁用选中单位吗？</p></Modal>
 	</Header>
@@ -75,6 +86,32 @@ ealingBuilder.data.modalDisable = false;
 ealingBuilder.data.buttonList = {$buttonList};
 ealingBuilder.data.columns = columns;
 ealingBuilder.data.data = {$list};
+ealingBuilder.data.cityList = [
+    {
+        value: 'New York',
+        label: 'New York'
+    },
+    {
+        value: 'London',
+        label: 'London'
+    },
+    {
+        value: 'Sydney',
+        label: 'Sydney'
+    },
+    {
+        value: 'Ottawa',
+        label: 'Ottawa'
+    },
+    {
+        value: 'Paris',
+        label: 'Paris'
+    },
+    {
+        value: 'Canberra',
+        label: 'Canberra'
+    }
+];
 
 ealingBuilder.methods.setEnableAsyncOK = function () {
     setTimeout(() => {
