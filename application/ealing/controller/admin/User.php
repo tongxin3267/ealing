@@ -21,6 +21,14 @@ class User extends BaseController{
 
         $list = [
             ['id'=>1,'title'=>'逸秋', 'status'=>1, 'time'=>1517293857],
+            ['id'=>2,'title'=>'逸秋1', 'status'=>0, 'time'=>1517293857,'_checked'=>true],
+            ['id'=>2,'title'=>'逸秋1', 'status'=>0, 'time'=>1517293857],
+            ['id'=>2,'title'=>'逸秋1', 'status'=>0, 'time'=>1517293857],
+            ['id'=>2,'title'=>'逸秋1', 'status'=>0, 'time'=>1517293857],
+            ['id'=>2,'title'=>'逸秋1', 'status'=>0, 'time'=>1517293857],
+            ['id'=>2,'title'=>'逸秋1', 'status'=>0, 'time'=>1517293857],
+            ['id'=>2,'title'=>'逸秋1', 'status'=>0, 'time'=>1517293857],
+            ['id'=>2,'title'=>'逸秋1', 'status'=>0, 'time'=>1517293857],
             ['id'=>2,'title'=>'逸秋1', 'status'=>0, 'time'=>1517293857]
         ];
         

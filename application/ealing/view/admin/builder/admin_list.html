@@ -9,10 +9,10 @@
 
 	.list-header{
 		background-color: #ffffff;
-		padding-bottom: 24px;
+		padding-bottom: 10px;
 	}
 	.list-content{
-		padding: 24px 24px 14px 24px;
+		padding: 15px 15px 0px 15px;
 	}
 </style>
 {/block}
@@ -20,22 +20,20 @@
 {block name="content"}
 <Layout>
 	<Header class="list-header">
-		<div>
-			<i-button v-for="button in buttonList" :class="button.attr.class" :icon="button.attr.icon" @click="{{ eval(button.attr.click) }}">{{ button.title }}</i-button>
-		</div>
-	    <div style="padding-top:24px;">
-	    	<i-input placeholder="input" :style="{width: '150px'}"></i-input>
-	    	<i-input placeholder="search" :style="{width: '200px'}" icon="ios-search"></i-input>
-	    	<date-picker type="date" placeholder="Select date" style="width: 200px"></date-picker>
-	    	
-		    <i-select style="width:200px">
-		        <i-option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
-		    </i-select>	    	
-	    </div>
+		<i-button v-for="button in buttonList" :class="button.attr.class" :icon="button.attr.icon" @click="{{ eval(button.attr.click) }}">{{ button.title }}</i-button>
 		<Modal v-model="modalEnable" class-name="vertical-center-modal" title="确认提示" :loading="setStatusloading" @on-ok="setEnableAsyncOK"><p>确认启用选中单位吗？</p></Modal>
 		<Modal v-model="modalDisable" class-name="vertical-center-modal" title="确认提示" :loading="setStatusloading" @on-ok="setDisableAsyncOK"><p>确认禁用选中单位吗？</p></Modal>
 	</Header>
 	<Content class="list-content">
+	    <i-form style="padding-bottom:10px;">	    	
+		    <i-select style="width:200px">
+		        <i-option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+		    </i-select>
+	    	<date-picker type="daterange" :confirm="true" placeholder="Select date" style="width: 200px"></date-picker>
+	    	<i-input placeholder="search" :style="{width: '240px'}" icon="ios-search"></i-input>
+		    
+		    <i-button type="primary">确定</i-button>
+	    </i-form>
 		<i-table :stripe="true" :columns="columns" :data="data"></i-table>
 	    <div style="margin: 10px;overflow: hidden">
 	        <div style="float: right;">
