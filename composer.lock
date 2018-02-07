@@ -58,12 +58,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chouvc/ealing-packagest-ueditor.git",
-                "reference": "e6dcd95636383ae1fb901aa37725549e5bd20500"
+                "reference": "48d542379a561541120d3a15a1adff26a9f5a41e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chouvc/ealing-packagest-ueditor/zipball/e6dcd95636383ae1fb901aa37725549e5bd20500",
-                "reference": "e6dcd95636383ae1fb901aa37725549e5bd20500",
+                "url": "https://api.github.com/repos/chouvc/ealing-packagest-ueditor/zipball/48d542379a561541120d3a15a1adff26a9f5a41e",
+                "reference": "48d542379a561541120d3a15a1adff26a9f5a41e",
                 "shasum": ""
             },
             "type": "library",
@@ -83,7 +83,7 @@
                 }
             ],
             "description": "The a for Ealing ueditor",
-            "time": "2018-01-17T02:18:35+00:00"
+            "time": "2018-01-17T02:39:59+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -282,16 +282,16 @@
         },
         {
             "name": "topthink/framework",
-            "version": "v5.0.14",
+            "version": "v5.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/framework.git",
-                "reference": "3d1bdfbc19a7e7fd323be1dd53c4bacbe7bfb706"
+                "reference": "7c1375791fe8772e33282ee8611ea465dc215fca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/framework/zipball/3d1bdfbc19a7e7fd323be1dd53c4bacbe7bfb706",
-                "reference": "3d1bdfbc19a7e7fd323be1dd53c4bacbe7bfb706",
+                "url": "https://api.github.com/repos/top-think/framework/zipball/7c1375791fe8772e33282ee8611ea465dc215fca",
+                "reference": "7c1375791fe8772e33282ee8611ea465dc215fca",
                 "shasum": ""
             },
             "require": {
@@ -329,7 +329,7 @@
                 "orm",
                 "thinkphp"
             ],
-            "time": "2018-01-01T12:44:11+00:00"
+            "time": "2018-01-31T08:40:10+00:00"
         },
         {
             "name": "topthink/think-helper",
@@ -672,16 +672,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "4.2.0",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "66465776cfc249844bde6d117abff1d22e06c2da"
+                "reference": "94fd0001232e47129dd3504189fa1c7225010d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/66465776cfc249844bde6d117abff1d22e06c2da",
-                "reference": "66465776cfc249844bde6d117abff1d22e06c2da",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/94fd0001232e47129dd3504189fa1c7225010d08",
+                "reference": "94fd0001232e47129dd3504189fa1c7225010d08",
                 "shasum": ""
             },
             "require": {
@@ -719,7 +719,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2017-11-27T17:38:31+00:00"
+            "time": "2017-11-30T07:14:17+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -1581,7 +1581,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v2.8.33",
+            "version": "v2.8.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
@@ -1637,16 +1637,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296"
+                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
-                "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/78be803ce01e55d3491c1397cf1c64beb9c1b63b",
+                "reference": "78be803ce01e55d3491c1397cf1c64beb9c1b63b",
                 "shasum": ""
             },
             "require": {
@@ -1658,7 +1658,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6-dev"
+                    "dev-master": "1.7-dev"
                 }
             },
             "autoload": {
@@ -1692,20 +1692,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-10-11T12:05:26+00:00"
+            "time": "2018-01-30T19:27:44+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.3",
+            "version": "v3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "25c192f25721a74084272671f658797d9e0e0146"
+                "reference": "eab73b6c21d27ae4cd037c417618dfd4befb0bfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/25c192f25721a74084272671f658797d9e0e0146",
-                "reference": "25c192f25721a74084272671f658797d9e0e0146",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/eab73b6c21d27ae4cd037c417618dfd4befb0bfe",
+                "reference": "eab73b6c21d27ae4cd037c417618dfd4befb0bfe",
                 "shasum": ""
             },
             "require": {
@@ -1750,7 +1750,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:37:34+00:00"
+            "time": "2018-01-21T19:05:02+00:00"
         },
         {
             "name": "topthink/think-testing",
@@ -1795,16 +1795,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f"
+                "reference": "0df1908962e7a3071564e857d86874dad1ef204a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
-                "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/0df1908962e7a3071564e857d86874dad1ef204a",
+                "reference": "0df1908962e7a3071564e857d86874dad1ef204a",
                 "shasum": ""
             },
             "require": {
@@ -1841,7 +1841,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2016-11-23T20:04:58+00:00"
+            "time": "2018-01-29T19:49:41+00:00"
         }
     ],
     "aliases": [],
