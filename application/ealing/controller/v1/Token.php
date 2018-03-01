@@ -24,6 +24,7 @@ class Token extends BaseApi
 	*/
 	public function store(JWT $token)
 	{
+	    var_dump($token->validation('111'));exit;
 		try {
 		    //:DOTO 用户验证
 		    $login = input('get.login', '', 'htmlspecialchars');

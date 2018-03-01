@@ -6,7 +6,6 @@
 */
 namespace app\ealing\controller;
 
-use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Builder;
 use think\Env;
 use app\ealing\model\JwtCaches as JWTCacheModel;
@@ -24,17 +23,16 @@ class JWTToken
      */
     public function createToken($user)
     {
-        $signer = new Sha256();
         $signerKey = Env::get('APP_KEY');
         return $this->token(
            (string) (new Builder())
                 ->setIssuer(Env::get('APP_URL'))
                 ->setAudience(Env::get('APP_URL'))
+                ->setId($signerKey, true)
                 ->setIssuedAt($_SERVER['REQUEST_TIME'])
                 ->setExpiration($_SERVER['REQUEST_TIME'] + config('token.ttl')*60)
                 ->set('uid', $user['uid'])
-                ->sign($signer, $signerKey)
-                ->getToken(), $user
+                ->getToken()
         );
     }
     
@@ -59,17 +57,28 @@ class JWTToken
     */
     public function validation($token)
     {
-        $signer = new Sha256();
-        $signerKey = Env::get('APP_KEY');
-        
-        $parseToken = (new Parser())->parse($token);
-        if(!$parseToken->verify($signer,$signerKey)){
+        try {
+            $signerKey = Env::get('APP_KEY');
             
+            $parseToken = (new Parser())->parse($token);
+            $validata = new ValidationData();
+            $validata->setIssuer(Env::get('APP_URL'));
+            $validata->setAudience(Env::get('APP_URL'));
+            $validata->setId($signerKey);
+            if(!$parseToken->validate($validata)){
+                return [
+                    'status'=>'fail',
+                    'msg'=>'validation fail',
+                ];
+            }else{
+                return 1;
+            }
+        }catch(\Exception $e){
+            return [
+                'status'=>'fail',
+                'msg'=>$e->getMessage(),
+            ];
         }
-        
-        $validata = new ValidationData();
-        $validata->setIssuer(Env::get('APP_URL'));
-        $validata->setAudience(Env::get('APP_URL'));
     }
     
     /**
@@ -85,7 +94,8 @@ class JWTToken
         
         $cache = new JWTCacheModel();
         $cache->user_id = $parseToken->getClaim('uid');
-        $cache->key = $token;
+        $cache->key = explode('.', $token)[0];
+        $cache->values = $token;
         $cache->expires = ($parseToken->getClaim('exp') - $parseToken->getClaim('iat')) / 60;
         $cache->minutes = config('token.refresh_ttl');
         $cache->status = 1;
