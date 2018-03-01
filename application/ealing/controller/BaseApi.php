@@ -9,7 +9,6 @@ namespace app\ealing\controller;
 use think\Controller;
 use think\Request;
 use app\ealing\controller\Send;
-use think\Env;
 
 class BaseApi extends Controller
 {	
@@ -18,10 +17,6 @@ class BaseApi extends Controller
 	protected $request;
 	
 	protected $type;//当前资源类型
-	
-	protected $app_key;//app密匙
-	
-	protected $token;//token基础信息
     
     /**
      * 构造函数
@@ -31,7 +26,6 @@ class BaseApi extends Controller
     {
         $this->request = Request::instance();
         $this->init();
-        $this->initJwt();
     } 
 
     /**
@@ -51,25 +45,6 @@ class BaseApi extends Controller
         } else {
             $this->sendError(500, 'server error!!', 500);
         }
-    }
-    
-    /**
-    * 初始化token数据
-    * @date: 2018年1月15日 下午3:05:27
-    * @author: onep2p <324834500@qq.com>
-    * @param: variable
-    * @return:
-    */
-    private function initJwt()
-    {
-        $this->app_key = Env::get('APP_KEY');
-        
-        $this->token = array(
-            "iss" => Env::get('APP_URL'),
-            "iat" => $_SERVER['REQUEST_TIME'],
-            "exp" => $_SERVER['REQUEST_TIME']+7200,//token令牌生命周期
-            "nbf" => $_SERVER['REQUEST_TIME']-300,//设置创建令牌前5分钟外不被接受
-        );
     }
     
     /**

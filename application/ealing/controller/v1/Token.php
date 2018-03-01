@@ -9,7 +9,7 @@ namespace app\ealing\controller\v1;
 use think\Controller;
 use app\ealing\controller\BaseApi;
 use app\ealing\controller\Send;
-use Firebase\JWT\JWT;
+use app\ealing\controller\JWTToken as JWT;
 
 class Token extends BaseApi
 {
@@ -22,19 +22,22 @@ class Token extends BaseApi
 	* @param: variable
 	* @return:
 	*/
-	public function store($uid = 1, $token_type = 'admin')
+	public function store(JWT $token)
 	{
 		try {
 		    //:DOTO 用户验证
 		    $login = input('get.login', '', 'htmlspecialchars');
-		    
-		    $this->token['uid'] = $uid;
+		    $password = input('password', '', 'htmlspecialchars');
+
+            $user = ['uid'=>1];
 
 		    $data = [
-		        'token' => JWT::encode($this->token, $this->app_key),
-		        'token_type' => $token_type,
-		        'expires_in' => 7200
+		        'token' => $token->createToken($user),
+		        'token_type' => 'admin',
+		        'expires_in' => 3600,
+		        'refresh_ttl' => 20160
 		    ];
+
 
 		    return $this->sendSuccess($data,'success',201);
 		} catch (\Exception $e) {
@@ -52,18 +55,7 @@ class Token extends BaseApi
 	public function refresh()
 	{
 	    try {
-	        $token = $this->request->param('token');
-	         
-	        $decoded = JWT::decode($token, $this->app_key, array('HS256'));
 	        
-	        //验证用户数据
-
-	        $this->token['uid'] = $decoded->uid;
-	        $data = [
-	            'token' => JWT::encode($this->token, $this->app_key),
-	            'token_type' => 'bearer',
-	            'expires_in' => 7200
-	        ];
 	    
 	        return $this->sendSuccess($data,'success',201);
 	    } catch (\Exception $e) {

@@ -6,7 +6,7 @@
 */
 namespace app\ealing\model;
 
-class CachesToken extends BaseModel
+class JwtCaches extends BaseModel
 {
     protected $autoWriteTimestamp = 'timestamp';
     
