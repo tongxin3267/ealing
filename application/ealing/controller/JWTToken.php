@@ -91,10 +91,11 @@ class JWTToken
     private function token($token)
     {
         $parseToken = (new Parser())->parse($token);
+        $key = explode('.', $token)[0];
         
         $cache = new JWTCacheModel();
         $cache->user_id = $parseToken->getClaim('uid');
-        $cache->key = explode('.', $token)[0];
+        $cache->key = $key;
         $cache->values = $token;
         $cache->expires = ($parseToken->getClaim('exp') - $parseToken->getClaim('iat')) / 60;
         $cache->minutes = config('token.refresh_ttl');

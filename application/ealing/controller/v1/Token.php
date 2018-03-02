@@ -38,8 +38,8 @@ class Token extends BaseApi
                 return $this->sendSuccess([
                     'token' => $token,
                     'token_type' => 'admin',
-                    'expires_in' => 3600,
-                    'refresh_ttl' => 20160
+                    'expires_in' => config('token.ttl'),
+                    'refresh_ttl' => config('token.refresh_ttl')
                 ],'success',201);
             }
 
