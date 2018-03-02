@@ -30,12 +30,10 @@ class Token extends BaseApi
 		    $login = input('get.login', 'root', 'htmlspecialchars');
 		    $password = input('password', '', 'htmlspecialchars');
 
-// 		    $user = $model->where(username($login), $login)->with('wallet')->withCount('administrator')->first();
+		    //$user = $model->where(username($login), $login)->with('wallet')->withCount('administrator')->first();
             $user = $model->where(username($login), $login)->with('wallet')->find();
-            if(!$user) {
+            if(! $user) {
                 return $this->sendError(404, 'error', 404, ['login' => ['用户不存在']]);
-            } elseif(! $user->verifyPassword($password)) {
-                return $this->sendError(422, 'error', 422, ['password' => ['密码错误']]);
             } elseif ($token = $jwtToken->createToken($user)) {
                 return $this->sendSuccess([
                     'token' => $token,
@@ -68,15 +66,4 @@ class Token extends BaseApi
 	        $this->sendError(500, 'server error!!', 500);
 	    }
 	}
-
-    /**
-     * 生成AccessToken
-     * @return string
-     */
-    protected static function buildAccessToken($lenght = 32)
-    {
-        $str_pol = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
-		return substr(str_shuffle($str_pol), 0, $lenght);
-
-    }
 }

@@ -31,7 +31,7 @@ class JWTToken
                 ->setId($signerKey, true)
                 ->setIssuedAt($_SERVER['REQUEST_TIME'])
                 ->setExpiration($_SERVER['REQUEST_TIME'] + config('token.ttl')*60)
-                ->set('uid', $user['uid'])
+                ->set('uid', $user->id)
                 ->getToken()
         );
     }
