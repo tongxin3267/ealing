@@ -10,6 +10,7 @@ class User extends BaseModel
 {
     //关系数据相关
     use relations\UserHasFollow;
+    use relations\UserHasWallet;
     
     protected $hidden = ['password', 'remember_token', 'phone', 'email', 'deleted_at', 'pivot'];
     
