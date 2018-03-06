@@ -91,11 +91,10 @@ class JWTToken
     private function token($token)
     {
         $parseToken = (new Parser())->parse($token);
-        $key = explode('.', $token)[0];
         
         $cache = new JWTCacheModel();
         $cache->user_id = $parseToken->getClaim('uid');
-        $cache->key = $key;
+        $cache->key = $this->buildTokenKey(64);
         $cache->values = $token;
         $cache->expires = ($parseToken->getClaim('exp') - $parseToken->getClaim('iat')) / 60;
         $cache->minutes = config('token.refresh_ttl');
@@ -104,4 +103,19 @@ class JWTToken
     
         return $token;
     }
+	
+	
+	/**
+	* 生成tokenKey
+	* @date: 2018年3月6日 上午8:50:22
+	* @author: onep2p <324834500@qq.com>
+	* @param: variable
+	* @return: string
+	*/
+	private static function buildTokenKey($lenght = 32)
+	{
+	    $str_pol = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
+	    return substr(str_shuffle($str_pol), 0, $lenght);
+	
+	}
 }
