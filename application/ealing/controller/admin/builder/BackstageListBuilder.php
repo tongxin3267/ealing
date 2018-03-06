@@ -186,7 +186,7 @@ class BackstageListBuilder extends BackstageBuilder{
      */
     public function keyLinkByFlag($name, $title, $getUrl, $flag = 'id')
     {
-        return $this->key($name, $title, 'link', '', ['link' => $getUrl]);
+        return $this->key($name, $title, 'link', '', ['link' => $getUrl, 'pk' => $flag]);
     }
     
     /**
@@ -286,7 +286,7 @@ class BackstageListBuilder extends BackstageBuilder{
         //link转换为html
         $this->convertKey('link', 'html', function ($value, $key, $item) {
             $value = htmlspecialchars($value);
-            $url = $key['opt']['link'];
+            $url = $key['opt']['link']. '?' . $key['opt']['pk'] . '=' . $item[$key['opt']['pk']];
             
             //允许字段为空，如果字段名为空将标题名填充到A变现里
             if (!$value) {
@@ -296,19 +296,11 @@ class BackstageListBuilder extends BackstageBuilder{
             }
         });
 
-        //生成翻页
-        if(!empty($this->_pagination['totalCount'])){
-            $paginationHtml = '';
-        }else{
-            $paginationHtml = '';
-        }
-
         //显示页面
         $this->assign('title', $this->_title);
         $this->assign('columns', json_encode($this->_columns));
         $this->assign('buttonList', json_encode($this->_buttonList));
         $this->assign('actionList', json_encode($this->_actionList));
-        $this->assign('pagination', $paginationHtml);
         $this->assign('list', json_encode($this->_data));
         $this->assign('searchPostUrl', $this->_searchPostUrl);
         return $this->fetch(parent::display('admin_list'));

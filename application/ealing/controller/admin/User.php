@@ -40,10 +40,9 @@ class User extends BaseController{
             ->buttonRestore()
             ->keySelection()
             ->keyIndex()
-            ->keyText('title', '名称')
+            ->keyLinkByFlag('title', '名称', url(User::class.'@users'))
             ->keyMap('status', '状态', [1=>'启用', 0=>'禁用'])
             ->keyTime('time', '创建时间', ['format'=>'Y-m-d H:i:s'])
-            ->keyLinkByFlag('id', '查看用户信息', url(User::class.'@store'))
             ->keyEditAction(url(User::class.'@Edit'))
             ->keyDelAction(url(User::class.'@Del'))
             ->data($list);
