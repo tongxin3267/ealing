@@ -11,6 +11,7 @@ use app\ealing\controller\BaseApi;
 use app\ealing\controller\Send;
 use app\ealing\controller\JWTToken as JWT;
 use app\ealing\model\User as User;
+use think\Env;
 
 class Token extends BaseApi
 {
@@ -34,6 +35,8 @@ class Token extends BaseApi
             $user = $model->where(username($login), $login)->with('wallet')->find();
             if(! $user) {
                 return $this->sendError(404, 'error', 404, ['login' => ['用户不存在']]);
+            } elseif(EalingEncrypt($password, Env::get('APP_KEY')) !== $user->password) {
+                return $this->sendError(422, 'error', 422, ['password' => ['密码错误']]);
             } elseif ($token = $jwtToken->createToken($user)) {
                 return $this->sendSuccess([
                     'token' => $token,

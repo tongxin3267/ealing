@@ -24,6 +24,9 @@ class JWTToken
     public function createToken($user)
     {
         $signerKey = Env::get('APP_KEY');
+        
+        //DOTO: 在生成新的token时要将之前获得的token禁用，避免多处授权
+        
         return $this->token(
            (string) (new Builder())
                 ->setIssuer(Env::get('APP_URL'))
@@ -41,11 +44,13 @@ class JWTToken
      * @date: 2018年2月28日 下午4:53:56
      * @author: onep2p <324834500@qq.com>
      * @param: variable
-     * @return:
+     * @return: array
      */
     public function refreshToken($token)
     {
+        //DOTO: 刷新之前先确认token的存在情况
         
+        //DOTO: 验证token是否正确，且是否在刷新过期时间外
     }
     
     /**
