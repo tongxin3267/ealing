@@ -11,7 +11,8 @@
     "tp5er/tp5-databackup" : "dev-master",
     "chouvc/ealing-packagest-addons" : "dev-master",
     "chouvc/ealing-migration" : "dev-master",
-    "lcobucci/jwt": "^3.2"
+    "lcobucci/jwt": "^3.2",
+    "php-ai/php-ml": "^0.4.1"
   },
   "license" : "Apache-2.0",
   "keywords" : [ "framework", "thinkphp", "ORM" ],
