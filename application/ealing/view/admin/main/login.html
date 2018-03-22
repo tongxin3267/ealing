@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <title>Ealing Admin</title>
 <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview@2.9.0/dist/styles/iview.css">
-<script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
-<script type="text/javascript" src="http://unpkg.com/iview@2.9.0/dist/iview.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/vue/vue.min.js"></script>
+<script type="text/javascript" src="__STATIC__/iview/iview.min.js"></script>
+<script src="__STATIC__/axios/axios.min.js"></script>
 <style type="text/css">
 html,body{height:100%;margin:0px;padding:0px;}
 .app-main {
@@ -48,7 +49,7 @@ html,body{height:100%;margin:0px;padding:0px;}
                 <p slot="title"><Icon type="log-in"></Icon>欢迎登录</p>
                 <div class="form-con">
                     <i-form ref="loginForm" :model="form" :rules="rules">
-                        <form-item prop="userName"><i-input v-model="form.userName" placeholder="请输入用户名"><span slot="prepend"><Icon :size="16" type="person"></Icon></span></i-input></form-item>
+                        <form-item prop="username"><i-input v-model="form.username" placeholder="请输入用户名"><span slot="prepend"><Icon :size="16" type="person"></Icon></span></i-input></form-item>
                         <form-item prop="password"><i-input type="password" v-model="form.password" placeholder="请输入密码"><span slot="prepend"><Icon :size="14" type="locked"></Icon></span></i-input></form-item>
                         <form-item><i-button @click="handleSubmit" type="primary" long>登录</i-button></form-item>
                     </i-form>
@@ -63,7 +64,7 @@ html,body{height:100%;margin:0px;padding:0px;}
 		el: '#main',
 		data: {
             form: {
-                userName: 'admin',
+            	username: '',
                 password: ''
             },
             rules: {
@@ -78,8 +79,14 @@ html,body{height:100%;margin:0px;padding:0px;}
 		methods: {
 			handleSubmit () {
 				this.$refs.loginForm.validate((valid) => {
-
-                    window.location.href = "{:url(app\\ealing\\controller\\admin\\User::class.'@users')}";
+					if(valid){
+						axios.post("{:url(app\\ealing\\controller\\admin\\Main::class.'@login')}",{username:this.form.username,password:this.form.password}).then(function(res){
+							console.log(res);
+						}).catch(function(err){
+							console.log(err);
+						})	
+					}
+                    //window.location.href = "{:url(app\\ealing\\controller\\admin\\User::class.'@users')}";
 				});
 			}
 		}

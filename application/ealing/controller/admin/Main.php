@@ -15,7 +15,11 @@ class Main extends BaseController{
     * @return:
     */
     public function login(){
-        return $this->fetch();
+        if($this->request->isPost()) {
+            echo 1;
+        } else {
+            return $this->fetch();
+        }
     }
     
     /**
