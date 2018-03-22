@@ -63,6 +63,7 @@ class Token extends BaseApi
 	{
 	    try {
 	        $patchData = file_get_contents("php://input");
+	        $patchData = json_decode($patchData, true);
 	        
 	        if(isset($patchData['token']) && !empty($patchData['token'])) {
 	            if($token = $jwtToken->refreshToken($patchData['token'])) {

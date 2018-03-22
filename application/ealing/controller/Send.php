@@ -29,7 +29,7 @@ trait Send
      */
     public function setType($type = null)
     {
-        $this->type = (string)(!empty($type)) ? $type : $this->restDefaultType;
+        $this->type = !empty($type) ? $type : $this->restDefaultType;
         return $this;
     }
     

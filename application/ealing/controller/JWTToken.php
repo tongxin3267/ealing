@@ -49,7 +49,29 @@ class JWTToken
     public function refreshToken($token)
     {
         //DOTO: 刷新之前先确认token的存在情况
-        return $this->validation($token);
+        $validation = $this->validation($token);
+        
+        if($validation === true) {
+            return $token;
+        } else if($validation === false) {
+            $signerKey = Env::get('APP_KEY');//默认key
+            
+            return 1;
+//             return $this->token(
+//                 (string) (new Builder())
+//                 ->setIssuer(Env::get('APP_URL'))
+//                 ->setAudience(Env::get('APP_URL'))
+//                 ->setId($signerKey, true)
+//                 ->setIssuedAt($_SERVER['REQUEST_TIME'])
+//                 ->setNotBefore($_SERVER['REQUEST_TIME'] + 60)
+//                 ->setExpiration($_SERVER['REQUEST_TIME'] + config('token.ttl')*60)
+//                 ->set('ttl', config('token.refresh_ttl'))
+//                 ->set('uid', $user->id)
+//                 ->getToken()
+//             );
+        } else {
+            return $validation;
+        }
         
         //DOTO: 验证token是否正确，且是否在刷新过期时间外
     }
