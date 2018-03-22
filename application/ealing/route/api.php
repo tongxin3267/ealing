@@ -15,7 +15,7 @@ use app\ealing\controller\v1 as API1;
 Route::group('ealing', function(){
     Route::group('v1' , function(){
         Route::get('token', API1\Token::class.'@store');//初始授权地址
-        Route::patch('tokens/:token', API1\Token::class.'@refresh');//刷新token
+        Route::patch('tokens/refresh', API1\Token::class.'@refresh');//刷新token
         
         Route::get('bootstrappers', API1\Bootstrappers::class.'@show');//启动信息
         

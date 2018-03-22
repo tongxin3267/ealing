@@ -23,9 +23,7 @@ class JWTToken
      */
     public function createToken($user)
     {
-        $signerKey = Env::get('APP_KEY');
-        
-        //DOTO: 在生成新的token时要将之前获得的token禁用，避免多处授权
+        $signerKey = Env::get('APP_KEY');//默认key
         
         return $this->token(
            (string) (new Builder())
@@ -33,7 +31,9 @@ class JWTToken
                 ->setAudience(Env::get('APP_URL'))
                 ->setId($signerKey, true)
                 ->setIssuedAt($_SERVER['REQUEST_TIME'])
+                ->setNotBefore($_SERVER['REQUEST_TIME'] + 60)
                 ->setExpiration($_SERVER['REQUEST_TIME'] + config('token.ttl')*60)
+                ->set('ttl', config('token.refresh_ttl'))
                 ->set('uid', $user->id)
                 ->getToken()
         );
@@ -49,6 +49,7 @@ class JWTToken
     public function refreshToken($token)
     {
         //DOTO: 刷新之前先确认token的存在情况
+        return $this->validation($token);
         
         //DOTO: 验证token是否正确，且是否在刷新过期时间外
     }
@@ -71,18 +72,12 @@ class JWTToken
             $validata->setAudience(Env::get('APP_URL'));
             $validata->setId($signerKey);
             if(!$parseToken->validate($validata)){
-                return [
-                    'status'=>'fail',
-                    'msg'=>'validation fail',
-                ];
+                return false;
             }else{
-                return 1;
+                return true;
             }
         }catch(\Exception $e){
-            return [
-                'status'=>'fail',
-                'msg'=>$e->getMessage(),
-            ];
+            return $e->getMessage();
         }
     }
     
@@ -98,8 +93,13 @@ class JWTToken
         $parseToken = (new Parser())->parse($token);
         
         $cache = new JWTCacheModel();
-        $cache->user_id = $parseToken->getClaim('uid');
-        $cache->key = $this->buildTokenKey(64);
+        $uid = $parseToken->getClaim('uid');
+        
+        //禁止掉之前的token
+        $cache->update(['status'=>0], ['user_id'=>$uid]);
+        
+        //新增可用的token
+        $cache->user_id = $uid;
         $cache->values = $token;
         $cache->expires = ($parseToken->getClaim('exp') - $parseToken->getClaim('iat')) / 60;
         $cache->minutes = config('token.refresh_ttl');
@@ -108,19 +108,4 @@ class JWTToken
     
         return $token;
     }
-	
-	
-	/**
-	* 生成tokenKey
-	* @date: 2018年3月6日 上午8:50:22
-	* @author: onep2p <324834500@qq.com>
-	* @param: variable
-	* @return: string
-	*/
-	private static function buildTokenKey($lenght = 32)
-	{
-	    $str_pol = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
-	    return substr(str_shuffle($str_pol), 0, $lenght);
-	
-	}
 }

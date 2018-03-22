@@ -29,7 +29,7 @@ class Token extends BaseApi
 		try {
 		    //:DOTO 用户验证
 		    $login = input('get.login', 'root', 'htmlspecialchars');
-		    $password = input('password', '', 'htmlspecialchars');
+		    $password = input('password', 'root', 'htmlspecialchars');
 
 		    //$user = $model->where(username($login), $login)->with('wallet')->withCount('administrator')->first();
             $user = $model->where(username($login), $login)->with('wallet')->find();
@@ -59,12 +59,23 @@ class Token extends BaseApi
 	* @param: variable
 	* @return:
 	*/
-	public function refresh()
+	public function refresh(JWT $jwtToken)
 	{
 	    try {
+	        $patchData = file_get_contents("php://input");
 	        
-	    
-	        return $this->sendSuccess($data,'success',201);
+	        if(isset($patchData['token']) && !empty($patchData['token'])) {
+	            if($token = $jwtToken->refreshToken($patchData['token'])) {
+	                return $this->sendSuccess([
+	                    'token' => $token,
+	                    'token_type' => 'admin',
+	                    'expires_in' => config('token.ttl'),
+	                    'refresh_ttl' => config('token.refresh_ttl')
+	                ],'success',201);
+	            }
+	        } else {
+	            $this->sendError(402, 'get server error!!', 402);
+	        }
 	    } catch (\Exception $e) {
 	        $this->sendError(500, 'server error!!', 500);
 	    }
