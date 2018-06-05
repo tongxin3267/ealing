@@ -140,7 +140,7 @@ html,body{height:100%;}
 	var ealingBuilder = {
 		el: '#app',
 		data:{
-			title: '首页',
+			title: 'Ealing Admin',
 		},
 		methods:{}
 	};
@@ -151,8 +151,11 @@ html,body{height:100%;}
 <script>
 	ealingBuilder.data.topMenu = {$topMenu};
 	ealingBuilder.data.summary = {$summary};
-	console.log(ealingBuilder);
 
+	//回执当前标题
+	document.title = ealingBuilder.data.title;
+	
+	
 	new Vue(ealingBuilder);
 </script>
 </body>

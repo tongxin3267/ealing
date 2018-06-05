@@ -10,13 +10,16 @@ class BackstageListBuilder extends BackstageBuilder{
 
     private $_title;//标题
     private $_buttonList = [];//按钮列表   默认、新增、编辑、禁用、启用等等
+    private $_datePicker = [];//日期选择器
+    private $_selectPicker = [];//下拉选择器
     private $_actionList = ['head'=>'操作', 'width'=>150, 'align'=>'center', 'actions'=>[]];//操作组件
     private $_columns = [];//head 表头
     private $_data = [];//数据
     private $_pagination = [];//分页
     
     private $_setStatusUrl;
-    private $_searchPostUrl;
+    private $_formPostUrl;
+    private $_search = [];
 
 
     /**设置页面标题
@@ -26,6 +29,19 @@ class BackstageListBuilder extends BackstageBuilder{
     public function title($title)
     {
         $this->_title = $title;
+        return $this;
+    }
+    
+    /**
+    * 设置列表筛选提交地址
+    * @date: 2018年5月24日 下午1:50:57
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function setFormPostUrl($url)
+    {
+        $this->_formPostUrl = $url;
         return $this;
     }
 
@@ -51,6 +67,7 @@ class BackstageListBuilder extends BackstageBuilder{
         $attr['link-path'] = $link;
         $attr['class'] = 'ivu-btn ivu-btn-info';
         $attr['icon'] = 'plus';
+        $attr['click'] = 'addData()';
         return $this->button($title, $attr);
     }
 
@@ -82,7 +99,7 @@ class BackstageListBuilder extends BackstageBuilder{
         if (!$url) $url = $this->_setStatusUrl;
         $attr['class'] = 'ivu-btn ivu-btn-warning ajax-post';
         $attr['icon'] = 'minus';
-        $attr['click'] = 'modalDisable = true';
+        $attr['click'] = 'modalDisableTrue()';
         return $this->buttonSetStatus($url, 0, $title, $attr);
     }
 
@@ -98,7 +115,7 @@ class BackstageListBuilder extends BackstageBuilder{
         if (!$url) $url = $this->_setStatusUrl;
         $attr['class']='ivu-btn ivu-btn-success ajax-post';
         $attr['icon'] = 'checkmark';
-        $attr['click'] = 'modalEnable = true';
+        $attr['click'] = 'modalEnableTrue()';
         return $this->buttonSetStatus($url, 1, $title, $attr);
     }
     /**
@@ -129,7 +146,47 @@ class BackstageListBuilder extends BackstageBuilder{
     }
     
     /**
-    * 开启选择框
+    * 时间选择器（筛选使用）
+    * @date: 2018年5月24日 上午10:07:46
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function keyDatePicker($name, $type = 'daterange', $confirm = 'true', $placeholder = 'Select date', $width = '200px')
+    {
+        $this->_datePicker[] = ['name' => $name, 'type' => $type, 'confirm' => $confirm, 'placeholder' => $placeholder, 'width' => $width];
+        return $this;
+    }
+    
+    /**
+    * 下拉选择器（筛选使用）
+    * @date: 2018年5月24日 上午11:31:28
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function keySelectPicker($name, $option = [])
+    {
+        $this->_selectPicker[] = ['name' => $name, 'option' => $option];
+        
+        return $this;
+    }
+    
+    /**
+    * 设置搜索框（筛选使用，每个页面只能设置一个）
+    * @date: 2018年5月24日 下午2:01:01
+    * @author: onep2p <324834500@qq.com>
+    * @param: variable
+    * @return:
+    */
+    public function keySearch($name, $placeholder = 'search', $width = '240px')
+    {
+        $this->_search = ['name' => $name, 'placeholder' => $placeholder, 'width' => $width];
+        return $this;
+    }
+    
+    /**
+    * 开启选择框  （列表选择进行多项操作）
     * @date: 2018年1月29日 下午4:58:15
     * @author: onep2p <324834500@qq.com>
     * @param: variable
@@ -141,7 +198,7 @@ class BackstageListBuilder extends BackstageBuilder{
     }
     
     /**
-    * 开启行数记录
+    * 开启行数记录 （对列表的每一行数据做编号）
     * @date: 2018年1月29日 下午6:19:32
     * @author: onep2p <324834500@qq.com>
     * @param: variable
@@ -300,9 +357,12 @@ class BackstageListBuilder extends BackstageBuilder{
         $this->assign('title', $this->_title);
         $this->assign('columns', json_encode($this->_columns));
         $this->assign('buttonList', json_encode($this->_buttonList));
+        $this->assign('datePicker', json_encode($this->_datePicker));
+        $this->assign('selectPicker', json_encode($this->_selectPicker));
+        $this->assign('search', json_encode($this->_search));
         $this->assign('actionList', json_encode($this->_actionList));
         $this->assign('list', json_encode($this->_data));
-        $this->assign('searchPostUrl', $this->_searchPostUrl);
+        $this->assign('formPostUrl', $this->_formPostUrl);
         return $this->fetch(parent::display('admin_list'));
     }
 

@@ -25,16 +25,15 @@
 		<Modal v-model="modalDisable" class-name="vertical-center-modal" title="确认提示" :loading="setStatusloading" @on-ok="setDisableAsyncOK"><p>确认禁用选中单位吗？</p></Modal>
 	</Header>
 	<Content class="list-content">
-	    <i-form style="padding-bottom:10px;">	    	
-		    <i-select style="width:200px">
-		        <i-option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+	    <i-form style="padding-bottom:10px;">
+		    <i-select v-for="select in selectPicker" :name="select.name" style="width:200px">
+		        <i-option v-for="item in select.option" :value="item.value" :key="item.value">{{ item.label }}</i-option>
 		    </i-select>
-	    	<date-picker type="daterange" :confirm="true" placeholder="Select date" style="width: 200px"></date-picker>
-	    	<i-input placeholder="search" :style="{width: '240px'}" icon="ios-search"></i-input>
-		    
-		    <i-button type="primary">确定</i-button>
+	    	<date-picker v-for="date in datePicker" :type="date.type" :name="date.name" :confirm="date.confirm" :placeholder="date.placeholder" :style="{width: date.width}"></date-picker>
+	    	<i-input v-if="search != ''" placeholder="search.placeholder" :style="{width: search.width}" icon="ios-search"></i-input>
+		    <i-button v-if="selectPicker != '' || datePicker != '' || search != ''" type="primary">确定</i-button>
 	    </i-form>
-		<i-table :stripe="true" :columns="columns" :data="data"></i-table>
+		<i-table :stripe="true" :columns="columns" :data="data" @on-selection-change="handleRowChange"></i-table>
 	    <div style="margin: 10px;overflow: hidden">
 	        <div style="float: right;">
 	            <Page :total="100" :current="1" :show-elevator="true" :show-sizer="true" @on-page-size-change="pageSize" @on-change="pageChange"></Page>
@@ -77,50 +76,51 @@ columns.push({
     }
 });
 
-
+//固定data中需要加入的数据
 ealingBuilder.data.setStatusloading = true;
 ealingBuilder.data.modalEnable = false;
 ealingBuilder.data.modalDisable = false;
 ealingBuilder.data.buttonList = {$buttonList};
 ealingBuilder.data.columns = columns;
 ealingBuilder.data.data = {$list};
-ealingBuilder.data.cityList = [
-    {
-        value: 'New York',
-        label: 'New York'
-    },
-    {
-        value: 'London',
-        label: 'London'
-    },
-    {
-        value: 'Sydney',
-        label: 'Sydney'
-    },
-    {
-        value: 'Ottawa',
-        label: 'Ottawa'
-    },
-    {
-        value: 'Paris',
-        label: 'Paris'
-    },
-    {
-        value: 'Canberra',
-        label: 'Canberra'
-    }
-];
+ealingBuilder.data.currentRow = [];
 
+//获取到当页的data数据，如果之前存在的要进行替换，不存在的要添加
+var title = "{$title}";
+if(title != "") ealingBuilder.data.title = title + " - " + ealingBuilder.data.title;
+var datePicker = {$datePicker};
+var selectPicker = {$selectPicker};
+var search = {$search};
+
+//新增按钮
+ealingBuilder.methods.addData = function () {
+	console.log(1);
+}
+
+//启用确认
+ealingBuilder.methods.modalEnableTrue = function () {
+	this.modalEnable = true;
+}
 ealingBuilder.methods.setEnableAsyncOK = function () {
     setTimeout(() => {
         this.modalEnable = false;
     }, 2000);
 }
 
+//禁用确认
+ealingBuilder.methods.modalDisableTrue = function () {
+	this.modalDisable = true;
+}
 ealingBuilder.methods.setDisableAsyncOK = function () {
     setTimeout(() => {
         this.modalDisable = false;
     }, 2000);
+}
+
+//table数据选择方法
+ealingBuilder.methods.handleRowChange = function (currentRow) {
+	this.currentRow = currentRow;
+	console.log(this.currentRow);
 }
 
 ealingBuilder.methods.pageSize = function () {

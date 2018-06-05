@@ -51,8 +51,12 @@ class Backstage extends Controller{
             if('.' == $app || '..' == $app) continue;
         
             $set = include APP_PATH . $app . '/config/summary' . CONF_EXT;
-            $topMenu['menu'][] = ['alias' => $set['alias'], 'icon' => $set['icon'], 'title' => $set['title'], 'path' => $set['path']];
+            if(sizeof($set) > 0){
+                $topMenu['menu'][] = ['alias' => $set['alias'], 'icon' => $set['icon'], 'title' => $set['title'], 'path' => $set['path'], 'sort' => $set['sort']];
+            }
         }
+        
+        $topMenu['menu'] = my_sort($topMenu['menu'], 'sort');
         
         $summary = include APP_PATH . $module . '/config/summary' . CONF_EXT;
         $summary['open'] = $summary['open'] == $controller ? $summary['open'] : [$controller];
